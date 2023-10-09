@@ -46,7 +46,9 @@ bool Player::Update(float dt)
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		vel = b2Vec2(0, -440);
+		isJumping = true;
+		pbody->body->SetLinearVelocity({pbody->body->GetLinearVelocity().x, -10});
+		
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		//
@@ -61,7 +63,10 @@ bool Player::Update(float dt)
 	}
 
 	//Set the velocity of the pbody of the player
-	pbody->body->SetLinearVelocity(vel);
+	if (isJumping == false) {
+		pbody->body->SetLinearVelocity(vel);
+
+	}
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
@@ -88,6 +93,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
+		isJumping = false;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

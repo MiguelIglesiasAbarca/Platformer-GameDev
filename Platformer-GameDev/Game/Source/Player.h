@@ -31,6 +31,7 @@ public:
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
 	int pickCoinFxId;
+	bool isJumping = false;
 };
 
 #endif // __PLAYER_H__
