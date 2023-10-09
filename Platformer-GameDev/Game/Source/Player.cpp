@@ -45,8 +45,8 @@ bool Player::Update(float dt)
 {
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		//
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		vel = b2Vec2(0, -440);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		//
