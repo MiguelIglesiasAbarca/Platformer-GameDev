@@ -41,6 +41,8 @@ bool Player::Start() {
 	return true;
 }
 
+bool godMode = false;
+
 bool Player::Update(float dt)
 {
     b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
@@ -51,10 +53,14 @@ bool Player::Update(float dt)
         currentVelocity.x *= 0.0; // Ajusta este valor según tus necesidades
     }
 
+    // Verificar si el jugador está en el suelo (velocidad vertical cercana a cero)
+    bool isOnGround = std::abs(currentVelocity.y) < 0.1;
+
+    // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
         // Saltar solo si no estamos ya en el aire
         isJumping = true;
-        currentVelocity.y = -0.6*dt;
+        currentVelocity.y = -0.6 * dt;
         pbody->body->SetLinearVelocity(currentVelocity);
     }
 
@@ -66,13 +72,40 @@ bool Player::Update(float dt)
         currentVelocity.x = speed * dt;
     }
 
-    // Aplicar la gravedad si no estamos saltando
-   /* if (!isJumping) {
-        currentVelocity.y = -GRAVITY_Y;
-    }*/
+    if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+        // Cambiar el estado del modo "godmode" al presionar F10
+        godMode = !godMode;
+    }
 
-    // Establecer la velocidad del cuerpo del jugador
+    if (godMode) {
+        
+        currentVelocity.y = 0.0;
     pbody->body->SetLinearVelocity(currentVelocity);
+        // Controles para volar en modo "godmode"
+        b2Vec2 velocity = b2Vec2(0, 0); // Inicializa la velocidad en cero
+
+        if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+            velocity.y = -speed * dt; // Volar hacia arriba
+        }
+        else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+            velocity.y = speed * dt; // Volar hacia abajo
+        }
+
+        if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+            velocity.x = -speed * dt; // Moverse hacia la izquierda
+        }
+        else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+            velocity.x = speed * dt; // Moverse hacia la derecha
+        }
+        pbody->body->SetGravityScale(0.0f);
+        pbody->body->SetLinearVelocity(velocity);
+    }
+    else {
+        // Si no está en modo "godmode", aplicar la gravedad
+        pbody->body->SetGravityScale(1.0f);
+        if(!isJumping) currentVelocity.y = -GRAVITY_Y;
+        pbody->body->SetLinearVelocity(currentVelocity);
+    }
 
     // Actualizar la posición en píxeles
     position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
@@ -82,6 +115,11 @@ bool Player::Update(float dt)
 
     return true;
 }
+
+
+
+
+
 
 
 bool Player::CleanUp()
