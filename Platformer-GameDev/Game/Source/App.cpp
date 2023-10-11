@@ -128,6 +128,19 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
+	
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		if (maxFrameDuration == 16)
+		{
+			maxFrameDuration = 33;
+		}
+		else
+		{
+			maxFrameDuration = 16;
+		}
+	}
+
 	bool ret = true;
 	PrepareUpdate();
 
