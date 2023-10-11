@@ -43,39 +43,46 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
+    b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
+    b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		isJumping = true;
-		pbody->body->SetLinearVelocity({pbody->body->GetLinearVelocity().x, -10});
-		
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		//
-	}
+    // Si no se presionan las teclas de movimiento, aplicar una fricción alta
+    if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) {
+        currentVelocity.x *= 0.0; // Ajusta este valor según tus necesidades
+    }
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		vel = b2Vec2(-speed*dt, -GRAVITY_Y);
-	}
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
+        // Saltar solo si no estamos ya en el aire
+        isJumping = true;
+        currentVelocity.y = -0.6*dt;
+        pbody->body->SetLinearVelocity(currentVelocity);
+    }
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		vel = b2Vec2(speed*dt, -GRAVITY_Y);
-	}
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+        currentVelocity.x = -speed * dt;
+    }
 
-	//Set the velocity of the pbody of the player
-	if (isJumping == false) {
-		pbody->body->SetLinearVelocity(vel);
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+        currentVelocity.x = speed * dt;
+    }
 
-	}
+    // Aplicar la gravedad si no estamos saltando
+   /* if (!isJumping) {
+        currentVelocity.y = -GRAVITY_Y;
+    }*/
 
-	//Update player position in pixels
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+    // Establecer la velocidad del cuerpo del jugador
+    pbody->body->SetLinearVelocity(currentVelocity);
 
-	app->render->DrawTexture(texture, position.x, position.y);
+    // Actualizar la posición en píxeles
+    position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+    position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	return true;
+    app->render->DrawTexture(texture, position.x, position.y);
+
+    return true;
 }
+
 
 bool Player::CleanUp()
 {
