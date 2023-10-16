@@ -45,8 +45,24 @@ bool godMode = false;
 
 bool Player::Update(float dt)
 {
+    // Ajustar las máscaras de colisión aquí
+    if (godMode) {
+        // Si está en modo "godmode", establece la máscara de colisión para atravesar todo
+        b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
+        filter.maskBits = 0x0000;  // No colisiona con ninguna capa (atraviesa todo)
+        pbody->body->GetFixtureList()->SetFilterData(filter);
+    }
+    else {
+        // Restaurar la máscara de colisión normal cuando no está en modo "godmode"
+        b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
+        filter.maskBits = 0xFFFF;  // Colisiona con todas las capas
+        pbody->body->GetFixtureList()->SetFilterData(filter);
+    }
+    
     b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
     b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
+
+
 
     // Si no se presionan las teclas de movimiento, aplicar una fricción alta
     if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) {
