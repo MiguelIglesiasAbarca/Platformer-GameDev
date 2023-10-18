@@ -86,6 +86,7 @@ bool Scene::Update(float dt)
 {
 
 	app->render->camera.x = -player->position.x + 500;
+	app->render->camera.y = -player->position.y + 500;
 	/*float camSpeed = 0.2f; 
 
 	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)

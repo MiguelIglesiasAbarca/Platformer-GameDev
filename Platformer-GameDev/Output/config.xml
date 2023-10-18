@@ -22,7 +22,7 @@
   </audio>
 
   <scene>
-    <map path="Assets/Maps/" name="testMap.tmx"/>
+    <map path="Assets/Maps/" name="MapTemplate.tmx"/>
     <player x="400" y="300" texturepath="Assets/Textures/player2.png"/>
     <!--<item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
