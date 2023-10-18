@@ -64,49 +64,34 @@ bool Player::Update(float dt)
     //    return true;
     //}
 
-    
-    
-    // Ajustar las máscaras de colisión aquí
-    if (godMode) {
-        // Si está en modo "godmode", establece la máscara de colisión para atravesar todo
-        b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
-        filter.maskBits = 0x0000;  // No colisiona con ninguna capa (atraviesa todo)
-        pbody->body->GetFixtureList()->SetFilterData(filter);
-    }
-    else {
-        // Restaurar la máscara de colisión normal cuando no está en modo "godmode"
-        b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
-        filter.maskBits = 0xFFFF;  // Colisiona con todas las capas
-        pbody->body->GetFixtureList()->SetFilterData(filter);
-    }
-    
     b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
     b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
+    currentVelocity.y += 0.5;
 
-
+    LOG("current velocity: %f", currentVelocity.y);
     // Si no se presionan las teclas de movimiento, aplicar una fricción alta
     if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) {
         currentVelocity.x *= 0.0; // Ajusta este valor según tus necesidades
     }
 
     // Verificar si el jugador está en el suelo (velocidad vertical cercana a cero)
-    bool isOnGround = std::abs(currentVelocity.y) < 0.1;
+    //bool isOnGround = std::abs(currentVelocity.y) < 0.1;
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
         // Saltar solo si no estamos ya en el aire
         isJumping = true;
-        currentVelocity.y = -0.6 * dt;
+        currentVelocity.y = -0.8 * dt;
         pbody->body->SetLinearVelocity(currentVelocity);
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-        currentVelocity.x = -speed* 2 * dt;
+        currentVelocity.x = -speed * dt;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-        currentVelocity.x = speed *2 * dt;
+        currentVelocity.x = speed * dt;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
@@ -116,31 +101,41 @@ bool Player::Update(float dt)
 
     if (godMode) {
         
+        // Si está en modo "godmode", establece la máscara de colisión para atravesar todo
+        b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
+        filter.maskBits = 0x0000;  // No colisiona con ninguna capa (atraviesa todo)
+        pbody->body->GetFixtureList()->SetFilterData(filter);
+
         currentVelocity.y = 0.0;
-    pbody->body->SetLinearVelocity(currentVelocity);
+        pbody->body->SetLinearVelocity(currentVelocity);
         // Controles para volar en modo "godmode"
         b2Vec2 velocity = b2Vec2(0, 0); // Inicializa la velocidad en cero
 
         if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-            velocity.y = -speed * dt; // Volar hacia arriba
+            velocity.y = -speed *2 * dt; // Volar hacia arriba
         }
         else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-            velocity.y = speed * dt; // Volar hacia abajo
+            velocity.y = speed * 2 * dt; // Volar hacia abajo
         }
 
         if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-            velocity.x = -speed * dt; // Moverse hacia la izquierda
+            velocity.x = -speed * 2 * dt; // Moverse hacia la izquierda
         }
         else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-            velocity.x = speed * dt; // Moverse hacia la derecha
+            velocity.x = speed * 2 * dt; // Moverse hacia la derecha
         }
         pbody->body->SetGravityScale(0.0f);
         pbody->body->SetLinearVelocity(velocity);
     }
     else {
+        // Restaurar la máscara de colisión normal cuando no está en modo "godmode"
+        b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
+        filter.maskBits = 0xFFFF;  // Colisiona con todas las capas
+        pbody->body->GetFixtureList()->SetFilterData(filter);
+
         // Si no está en modo "godmode", aplicar la gravedad
         pbody->body->SetGravityScale(1.0f);
-        if(!isJumping) currentVelocity.y = -GRAVITY_Y;
+        //if(!isJumping && currentVelocity.y != -GRAVITY_Y) currentVelocity.y += 0.1;
         pbody->body->SetLinearVelocity(currentVelocity);
     }
 
