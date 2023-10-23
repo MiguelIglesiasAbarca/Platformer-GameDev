@@ -69,7 +69,7 @@ bool Player::Update(float dt)
 
     currentVelocity.y += 0.5;
 
-    LOG("current velocity: %f", currentVelocity.y);
+    //LOG("current velocity: %f", currentVelocity.y);
     // Si no se presionan las teclas de movimiento, aplicar una fricción alta
     if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) {
         currentVelocity.x *= 0.0; // Ajusta este valor según tus necesidades

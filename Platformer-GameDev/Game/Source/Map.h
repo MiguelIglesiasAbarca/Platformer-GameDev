@@ -121,6 +121,8 @@ public:
     // Load new map
 	bool Load(SString mapFileName);
 
+	bool loadCollisions(std::string layerName);
+
 	iPoint MapToWorld(int x, int y) const;
 	iPoint Map::WorldToMap(int x, int y);
 
