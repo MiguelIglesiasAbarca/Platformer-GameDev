@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -32,6 +33,15 @@ public:
 	PhysBody* pbody;
 	int pickCoinFxId;
 	bool isJumping = false;
+
+	Animation* currentAnimation = nullptr;
+	Animation idle;
+	Animation Runright;
+	Animation Runleft;
+	Animation Attack;
+	Animation Dead;
+
+
 };
 
 #endif // __PLAYER_H__

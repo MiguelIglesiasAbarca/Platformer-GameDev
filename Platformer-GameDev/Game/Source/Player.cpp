@@ -8,6 +8,8 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Animation.h"
+
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -31,12 +33,24 @@ bool Player::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-    
+    idle.PushBack({ 6, 12, 45, 38 });
+
+    Runright.PushBack({ 6, 12, 45, 38 });
+    Runright.PushBack({ 84, 12, 45, 38 });
+    Runright.PushBack({ 162, 12, 45, 38 });
+    Runright.PushBack({ 240, 12, 45, 38 });
+    Runright.PushBack({ 318, 12, 45, 38 });
+    Runright.PushBack({ 396, 12, 45, 38 });
+    Runright.PushBack({ 474, 12, 45, 38 });
+    Runright.PushBack({ 552, 12, 45, 38 });
+    Runright.loop = true;
+    Runright.speed = 0.2f;
+
 	pbody = app->physics->CreateCircle(0, 0, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
-
+    currentAnimation = &idle;
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	return true;
@@ -92,6 +106,7 @@ bool Player::Update(float dt)
 
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
         currentVelocity.x = speed * dt;
+        currentAnimation = &Runright;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
@@ -143,7 +158,8 @@ bool Player::Update(float dt)
     position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
     position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-    app->render->DrawTexture(texture, position.x, position.y);
+    app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+    currentAnimation->Update();
 
     return true;
 }
