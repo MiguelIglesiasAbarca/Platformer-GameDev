@@ -46,7 +46,7 @@ bool Player::Start() {
     Runright.loop = true;
     Runright.speed = 0.2f;
 
-	pbody = app->physics->CreateCircle(0, 0, 12, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(500, 32*39, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
@@ -91,21 +91,35 @@ bool Player::Update(float dt)
 
     // Verificar si el jugador está en el suelo (velocidad vertical cercana a cero)
     //bool isOnGround = std::abs(currentVelocity.y) < 0.1;
+    if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+    {
+        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32 * 39)), 0);
+    }
+
+    if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+    {
+        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(32*40), PIXEL_TO_METERS(32 * 80)), 0);
+    }
+
+    if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+    {
+        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32*39)), 0);
+    }
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
         // Saltar solo si no estamos ya en el aire
         isJumping = true;
-        currentVelocity.y = -0.8 * dt;
+        currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-        currentVelocity.x = -speed * dt;
+        currentVelocity.x = -speed;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-        currentVelocity.x = speed * dt;
+        currentVelocity.x = speed;
         currentAnimation = &Runright;
     }
 
@@ -127,17 +141,17 @@ bool Player::Update(float dt)
         b2Vec2 velocity = b2Vec2(0, 0); // Inicializa la velocidad en cero
 
         if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-            velocity.y = -speed *2 * dt; // Volar hacia arriba
+            velocity.y = -speed *2; // Volar hacia arriba
         }
         else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-            velocity.y = speed * 2 * dt; // Volar hacia abajo
+            velocity.y = speed * 2; // Volar hacia abajo
         }
 
         if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-            velocity.x = -speed * 2 * dt; // Moverse hacia la izquierda
+            velocity.x = -speed * 2; // Moverse hacia la izquierda
         }
         else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-            velocity.x = speed * 2 * dt; // Moverse hacia la derecha
+            velocity.x = speed * 2; // Moverse hacia la derecha
         }
         pbody->body->SetGravityScale(0.0f);
         pbody->body->SetLinearVelocity(velocity);
