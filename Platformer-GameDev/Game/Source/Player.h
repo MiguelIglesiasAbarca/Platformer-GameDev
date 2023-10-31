@@ -33,6 +33,7 @@ public:
 	PhysBody* pbody;
 	int pickCoinFxId;
 	bool isJumping = false;
+	bool running = false;
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;

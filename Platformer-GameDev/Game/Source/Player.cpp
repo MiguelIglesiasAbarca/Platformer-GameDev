@@ -33,8 +33,20 @@ bool Player::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-    idle.PushBack({ 6, 12, 45, 38 });
-
+    idle.PushBack({ 6, 62, 44, 44 });
+    idle.PushBack({ 84, 62, 44, 44 });
+    idle.PushBack({ 162, 62, 44, 44 });
+    idle.PushBack({ 240, 62, 44, 44 });
+    idle.PushBack({ 318, 62, 44, 44 });
+    idle.PushBack({ 396, 62, 44, 44 });
+    idle.PushBack({ 474, 62, 44, 44 });
+    idle.PushBack({ 552, 62, 44, 44 });
+    idle.PushBack({ 630, 62, 44, 44 });
+    idle.PushBack({ 708, 62, 44, 44 });
+    idle.PushBack({ 786, 62, 44, 44 });
+    idle.loop = true;
+    idle.speed = 0.2f;
+    //run
     Runright.PushBack({ 6, 12, 45, 38 });
     Runright.PushBack({ 84, 12, 45, 38 });
     Runright.PushBack({ 162, 12, 45, 38 });
@@ -46,6 +58,17 @@ bool Player::Start() {
     Runright.loop = true;
     Runright.speed = 0.2f;
 
+    Runleft.PushBack({ 6, 114, 55, 35 });
+    Runleft.PushBack({ 84, 114, 55, 35 });
+    Runleft.PushBack({ 162, 114, 55, 35 });
+    Runleft.PushBack({ 240, 114, 55, 35 });
+    Runleft.PushBack({ 318, 114, 55, 35 });
+    Runleft.PushBack({ 396, 114, 55, 35 });
+
+    Runleft.loop = true;
+    Runleft.speed = 0.2f;
+
+    currentAnimation = &idle;
 	pbody = app->physics->CreateCircle(500, 32*39, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -60,6 +83,12 @@ bool godMode = false;
 
 bool Player::Update(float dt)
 {
+    if (!running)
+    {
+        currentAnimation = &idle;
+    }
+    
+    
     //if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
     //    // Perform level reset actions here
     //    app->physics->CleanUp(); // Clean up the physics system
@@ -86,7 +115,8 @@ bool Player::Update(float dt)
     //LOG("current velocity: %f", currentVelocity.y);
     // Si no se presionan las teclas de movimiento, aplicar una fricción alta
     if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) {
-        currentVelocity.x *= 0.0; // Ajusta este valor según tus necesidades
+        currentVelocity.x *= 0.0;
+        running = false;
     }
 
     // Verificar si el jugador está en el suelo (velocidad vertical cercana a cero)
@@ -116,11 +146,14 @@ bool Player::Update(float dt)
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
         currentVelocity.x = -speed;
+        currentAnimation = &Runleft;
+        running = true;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
         currentVelocity.x = speed;
         currentAnimation = &Runright;
+        running = true;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
