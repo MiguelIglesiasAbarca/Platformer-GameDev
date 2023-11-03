@@ -18,12 +18,54 @@
 
   <audio>
     <music volume="128"/>
-    <fx volume="128"/>
+	  <fx volume="128"/>
   </audio>
 
+  <Runright loop="true" speed ="0.17">
+	  <frame x="6" y="12" w="45" h="38"/>
+	  <frame x="84" y="12" w="45" h="38"/>
+	  <frame x="162" y="12" w="45" h="38"/>
+	  <frame x="240" y="12" w="45" h="38"/>
+	  <frame x="318" y="12" w="45" h="38"/>
+	  <frame x="396" y="12" w="45" h="38"/>
+	  <frame x="474" y="12" w="45" h="38"/>
+	  <frame x="552" y="12" w="45" h="38"/>
+  </Runright>
+
+  <Runleft loop="true" speed ="0.17">
+	  <frame x="6" y="114" w="45" h="38"/>
+	  <frame x="84" y="114" w="45" h="38"/>
+	  <frame x="162" y="114" w="45" h="38"/>
+	  <frame x="240" y="114" w="45" h="38"/>
+	  <frame x="318" y="114" w="45" h="38"/>
+	  <frame x="396" y="114" w="45" h="38"/>
+	  <frame x="474" y="114" w="45" h="38"/>
+	  <frame x="552" y="114" w="45" h="38"/>
+  </Runleft>
+
+  <idle loop="true" speed ="0.17">
+	  <frame x="6" y="62" w="44" h="44"/>
+	  <frame x="84" y="62" w="44" h="44"/>
+	  <frame x="162" y="62" w="44" h="44"/>
+	  <frame x="240" y="62" w="44" h="44"/>
+	  <frame x="218" y="62" w="44" h="44"/>
+	  <frame x="396" y="62" w="44" h="44"/>
+	  <frame x="474" y="62" w="44" h="44"/>
+	  <frame x="552" y="62" w="44" h="44"/>
+	  <frame x="708" y="62" w="44" h="44"/>
+	  <frame x="786" y="62" w="44" h="44"/>
+  </idle>
+
+  <Dead loop="false" speed ="0.1">
+	  <frame x="6" y="157" w="49" h="46"/>
+	  <frame x="84" y="157" w="49" h="46"/>
+	  <frame x="162" y="157" w="49" h="46"/>
+	  <frame x="240" y="157" w="49" h="46"/>
+  </Dead>
+
   <scene>
-    <map path="Assets/Maps/" name="MapTemplate.tmx"/>
-    <player x="500" y="1248" texturepath="Assets/Textures/Run-(78x58).png"/>
+	  <map path="Assets/Maps/" name="MapTemplate.tmx"/>
+	  <player x="500" y="1248" texturepath="Assets/Textures/Run-(78x58).png"/>
     <!--<item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
