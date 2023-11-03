@@ -78,7 +78,7 @@ bool Player::Start() {
     Dead.speed = 0.1f;
 
     currentAnimation = &idle;
-	pbody = app->physics->CreateCircle(500, 32*39, 12, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
