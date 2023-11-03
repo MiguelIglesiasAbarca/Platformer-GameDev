@@ -88,7 +88,6 @@ bool Player::Update(float dt)
         currentAnimation = &idle;
     }
     
-    
     //if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
     //    // Perform level reset actions here
     //    app->physics->CleanUp(); // Clean up the physics system

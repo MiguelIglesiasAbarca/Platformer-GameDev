@@ -52,6 +52,20 @@ public:
 
 		return frames[actualFrame];
 	}
+
+	void LoadAnimation(char* Animations)
+	{
+		pugi::xml_document configFile;
+		pugi::xml_node generalAnim;
+		pugi::xml_node frameAnim;
+		configFile.load_file("config.xml");
+		generalAnim = configFile.child("config").child(Animations);
+
+		while (frameAnim != NULL)
+		{
+
+		}
+	}
 };
 
 #endif
