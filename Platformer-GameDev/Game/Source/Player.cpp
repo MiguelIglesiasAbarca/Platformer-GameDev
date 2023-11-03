@@ -229,6 +229,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision PLATFORM");
 		isJumping = false;
 		break;
+    case ColliderType::TRAP:
+        LOG("Collision TRAP");
+        position.x = 0;
+        break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "Trap_01.h"
 
 struct SDL_Texture;
 

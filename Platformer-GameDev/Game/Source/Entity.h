@@ -12,7 +12,8 @@ enum class EntityType
 {
 	PLAYER,
 	ITEM,
-	UNKNOWN
+	TRAP,
+	UNKNOWN,
 };
 
 class Entity
