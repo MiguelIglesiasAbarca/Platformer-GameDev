@@ -68,15 +68,6 @@ bool Player::Start() {
     Runleft.loop = true;
     Runleft.speed = 0.2f;
 
-    Dead.PushBack({ 6, 157, 49, 46 });
-    Dead.PushBack({ 84, 157, 49, 46 });
-    Dead.PushBack({ 162, 157, 49, 46 });
-    Dead.PushBack({ 240, 157, 49, 46 });
-   
-
-    Dead.loop = false;
-    Dead.speed = 0.1f;
-
     currentAnimation = &idle;
 	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
@@ -92,7 +83,7 @@ bool godMode = false;
 
 bool Player::Update(float dt)
 {
-    if (!running && !isdead)
+    if (!running)
     {
         currentAnimation = &idle;
     }
@@ -128,57 +119,38 @@ bool Player::Update(float dt)
         running = false;
     }
 
-    if (!isdead)
-    {
-        currentAnimation = &idle;
-    }
-
     // Verificar si el jugador está en el suelo (velocidad vertical cercana a cero)
     //bool isOnGround = std::abs(currentVelocity.y) < 0.1;
     if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
     {
-        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(730), PIXEL_TO_METERS(32 * 39)), 0);
-        isdead = false;
+        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32 * 39)), 0);
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
     {
         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(32*40), PIXEL_TO_METERS(32 * 80)), 0);
-        isdead = false;
-
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
     {
         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32*39)), 0);
-        isdead = false;
-
     }
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
-    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isdead) {
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
         // Saltar solo si no estamos ya en el aire
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isdead )  {
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
         currentVelocity.x = -speed;
         currentAnimation = &Runleft;
         running = true;
-           
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-        //currentVelocity.x = speed;
-        isdead = true;
-        
-        currentAnimation = &Dead;
-        running = false;
-    }
-
-    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isdead) {
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
         currentVelocity.x = speed;
         currentAnimation = &Runright;
         running = true;
