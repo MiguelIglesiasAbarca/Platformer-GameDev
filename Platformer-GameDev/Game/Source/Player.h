@@ -34,6 +34,7 @@ public:
 	int pickCoinFxId;
 	bool isJumping = false;
 	bool running = false;
+	bool isdead = false;
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;
