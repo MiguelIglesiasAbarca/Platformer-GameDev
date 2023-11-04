@@ -68,6 +68,14 @@ bool Player::Start() {
     Runleft.loop = true;
     Runleft.speed = 0.2f;
 
+    Dead.PushBack({ 6, 157, 49, 46 });
+    Dead.PushBack({ 84, 157, 49, 46 });
+    Dead.PushBack({ 162, 157, 49, 46 });
+    Dead.PushBack({ 240, 157, 49, 46 });
+
+    Dead.loop = false;
+    Dead.speed = 0.1f;
+
     currentAnimation = &idle;
 	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
@@ -83,7 +91,7 @@ bool godMode = false;
 
 bool Player::Update(float dt)
 {
-    if (!running)
+    if (!running && !isDead)
     {
         currentAnimation = &idle;
     }
@@ -122,37 +130,47 @@ bool Player::Update(float dt)
     //bool isOnGround = std::abs(currentVelocity.y) < 0.1;
     if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
     {
-        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32 * 39)), 0);
+         isDead = false;
+         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32 * 39)), 0);
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+    if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN )
     {
+        isDead = false;
         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(32*40), PIXEL_TO_METERS(32 * 80)), 0);
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
     {
+        isDead = false;
         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32*39)), 0);
     }
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
-    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead) {
         // Saltar solo si no estamos ya en el aire
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) {
         currentVelocity.x = -speed;
         currentAnimation = &Runleft;
         running = true;
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead) {
         currentVelocity.x = speed;
         currentAnimation = &Runright;
         running = true;
+    }
+
+    if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+        //currentVelocity.x = speed;
+        isDead = true;
+        currentAnimation = &Dead;
+        running = false;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
@@ -217,6 +235,13 @@ bool Player::CleanUp()
 	return true;
 }
 
+void Player::OnDeath()
+{
+    isDead = true;
+    running = false;
+    currentAnimation = &Dead;
+}
+
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
@@ -231,7 +256,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
     case ColliderType::TRAP:
         LOG("Collision TRAP");
-        position.x = 0;
+        OnDeath();
         break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

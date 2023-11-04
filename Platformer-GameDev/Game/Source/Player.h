@@ -26,6 +26,8 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void OnDeath();
+
 public:
 	float speed = 7.0f;
 	const char* texturePath;
@@ -34,6 +36,7 @@ public:
 	int pickCoinFxId;
 	bool isJumping = false;
 	bool running = false;
+	bool isDead = false;
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;
