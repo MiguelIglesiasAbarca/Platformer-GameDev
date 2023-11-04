@@ -16,9 +16,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	name.Create("Player");
 }
 
-Player::~Player() {
-
-}
+Player::~Player() {}
 
 bool Player::Awake() {
 
@@ -32,22 +30,12 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-    idleRight.LoadAnimations("Idleright");
+    //initilize textures
+    texture = app->tex->Load(texturePath);
 
-	//initilize textures
-	texture = app->tex->Load(texturePath);
-   /* idle.PushBack({ 6, 62, 44, 44 });
-    idle.PushBack({ 84, 62, 44, 44 });
-    idle.PushBack({ 162, 62, 44, 44 });
-    idle.PushBack({ 240, 62, 44, 44 });
-    idle.PushBack({ 318, 62, 44, 44 });
-    idle.PushBack({ 396, 62, 44, 44 });
-    idle.PushBack({ 474, 62, 44, 44 });
-    idle.PushBack({ 552, 62, 44, 44 });
-    idle.PushBack({ 630, 62, 44, 44 });
-    idle.PushBack({ 708, 62, 44, 44 });
-    idle.PushBack({ 786, 62, 44, 44 });
-    idle.loop = true;*/
+#pragma region LOAD_ANIMATIONS
+
+    idleRight.LoadAnimations("Idleright");
     idleRight.speed = 0.2f;
 
     idleLeft.LoadAnimations("Idleleft");
@@ -55,53 +43,25 @@ bool Player::Start() {
 
     //run
     runRight.LoadAnimations("Runright");
-    /*Runright.PushBack({ 6, 12, 45, 38 });
-    Runright.PushBack({ 84, 12, 45, 38 });
-    Runright.PushBack({ 162, 12, 45, 38 });
-    Runright.PushBack({ 240, 12, 45, 38 });
-    Runright.PushBack({ 318, 12, 45, 38 });
-    Runright.PushBack({ 396, 12, 45, 38 });
-    Runright.PushBack({ 474, 12, 45, 38 });
-    Runright.PushBack({ 552, 12, 45, 38 });
-    Runright.loop = true;*/
     runRight.speed = 0.2f;
 
     runLeft.LoadAnimations("Runleft");
-
-   /* Runleft.PushBack({ 6, 114, 55, 35 });
-    Runleft.PushBack({ 84, 114, 55, 35 });
-    Runleft.PushBack({ 162, 114, 55, 35 });
-    Runleft.PushBack({ 240, 114, 55, 35 });
-    Runleft.PushBack({ 318, 114, 55, 35 });
-    Runleft.PushBack({ 396, 114, 55, 35 });
-    Runleft.loop = true;*/
     runLeft.speed = 0.2f;
 
     dead.LoadAnimations("Dead");
-
-    /*Dead.PushBack({ 6, 157, 49, 46 });
-    Dead.PushBack({ 79, 157, 49, 46 });
-    Dead.PushBack({ 157, 157, 49, 46 });
-    Dead.PushBack({ 235, 157, 49, 46 });
-    Dead.loop = false;*/
     dead.speed = 0.1f;
 
     jumpRight.LoadAnimations("Jumpright");
-
-    /*Jump.PushBack({ 6, 211, 43, 43 });
-    Jump.PushBack({ 74, 211, 43, 43 });
-
-    Jump.loop = true;*/
     jumpRight.speed = 0.05f;
 
     jumpLeft.LoadAnimations("Jumpleft");
-
     jumpLeft.speed = 0.05f;
+
+#pragma endregion
 
     currentAnimation = &idleRight;
 
     pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
-    //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
     currentAnimation = &idleRight;
@@ -110,54 +70,16 @@ bool Player::Start() {
 	return true;
 }
 
-bool godMode = false;
-
 bool Player::Update(float dt)
 {
-    if (!running && !isDead && !isJumping)
-    {
-        if (left_right == true)
-        {
-            currentAnimation = &idleRight;
-        }
-        else
-        {
-            currentAnimation = &idleLeft;
-        }
-    }
-    
-    //if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-    //    // Perform level reset actions here
-    //    app->physics->CleanUp(); // Clean up the physics system
-    //    app->physics->Init();    // Reinitialize the physics system
-
-    //    // Reset player position and state as needed
-    //    position.x = initialX; // Set to the initial X position
-    //    position.y = initialY; // Set to the initial Y position
-    //    pbody->body->SetTransform(b2Vec2(PIXELS_TO_METERS(position.x + 18), PIXELS_TO_METERS(position.y + 15)), 0);
-    //    pbody->body->SetLinearVelocity(b2Vec2(0, 0)); // Reset player velocity
-    //    isJumping = false; // Reset jumping state
-
-    //    // You may need to reset other game-specific state and objects here
-
-    //    // After resetting, return to prevent further update during the reset.
-    //    return true;
-    //}
-
     b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
     b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
     currentVelocity.y += 0.5;
 
-    //LOG("current velocity: %f", currentVelocity.y);
-    // Si no se presionan las teclas de movimiento, aplicar una fricción alta
-    if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) {
-        currentVelocity.x *= 0.0;
-        running = false;
-    }
+#pragma region DEBUG
 
     // Verificar si el jugador está en el suelo (velocidad vertical cercana a cero)
-    //bool isOnGround = std::abs(currentVelocity.y) < 0.1;
     if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
     {
          isDead = false;
@@ -183,14 +105,42 @@ bool Player::Update(float dt)
         {
             pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
         }
+    }    
+    
+    if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+        // Cambiar el estado del modo "godmode" al presionar F10
+        godMode = !godMode;
+    }   
+#pragma endregion
+
+#pragma region MOVEMENT
+
+    if (!running && !isDead && !isJumping)
+    {
+        if (left_right == true)
+        {
+            currentAnimation = &idleRight;
+        }
+        else
+        {
+            currentAnimation = &idleLeft;
+        }
+    }
+
+   // Si no se presionan las teclas de movimiento, aplicar una fricción alta
+    if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) 
+    {
+        currentVelocity.x *= 0.0;
+        running = false;
     }
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
-    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead) {
-        // Saltar solo si no estamos ya en el aire
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead)// Saltar solo si no estamos ya en el aire
+    {
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
+
         if (left_right == true)
         {
             currentAnimation = &jumpRight;
@@ -202,10 +152,12 @@ bool Player::Update(float dt)
         currentAnimation->Reset();
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) {
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) 
+    {
         currentVelocity.x = -speed;
         running = true;
         left_right = false;
+
         if (isJumping)
         {
             currentAnimation = &jumpLeft;
@@ -214,15 +166,14 @@ bool Player::Update(float dt)
         {
             currentAnimation = &runLeft;
         }
-        
-        running = true;
-        
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead) {
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead) 
+    {
         currentVelocity.x = speed;
         running = true;
         left_right = true;
+
         if (isJumping)
         {
             currentAnimation = &jumpRight;
@@ -233,20 +184,12 @@ bool Player::Update(float dt)
         }
     }
 
-    //if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-    //    //currentVelocity.x = speed;
-    //    isDead = true;
-    //    currentAnimation = &dead;
-    //    running = false;
-    //    currentAnimation->Reset();
-    //}
+#pragma endregion
 
-    if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-        // Cambiar el estado del modo "godmode" al presionar F10
-        godMode = !godMode;
-    }
+#pragma region GODMODE
 
-    if (godMode) {
+    if (godMode) 
+    {
         
         // Si está en modo "godmode", establece la máscara de colisión para atravesar todo
         b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
@@ -274,7 +217,8 @@ bool Player::Update(float dt)
         pbody->body->SetGravityScale(0.0f);
         pbody->body->SetLinearVelocity(velocity);
     }
-    else {
+    else 
+    {
         // Restaurar la máscara de colisión normal cuando no está en modo "godmode"
         b2Filter filter = pbody->body->GetFixtureList()->GetFilterData();
         filter.maskBits = 0xFFFF;  // Colisiona con todas las capas
@@ -282,9 +226,10 @@ bool Player::Update(float dt)
 
         // Si no está en modo "godmode", aplicar la gravedad
         pbody->body->SetGravityScale(1.0f);
-        //if(!isJumping && currentVelocity.y != -GRAVITY_Y) currentVelocity.y += 0.1;
         pbody->body->SetLinearVelocity(currentVelocity);
     }
+
+#pragma endregion
 
     // Actualizar la posición en píxeles
     position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
@@ -315,7 +260,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
-		app->audio->PlayFx(pickCoinFxId);
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");

@@ -38,6 +38,7 @@ public:
 	bool running = false;
 	bool isDead = false;
 	bool left_right = true;
+	bool godMode = false;
 	int level = 1;
 
 	Animation* currentAnimation = nullptr;
