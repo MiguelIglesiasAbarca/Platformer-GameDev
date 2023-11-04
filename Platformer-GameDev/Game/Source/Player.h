@@ -44,6 +44,7 @@ public:
 	Animation Runleft;
 	Animation Attack;
 	Animation Dead;
+	Animation Jump;
 
 
 };
