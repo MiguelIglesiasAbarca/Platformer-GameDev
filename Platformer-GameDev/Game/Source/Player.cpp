@@ -72,12 +72,15 @@ bool Player::Start() {
     Dead.PushBack({ 84, 157, 49, 46 });
     Dead.PushBack({ 162, 157, 49, 46 });
     Dead.PushBack({ 240, 157, 49, 46 });
-
+    Dead.PushBack({ 235, 157, 49, 46 });
     Dead.loop = false;
     Dead.speed = 0.1f;
-
+    Jump.PushBack({ 6, 211, 43, 43 });
+    Jump.PushBack({ 74, 211, 43, 43 });
+    Jump.loop = false;
+    Jump.speed = 0.05f;
     currentAnimation = &idle;
-	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
+    pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
