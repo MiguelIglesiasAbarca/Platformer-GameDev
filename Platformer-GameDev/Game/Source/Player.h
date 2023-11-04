@@ -26,6 +26,8 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void Reset();
+
 	void OnDeath();
 
 public:

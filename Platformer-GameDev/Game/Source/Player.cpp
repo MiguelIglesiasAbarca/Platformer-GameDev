@@ -238,12 +238,38 @@ bool Player::Update(float dt)
     app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
     currentAnimation->Update();
 
+    if (isDead)
+    {
+        if(dead.HasFinished())
+        { 
+            isDead = false;
+            pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
+            dead.Reset();
+        }
+        
+    }
+
     return true;
 }
 
 bool Player::CleanUp()
 {
 	return true;
+}
+
+void Player::Reset()
+{
+    //isDead = false;
+    LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    if (level == 1)
+    {
+        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
+        LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    }
+    else
+    {
+        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+    }
 }
 
 void Player::OnDeath()
