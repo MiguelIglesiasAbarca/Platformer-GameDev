@@ -32,9 +32,11 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
+    idle.LoadAnimations("Idle");
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-    idle.PushBack({ 6, 62, 44, 44 });
+   /* idle.PushBack({ 6, 62, 44, 44 });
     idle.PushBack({ 84, 62, 44, 44 });
     idle.PushBack({ 162, 62, 44, 44 });
     idle.PushBack({ 240, 62, 44, 44 });
@@ -45,10 +47,12 @@ bool Player::Start() {
     idle.PushBack({ 630, 62, 44, 44 });
     idle.PushBack({ 708, 62, 44, 44 });
     idle.PushBack({ 786, 62, 44, 44 });
-    idle.loop = true;
+    idle.loop = true;*/
     idle.speed = 0.2f;
+
     //run
-    Runright.PushBack({ 6, 12, 45, 38 });
+    Runright.LoadAnimations("Runright");
+    /*Runright.PushBack({ 6, 12, 45, 38 });
     Runright.PushBack({ 84, 12, 45, 38 });
     Runright.PushBack({ 162, 12, 45, 38 });
     Runright.PushBack({ 240, 12, 45, 38 });
@@ -56,31 +60,35 @@ bool Player::Start() {
     Runright.PushBack({ 396, 12, 45, 38 });
     Runright.PushBack({ 474, 12, 45, 38 });
     Runright.PushBack({ 552, 12, 45, 38 });
-    Runright.loop = true;
+    Runright.loop = true;*/
     Runright.speed = 0.2f;
 
-    Runleft.PushBack({ 6, 114, 55, 35 });
+    Runleft.LoadAnimations("Runleft");
+
+   /* Runleft.PushBack({ 6, 114, 55, 35 });
     Runleft.PushBack({ 84, 114, 55, 35 });
     Runleft.PushBack({ 162, 114, 55, 35 });
     Runleft.PushBack({ 240, 114, 55, 35 });
     Runleft.PushBack({ 318, 114, 55, 35 });
     Runleft.PushBack({ 396, 114, 55, 35 });
-
-    Runleft.loop = true;
+    Runleft.loop = true;*/
     Runleft.speed = 0.2f;
 
-    Dead.PushBack({ 6, 157, 49, 46 });
+    Dead.LoadAnimations("Dead");
+
+    /*Dead.PushBack({ 6, 157, 49, 46 });
     Dead.PushBack({ 79, 157, 49, 46 });
     Dead.PushBack({ 157, 157, 49, 46 });
     Dead.PushBack({ 235, 157, 49, 46 });
-   
-    Dead.loop = false;
+    Dead.loop = false;*/
     Dead.speed = 0.1f;
 
-    Jump.PushBack({ 6, 211, 43, 43 });
+    Jump.LoadAnimations("Jump");
+
+    /*Jump.PushBack({ 6, 211, 43, 43 });
     Jump.PushBack({ 74, 211, 43, 43 });
 
-    Jump.loop = false;
+    Jump.loop = true;*/
     Jump.speed = 0.05f;
 
     currentAnimation = &idle;
@@ -169,7 +177,8 @@ bool Player::Update(float dt)
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
-        currentAnimation = &Jump;
+        currentAnimation = &Jump; 
+        currentAnimation->Reset();
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) {
