@@ -69,10 +69,10 @@ bool Player::Start() {
     Runleft.speed = 0.2f;
 
     Dead.PushBack({ 6, 157, 49, 46 });
-    Dead.PushBack({ 84, 157, 49, 46 });
-    Dead.PushBack({ 162, 157, 49, 46 });
-    Dead.PushBack({ 240, 157, 49, 46 });
+    Dead.PushBack({ 79, 157, 49, 46 });
+    Dead.PushBack({ 157, 157, 49, 46 });
     Dead.PushBack({ 235, 157, 49, 46 });
+   
     Dead.loop = false;
     Dead.speed = 0.1f;
     Jump.PushBack({ 6, 211, 43, 43 });
