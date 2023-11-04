@@ -53,18 +53,21 @@ public:
 		return frames[actualFrame];
 	}
 
-	void LoadAnimation(char* Animations)
+	void LoadAnimations(const char* name)
 	{
-		pugi::xml_document configFile;
-		pugi::xml_node generalAnim;
-		pugi::xml_node frameAnim;
-		configFile.load_file("config.xml");
-		generalAnim = configFile.child("config").child(Animations);
+		pugi::xml_document file;
+		pugi::xml_parse_result parseresult = file.load_file("config.xml");
 
-		while (frameAnim != NULL)
+		pugi::xml_node animation_name = file.child("config").child(name);
+		for (pugi::xml_node animation = animation_name.child("frame"); animation; animation = animation.next_sibling("frame"))
 		{
-
+			PushBack({ animation.attribute("x").as_int(),
+			animation.attribute("y").as_int(),
+			animation.attribute("w").as_int(),
+			animation.attribute("h").as_int() });
 		}
+		speed = animation_name.attribute("speed").as_float();
+		loop = animation_name.attribute("loop").as_bool();
 	}
 };
 
