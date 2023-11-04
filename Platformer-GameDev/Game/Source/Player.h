@@ -37,6 +37,7 @@ public:
 	bool isJumping = false;
 	bool running = false;
 	bool isDead = false;
+	int level = 1;
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;

@@ -134,19 +134,28 @@ bool Player::Update(float dt)
     if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
     {
          isDead = false;
-         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32 * 39)), 0);
+         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
+         level = 1;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN )
     {
         isDead = false;
-        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(32*40), PIXEL_TO_METERS(32 * 80)), 0);
+        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+        level = 2;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
     {
         isDead = false;
-        pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(500), PIXEL_TO_METERS(32*39)), 0);
+        if (level == 1)
+        {
+            pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
+        }
+        else
+        {
+            pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+        }
     }
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
@@ -260,6 +269,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
         LOG("Collision TRAP");
         OnDeath();
         break;
+    case ColliderType::NEXTLEVEL:
+        LOG("Collision NEXTLEVEL");
+        level = 2;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

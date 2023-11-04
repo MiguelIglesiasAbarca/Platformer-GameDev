@@ -48382,7 +48382,7 @@
    <tile gid="481"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="2546"/>
    <tile/>
    <tile/>
    <tile/>
@@ -48612,6 +48612,7 @@
    <tile gid="493"/>
    <tile/>
    <tile/>
+   <tile gid="2578"/>
    <tile/>
    <tile/>
    <tile/>
@@ -48841,6 +48842,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="2610"/>
    <tile/>
    <tile/>
    <tile/>
@@ -49070,9 +49072,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="2642"/>
    <tile/>
    <tile/>
    <tile/>

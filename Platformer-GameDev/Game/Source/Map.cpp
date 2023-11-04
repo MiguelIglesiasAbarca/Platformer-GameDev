@@ -117,6 +117,8 @@ bool Map::loadCollisions(std::string layerName)
 			}
 		}
 		mapLayerItem = mapLayerItem->next;
+		PhysBody* c1 = app->physics->CreateRectangle(1700, 3032+8, 32, 1, STATIC);
+		c1->ctype = ColliderType::NEXTLEVEL;
 	}
 }
 
