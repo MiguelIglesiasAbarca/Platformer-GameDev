@@ -85,7 +85,7 @@ bool Map::loadCollisions(std::string layerName)
 	while (mapLayerItem != NULL) {
 		//if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && !mapLayerItem->data->properties.GetProperty("Draw")->value) {
 		if (mapLayerItem->data->name.GetString() == layerName) {
-			LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
 			for (int x = 0; x < mapLayerItem->data->width; x++)
 			{
 
@@ -97,11 +97,6 @@ bool Map::loadCollisions(std::string layerName)
 					SDL_Rect r = tileset->GetTileRect(gid);
 					iPoint pos = MapToWorld(x, y);
 
-					/* app->render->DrawTexture(tileset->texture,
-						 pos.x,
-						 pos.y,
-						 &r);*/
-
 					if (tileset->firstgid + 0 == gid) {
 						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
 						c1->ctype = ColliderType::PLATFORM;
@@ -111,7 +106,6 @@ bool Map::loadCollisions(std::string layerName)
 						PhysBody* c1 = app->physics->CreateRectangle(pos.x +16, pos.y + 27, 20, 10, STATIC);
 						c1->ctype = ColliderType::TRAP;
 					}
-
 
 				}
 			}
@@ -136,8 +130,6 @@ iPoint Map::MapToWorld(int x, int y) const
 iPoint Map::WorldToMap(int x, int y)
 {
 	iPoint ret(0, 0);
-
-	//
 
 	return ret;
 }
@@ -232,26 +224,11 @@ bool Map::Load(SString mapFileName)
 	}
 
 
-
-
-	// NOTE: Later you have to create a function here to load and create the colliders from the map
-
-   /* PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 1280 , 2000, 64, STATIC);
-	c1->ctype = ColliderType::PLATFORM;
-
-	PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 1184 , 128, 64, STATIC);
-	c2->ctype = ColliderType::PLATFORM;*/
-
-	/*PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
-	c3->ctype = ColliderType::PLATFORM;*/
-
 	if (ret == true)
 	{
 		LOG("Successfully parsed map XML file :%s", mapFileName.GetString());
 		LOG("width : %d height : %d", mapData.width, mapData.height);
 		LOG("tile_width : %d tile_height : %d", mapData.tileWidth, mapData.tileHeight);
-
-		LOG("Tilesets----");
 
 		ListItem<TileSet*>* tileset;
 		tileset = mapData.tilesets.start;

@@ -56,12 +56,6 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
-	//img = app->tex->Load("Assets/Textures/test.png");
-	// 
-	//Music is commented so that you can add your own music
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
 
@@ -93,22 +87,6 @@ bool Scene::Update(float dt)
 
 	app->render->camera.x = -player->position.x + 500;
 	app->render->camera.y = -player->position.y + 500;
-	/*float camSpeed = 0.2f; 
-
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= (camSpeed * dt);
-
-	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += (camSpeed * dt);
-
-	if(app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		app->render->camera.x -= (camSpeed * dt);
-
-	if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		app->render->camera.x += (camSpeed * dt);*/
-
-	// Renders the image in the center of the screen 
-	//app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
 
 	return true;
 }
