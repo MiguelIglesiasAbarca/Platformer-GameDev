@@ -83,6 +83,7 @@ public:
 	EntityManager* entityManager;
 	Map* map;
 	Physics* physics;
+	bool vsync;
 
 private:
 

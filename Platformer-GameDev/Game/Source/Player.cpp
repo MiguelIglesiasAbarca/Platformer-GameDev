@@ -35,6 +35,7 @@ bool Player::Start() {
 
 #pragma region LOAD_ANIMATIONS
 
+    //idle
     idleRight.LoadAnimations("Idleright");
     idleRight.speed = 0.2f;
 
@@ -48,9 +49,11 @@ bool Player::Start() {
     runLeft.LoadAnimations("Runleft");
     runLeft.speed = 0.2f;
 
+    //dead
     dead.LoadAnimations("Dead");
     dead.speed = 0.1f;
 
+    //jump
     jumpRight.LoadAnimations("Jumpright");
     jumpRight.speed = 0.05f;
 
@@ -132,6 +135,11 @@ bool Player::Update(float dt)
     {
         currentVelocity.x *= 0.0;
         running = false;
+    }
+
+    if (isDead)
+    {
+        currentVelocity = b2Vec2(0,0);
     }
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
@@ -277,6 +285,7 @@ void Player::OnDeath()
     isDead = true;
     running = false;
     currentAnimation = &dead;
+    
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
