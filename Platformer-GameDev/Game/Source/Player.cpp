@@ -137,6 +137,11 @@ bool Player::Update(float dt)
         running = false;
     }
 
+    if (isDead)
+    {
+        currentVelocity = b2Vec2(0,0);
+    }
+
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead)// Saltar solo si no estamos ya en el aire
     {
@@ -254,6 +259,7 @@ void Player::OnDeath()
     isDead = true;
     running = false;
     currentAnimation = &dead;
+    
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
