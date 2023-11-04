@@ -32,7 +32,7 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-    idle.LoadAnimations("Idle");
+    idleRight.LoadAnimations("Idleright");
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
@@ -48,10 +48,13 @@ bool Player::Start() {
     idle.PushBack({ 708, 62, 44, 44 });
     idle.PushBack({ 786, 62, 44, 44 });
     idle.loop = true;*/
-    idle.speed = 0.2f;
+    idleRight.speed = 0.2f;
+
+    idleLeft.LoadAnimations("Idleleft");
+    idleLeft.speed = 0.2f;
 
     //run
-    Runright.LoadAnimations("Runright");
+    runRight.LoadAnimations("Runright");
     /*Runright.PushBack({ 6, 12, 45, 38 });
     Runright.PushBack({ 84, 12, 45, 38 });
     Runright.PushBack({ 162, 12, 45, 38 });
@@ -61,9 +64,9 @@ bool Player::Start() {
     Runright.PushBack({ 474, 12, 45, 38 });
     Runright.PushBack({ 552, 12, 45, 38 });
     Runright.loop = true;*/
-    Runright.speed = 0.2f;
+    runRight.speed = 0.2f;
 
-    Runleft.LoadAnimations("Runleft");
+    runLeft.LoadAnimations("Runleft");
 
    /* Runleft.PushBack({ 6, 114, 55, 35 });
     Runleft.PushBack({ 84, 114, 55, 35 });
@@ -72,32 +75,36 @@ bool Player::Start() {
     Runleft.PushBack({ 318, 114, 55, 35 });
     Runleft.PushBack({ 396, 114, 55, 35 });
     Runleft.loop = true;*/
-    Runleft.speed = 0.2f;
+    runLeft.speed = 0.2f;
 
-    Dead.LoadAnimations("Dead");
+    dead.LoadAnimations("Dead");
 
     /*Dead.PushBack({ 6, 157, 49, 46 });
     Dead.PushBack({ 79, 157, 49, 46 });
     Dead.PushBack({ 157, 157, 49, 46 });
     Dead.PushBack({ 235, 157, 49, 46 });
     Dead.loop = false;*/
-    Dead.speed = 0.1f;
+    dead.speed = 0.1f;
 
-    Jump.LoadAnimations("Jump");
+    jumpRight.LoadAnimations("Jumpright");
 
     /*Jump.PushBack({ 6, 211, 43, 43 });
     Jump.PushBack({ 74, 211, 43, 43 });
 
     Jump.loop = true;*/
-    Jump.speed = 0.05f;
+    jumpRight.speed = 0.05f;
 
-    currentAnimation = &idle;
+    jumpLeft.LoadAnimations("Jumpleft");
+
+    jumpLeft.speed = 0.05f;
+
+    currentAnimation = &idleRight;
 
     pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
-    currentAnimation = &idle;
+    currentAnimation = &idleRight;
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	return true;
@@ -109,7 +116,14 @@ bool Player::Update(float dt)
 {
     if (!running && !isDead && !isJumping)
     {
-        currentAnimation = &idle;
+        if (left_right == true)
+        {
+            currentAnimation = &idleRight;
+        }
+        else
+        {
+            currentAnimation = &idleLeft;
+        }
     }
     
     //if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
@@ -177,19 +191,28 @@ bool Player::Update(float dt)
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
-        currentAnimation = &Jump; 
+        if (left_right == true)
+        {
+            currentAnimation = &jumpRight;
+        }
+        else
+        {
+            currentAnimation = &jumpLeft;
+        }
         currentAnimation->Reset();
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) {
         currentVelocity.x = -speed;
+        running = true;
+        left_right = false;
         if (isJumping)
         {
-            currentAnimation = &Jump;
+            currentAnimation = &jumpLeft;
         }
         else
         {
-            currentAnimation = &Runleft;
+            currentAnimation = &runLeft;
         }
         
         running = true;
@@ -199,22 +222,24 @@ bool Player::Update(float dt)
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead) {
         currentVelocity.x = speed;
         running = true;
+        left_right = true;
         if (isJumping)
         {
-            currentAnimation = &Jump;
+            currentAnimation = &jumpRight;
         }
         else
         {
-            currentAnimation = &Runright;
+            currentAnimation = &runRight;
         }
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-        //currentVelocity.x = speed;
-        isDead = true;
-        currentAnimation = &Dead;
-        running = false;
-    }
+    //if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+    //    //currentVelocity.x = speed;
+    //    isDead = true;
+    //    currentAnimation = &dead;
+    //    running = false;
+    //    currentAnimation->Reset();
+    //}
 
     if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
         // Cambiar el estado del modo "godmode" al presionar F10
@@ -281,7 +306,7 @@ void Player::OnDeath()
 {
     isDead = true;
     running = false;
-    currentAnimation = &Dead;
+    currentAnimation = &dead;
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {

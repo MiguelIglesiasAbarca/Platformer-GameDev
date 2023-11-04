@@ -37,15 +37,18 @@ public:
 	bool isJumping = false;
 	bool running = false;
 	bool isDead = false;
+	bool left_right = true;
 	int level = 1;
 
 	Animation* currentAnimation = nullptr;
-	Animation idle;
-	Animation Runright;
-	Animation Runleft;
-	Animation Attack;
-	Animation Dead;
-	Animation Jump;
+	Animation idleRight;
+	Animation idleLeft;
+	Animation runRight;
+	Animation runLeft;
+	Animation attack;
+	Animation dead;
+	Animation jumpRight;
+	Animation jumpLeft;
 
 
 };
