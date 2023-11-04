@@ -25,6 +25,7 @@ bool Player::Awake() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
+    speed = parameters.attribute("speed").as_float();
 
 	return true;
 }
@@ -75,11 +76,15 @@ bool Player::Start() {
    
     Dead.loop = false;
     Dead.speed = 0.1f;
+
     Jump.PushBack({ 6, 211, 43, 43 });
     Jump.PushBack({ 74, 211, 43, 43 });
+
     Jump.loop = false;
     Jump.speed = 0.05f;
+
     currentAnimation = &idle;
+
     pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
     //pbody= app->physics->CreateRectangle(position.x, position.y, 37, 29, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -94,7 +99,7 @@ bool godMode = false;
 
 bool Player::Update(float dt)
 {
-    if (!running && !isDead)
+    if (!running && !isDead && !isJumping)
     {
         currentAnimation = &idle;
     }
@@ -164,18 +169,35 @@ bool Player::Update(float dt)
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
+        currentAnimation = &Jump;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) {
         currentVelocity.x = -speed;
-        currentAnimation = &Runleft;
+        if (isJumping)
+        {
+            currentAnimation = &Jump;
+        }
+        else
+        {
+            currentAnimation = &Runleft;
+        }
+        
         running = true;
+        
     }
 
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead) {
         currentVelocity.x = speed;
-        currentAnimation = &Runright;
         running = true;
+        if (isJumping)
+        {
+            currentAnimation = &Jump;
+        }
+        else
+        {
+            currentAnimation = &Runright;
+        }
     }
 
     if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
