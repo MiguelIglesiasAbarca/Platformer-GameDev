@@ -35,6 +35,7 @@ bool Player::Start() {
 
 #pragma region LOAD_ANIMATIONS
 
+    //idle
     idleRight.LoadAnimations("Idleright");
     idleRight.speed = 0.2f;
 
@@ -48,9 +49,11 @@ bool Player::Start() {
     runLeft.LoadAnimations("Runleft");
     runLeft.speed = 0.2f;
 
+    //dead
     dead.LoadAnimations("Dead");
     dead.speed = 0.1f;
 
+    //jump
     jumpRight.LoadAnimations("Jumpright");
     jumpRight.speed = 0.05f;
 
