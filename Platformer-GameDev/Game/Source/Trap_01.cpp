@@ -30,7 +30,7 @@ bool Trap::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
-	pbody = app->physics->CreateRectangle(position.x, position.y, 16, 16, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 10, bodyType::STATIC);
 	pbody->ctype = ColliderType::TRAP;
 
 	return true;

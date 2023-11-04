@@ -108,10 +108,8 @@ bool Map::loadCollisions(std::string layerName)
 					}
 
 					if (tileset->firstgid + 1 == gid) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x, pos.y, 32, 32, STATIC);
-						c1->ctype = ColliderType::PLATFORM;
-
-
+						PhysBody* c1 = app->physics->CreateRectangle(pos.x +16, pos.y +32, 32, 20, STATIC);
+						c1->ctype = ColliderType::TRAP;
 					}
 
 

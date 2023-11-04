@@ -231,7 +231,6 @@ bool Player::Update(float dt)
 
 bool Player::CleanUp()
 {
-
 	return true;
 }
 
