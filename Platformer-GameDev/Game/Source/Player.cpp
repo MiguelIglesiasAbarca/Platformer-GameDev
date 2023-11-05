@@ -268,11 +268,9 @@ bool Player::CleanUp()
 void Player::Reset()
 {
     //isDead = false;
-    LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     if (level == 1)
     {
         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
-        LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
     else
     {
@@ -285,7 +283,7 @@ void Player::OnDeath()
     isDead = true;
     running = false;
     currentAnimation = &dead;
-    
+    currentAnimation->loopCount = 0;
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
@@ -295,10 +293,16 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		break;
-	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
-		isJumping = false;
-		break;
+    case ColliderType::PLATFORM:
+        LOG("Collision PLATFORM");
+        isJumping = false;
+        break;
+    case ColliderType::WALL:
+        LOG("Collision WALL");
+        break;
+    case ColliderType::CEILING:
+        LOG("Collision CEILING");
+        break;
     case ColliderType::TRAP:
         LOG("Collision TRAP");
         OnDeath();
