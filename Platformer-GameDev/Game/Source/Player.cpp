@@ -251,8 +251,17 @@ bool Player::Update(float dt)
         if(dead.HasFinished())
         { 
             isDead = false;
-            pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
-            dead.Reset();
+
+            if (level == 1)
+            {
+                pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
+                dead.Reset();
+            }
+            else
+            {
+                pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+                dead.Reset();
+            }
         }
         
     }
