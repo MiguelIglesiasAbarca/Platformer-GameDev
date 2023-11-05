@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
+#include "Physics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -83,10 +84,18 @@ bool Scene::PreUpdate()
 
 // Called each loop iteration
 bool Scene::Update(float dt)
-{
-
-	app->render->camera.x = -player->position.x + 500;
-	app->render->camera.y = -player->position.y + 500;
+{	
+	if (player->position.y >= 3450)
+	{
+		app->render->camera.x = -player->position.x + 500;
+		app->render->camera.y = -2950;
+		LOG("AAAAAAAAAAAAAAAAAAAAA");
+	}
+	else
+	{
+		app->render->camera.x = -player->position.x + 500 ;
+		app->render->camera.y = -player->position.y + 500;
+	}
 
 	return true;
 }
