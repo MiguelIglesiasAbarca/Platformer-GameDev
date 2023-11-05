@@ -85,17 +85,48 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {	
-	if (player->position.y >= 3450)
+	if (player->position.x <= 600)
 	{
-		app->render->camera.x = -player->position.x + 500;
-		app->render->camera.y = -2950;
-		LOG("AAAAAAAAAAAAAAAAAAAAA");
-	}
-	else
-	{
-		app->render->camera.x = -player->position.x + 500 ;
 		app->render->camera.y = -player->position.y + 500;
+		app->render->camera.x = -100;
+
+		if (player->position.y >= 3450)
+		{
+			app->render->camera.y = -2950;
+		}
 	}
+	else if (player->position.x > 600 && player->position.x <= 2850)
+	{
+		app->render->camera.y = -player->position.y + 500;
+		app->render->camera.x = -player->position.x + 500;
+
+		if (player->position.y >= 3450)
+		{
+			app->render->camera.y = -2950;
+		}
+	}
+	else if (player->position.x > 2850)
+	{
+		app->render->camera.y = -player->position.y + 500;
+		app->render->camera.x = -2350;
+
+		if (player->position.y >= 3450)
+		{
+			app->render->camera.y = -2950;
+		}
+	}
+
+	//if (player->position.y >= 3450)
+	//{
+	//	app->render->camera.x = -player->position.x + 500;
+	//	app->render->camera.y = -2950;
+	//	LOG("AAAAAAAAAAAAAAAAAAAAA");
+	//}
+	//else
+	//{
+	//	app->render->camera.x = -player->position.x + 500 ;
+	//	app->render->camera.y = -player->position.y + 500;
+	//}
 
 	return true;
 }
