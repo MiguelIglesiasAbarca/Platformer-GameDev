@@ -1,26 +1,28 @@
-# {Project Name}
+# {Pizza Rush}
 
-## Description
+## Welcome to Pizza Rush, where you, a stressed chef, will have to deliver your tasty pizza to your king! Overcome dangers and reach your king!
 
 {project description}
 
-## Key Features
-
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
- 
 ## Controls
 
- - {ControlsScheme}
+ - {A -> Move to the left.}
+ - {D -> Move to the right.}
+ - {SPACEBAR -> Jump.}
+
+## Debug features
+
+ - {F1 -> Teleport to the first level.}
+ - {F2 -> Teleport to the second level.}
+ - {F3 -> Teleport to the level where you currently are.}
+ - {F9 -> Visualize the colliders / logic.}
+ - {F10 -> Enable / disable God Mode.}
+ - {F11 -> Enable / disable 30 FPS cap.}
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
+ - {Carlos Gonzalez Subirón} - {Generalist}
+ - {Miguel Iglesias Abarca} - {Generalist}
 
 ## License
 
