@@ -1,0 +1,87 @@
+bool Map::IsWalkable(int x, int y) const
+{
+    bool isWalkable = false;
+    int gid;
+    
+    ListItem<MapLayer*>* mapLayer;
+    mapLayer = mapData.layers.start;
+
+    while (mapLayer != NULL)
+    {
+        if (mapLayer->data->properties.GetProperty("Navigation") && mapLayer->data->properties.GetProperty("Navigation")->value)
+        {
+            gid = mapLayer->data->Get(x, y);
+        }
+        mapLayer = mapLayer->next;
+    }
+    // L10: TODO 3: return true only if x and y are within map limits
+    // and the tile is walkable (tile id 0 in the navigation layer)
+
+    if (x >= 0 && x < mapData.width && y >= 0 && y < mapData.height && gid != navigationGid)
+    {
+        isWalkable = true;
+    }
+
+    return isWalkable;
+}
+
+void Map::PropagateBFS()
+{
+    // L10: TODO 1: If frontier queue contains elements
+    // pop the last one and calculate its 4 neighbors
+
+    // L10: TODO 2: For each neighbor, if not visited, add it
+    // to the frontier queue and visited list
+
+
+    // L10 TODO 4: Check if we have reach a destination
+    if (*frontier.Peek(0) == WorldToMap(app->scene->GetPLayerPosition().x, app->scene->GetPLayerPosition().y))
+    {
+        return;
+    }
+
+    if (frontier.Count() > 0)
+    {
+        iPoint frontierPoint;
+        frontier.Pop(frontierPoint);
+
+        List<iPoint> neighbours;
+
+        iPoint n1 = iPoint(frontierPoint.x + 1, frontierPoint.y);
+        if (IsWalkable(n1.x , n1.y))
+        { 
+            neighbours.Add(n1);
+        }
+       
+
+        iPoint n2 = iPoint(frontierPoint.x - 1, frontierPoint.y);
+        if (IsWalkable(n2.x, n2.y))
+        {
+            neighbours.Add(n2);
+        }
+
+        iPoint n3 = iPoint(frontierPoint.x, frontierPoint.y + 1);
+        if (IsWalkable(n3.x, n3.y))
+        {
+            neighbours.Add(n3);
+        }
+
+        iPoint n4 = iPoint(frontierPoint.x , frontierPoint.y - 1);
+        if (IsWalkable(n4.x, n4.y))
+        {
+            neighbours.Add(n4);
+        }
+
+        ListItem<iPoint>* item = neighbours.start;
+
+        while (item != NULL)
+        {
+            if (visited.Find(item->data) == -1)
+            {
+                frontier.Push(item->data);
+                visited.Add(item->data);
+            }
+            item = item->next;
+        }
+    }
+}
