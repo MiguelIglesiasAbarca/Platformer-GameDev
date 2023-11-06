@@ -152,12 +152,13 @@ bool Player::Update(float dt)
         if (left_right == true)
         {
             currentAnimation = &jumpRight;
+            currentAnimation->Reset();
         }
         else
         {
             currentAnimation = &jumpLeft;
+            currentAnimation->Reset();
         }
-        currentAnimation->Reset();
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) 
@@ -250,20 +251,8 @@ bool Player::Update(float dt)
     {
         if(dead.HasFinished())
         { 
-            isDead = false;
-
-            if (level == 1)
-            {
-                pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
-                dead.Reset();
-            }
-            else
-            {
-                pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
-                dead.Reset();
-            }
+            Reset();
         }
-        
     }
 
     return true;
@@ -276,7 +265,8 @@ bool Player::CleanUp()
 
 void Player::Reset()
 {
-    //isDead = false;
+    isDead = false;
+    currentAnimation = &idleRight;
     if (level == 1)
     {
         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
@@ -285,6 +275,7 @@ void Player::Reset()
     {
         pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
     }
+    dead.Reset();
 }
 
 void Player::OnDeath()
