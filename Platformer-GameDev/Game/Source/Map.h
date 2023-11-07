@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
+#include "Queue.h"
+#include "DynArray.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -122,6 +124,8 @@ public:
 	bool Load(SString mapFileName);
 
 	bool loadCollisions(std::string layerName);
+	bool IsWalkable(int x, int y) const;
+	void PropagateBFS();
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint Map::WorldToMap(int x, int y);
@@ -144,6 +148,8 @@ public:
 private:
 
 	bool mapLoaded;
+	List<iPoint> visited;
+	Queue<iPoint> frontier;
 };
 
 #endif // __MAP_H__
