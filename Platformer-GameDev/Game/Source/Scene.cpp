@@ -116,6 +116,14 @@ bool Scene::Update(float dt)
 		}
 	}
 
+	// Pathfinding testing inputs
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)	app->map->ResetPath();
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)	app->map->PropagateBFS();
+
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) app->map->PropagateBFS();
+
+
 	//if (player->position.y >= 3450)
 	//{
 	//	app->render->camera.x = -player->position.x + 500;
