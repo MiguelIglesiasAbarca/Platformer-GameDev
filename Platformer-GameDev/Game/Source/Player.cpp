@@ -37,17 +37,17 @@ bool Player::Start() {
 
     //idle
     idleRight.LoadAnimations("Idleright");
-    idleRight.speed = 0.2f;
+    idleRight.speed = 0.48f;
 
     idleLeft.LoadAnimations("Idleleft");
-    idleLeft.speed = 0.2f;
+    idleLeft.speed = 0.48f;
 
     //run
     runRight.LoadAnimations("Runright");
-    runRight.speed = 0.2f;
+    runRight.speed = 0.167f;
 
     runLeft.LoadAnimations("Runleft");
-    runLeft.speed = 0.2f;
+    runLeft.speed = 0.167f;
 
     //dead
     dead.LoadAnimations("Dead");
