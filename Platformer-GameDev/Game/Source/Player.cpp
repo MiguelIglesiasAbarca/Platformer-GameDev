@@ -148,10 +148,12 @@ bool Player::Update(float dt)
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
+        app->audio->PlayFx(1, 0);
 
         if (left_right == true)
         {
             currentAnimation = &jumpRight;
+            
             currentAnimation->Reset();
         }
         else
