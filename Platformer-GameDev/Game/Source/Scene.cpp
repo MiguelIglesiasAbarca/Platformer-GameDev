@@ -116,18 +116,6 @@ bool Scene::Update(float dt)
 		}
 	}
 
-	//if (player->position.y >= 3450)
-	//{
-	//	app->render->camera.x = -player->position.x + 500;
-	//	app->render->camera.y = -2950;
-	//	LOG("AAAAAAAAAAAAAAAAAAAAA");
-	//}
-	//else
-	//{
-	//	app->render->camera.x = -player->position.x + 500 ;
-	//	app->render->camera.y = -player->position.y + 500;
-	//}
-
 	return true;
 }
 
