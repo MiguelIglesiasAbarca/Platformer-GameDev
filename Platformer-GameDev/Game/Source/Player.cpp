@@ -68,7 +68,7 @@ bool Player::Start() {
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
     currentAnimation = &idleRight;
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
 
 	return true;
 }
