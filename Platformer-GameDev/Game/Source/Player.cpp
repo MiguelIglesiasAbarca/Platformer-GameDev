@@ -68,7 +68,8 @@ bool Player::Start() {
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
     currentAnimation = &idleRight;
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
+	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav"); 
+    deathFxid = app->audio->LoadFx("Assets/Audio/Fx/death_player.wav");
 
 	return true;
 }
@@ -130,13 +131,6 @@ bool Player::Update(float dt)
         }
     }
 
-   // Si no se presionan las teclas de movimiento, aplicar una fricción alta
-    if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) 
-    {
-        currentVelocity.x *= 0.0;
-        running = false;
-    }
-
     if (isDead)
     {
         currentVelocity = b2Vec2(0,0);
@@ -161,6 +155,13 @@ bool Player::Update(float dt)
             currentAnimation = &jumpLeft;
             currentAnimation->Reset();
         }
+    } 
+    
+    // Si no se presionan las teclas de movimiento, aplicar una fricción alta
+    if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) 
+    {
+        currentVelocity.x *= 0.0;
+        running = false;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) 
@@ -282,6 +283,7 @@ void Player::Reset()
 
 void Player::OnDeath()
 {
+    app->audio->PlayFx(1, 0);
     isDead = true;
     running = false;
     currentAnimation = &dead;

@@ -36,6 +36,7 @@ public:
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
 	int pickCoinFxId;
+	int deathFxid;
 	bool isJumping = false;
 	bool running = false;
 	bool isDead = false;

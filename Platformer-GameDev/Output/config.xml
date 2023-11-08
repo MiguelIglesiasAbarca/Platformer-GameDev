@@ -17,7 +17,7 @@
   </window>
   
   <audio>
-    <music volume="128"/>
+    <music volume="10"/>
     <fx volume="128"/>
   </audio>
   
@@ -83,7 +83,7 @@
     <frame x="82" y="211" w="43" h="43"/>
   </Jumpright>
 
-  <Jumpleft loop="false" speed ="0.1">
+  <Jumpleft loop="true" speed ="0.1">
     <frame x="12" y="311" w="43" h="43"/>
     <frame x="86" y="311" w="43" h="43"/>
   </Jumpleft>
