@@ -64,10 +64,9 @@ bool Player::Start() {
 
     currentAnimation = &idleRight;
 
-    pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
+    pbody = app->physics->CreateCircle(position.x+100, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
-    currentAnimation = &idleRight;
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav"); 
     deathFxid = app->audio->LoadFx("Assets/Audio/Fx/death_player.wav");
 
@@ -247,7 +246,7 @@ bool Player::Update(float dt)
     position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
     position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-    app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+    app->render->DrawTexture(texture, position.x-5, position.y, &currentAnimation->GetCurrentFrame());
     currentAnimation->Update();
 
     if (isDead)
@@ -283,7 +282,7 @@ void Player::Reset()
 
 void Player::OnDeath()
 {
-    app->audio->PlayFx(1, 0);
+    app->audio->PlayFx(2, 0);
     isDead = true;
     running = false;
     currentAnimation = &dead;
