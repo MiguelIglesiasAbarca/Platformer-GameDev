@@ -9,7 +9,6 @@
 #include "Point.h"
 #include "Physics.h"
 
-
 Tomate::Tomate() : Entity(EntityType::TOMATE)
 {
 	name.Create("tomate");
