@@ -246,7 +246,7 @@ bool Player::Update(float dt)
     position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
     position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-    app->render->DrawTexture(texture, position.x-5, position.y, &currentAnimation->GetCurrentFrame());
+    app->render->DrawTexture(texture, position.x-5, position.y-2, &currentAnimation->GetCurrentFrame());
     currentAnimation->Update();
 
     if (isDead)
