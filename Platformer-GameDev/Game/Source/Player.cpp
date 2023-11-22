@@ -68,7 +68,7 @@ bool Player::Start() {
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav"); 
-    deathFxid = app->audio->LoadFx("Assets/Audio/Fx/death_player.wav");
+    deathFxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
 
 	return true;
 }
