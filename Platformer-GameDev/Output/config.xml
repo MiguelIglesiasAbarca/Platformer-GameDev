@@ -91,6 +91,11 @@
   <scene>
 
     <map path="Assets/Maps/" name="MapTemplate.tmx"/>
+	<background path="Assets/Textures/fondo0.png"/>
+	<background1 path="Assets/Textures/fondo1.png"/>
+	<background2 path="Assets/Textures/fondo2.png"/>
+	<background3 path="Assets/Textures/fondo3.png"/>
+	<background4 path="Assets/Textures/fondo4.png"/>
     <player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-anim.png"/>
     
   </scene>
