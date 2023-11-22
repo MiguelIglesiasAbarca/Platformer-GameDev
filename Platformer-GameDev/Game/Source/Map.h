@@ -140,6 +140,7 @@ public:
 	MapData mapData;
 	SString name;
 	SString path;
+	PathFinding* pathfinding;
 
 private:
 
