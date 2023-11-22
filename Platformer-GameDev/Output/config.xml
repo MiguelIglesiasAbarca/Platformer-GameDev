@@ -91,7 +91,7 @@
   <scene>
 
     <map path="Assets/Maps/" name="MapTemplate.tmx"/>
-    <player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/Run-(78x58).png"/>
+    <player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-anim.png"/>
     
   </scene>
 
