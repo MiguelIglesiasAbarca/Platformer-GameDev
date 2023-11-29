@@ -83,29 +83,88 @@ void PathFinding::ClearLastPath()
 int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	int ret = -1;
+	int iterations = 0;
 
-	// L13: TODO 1: if origin or destination are not walkable, return -1
+	// L13: DONE 1: if origin or destination are not walkable, return -1
+	if (IsWalkable(origin) && IsWalkable(destination))
+	{
+		// L13: DONE 2: Create two lists: frontier, visited
+		PathList frontier;
+		PathList visited;
 
-	// L13: TODO 2: Create two lists: frontier, visited
-	// Create a PathNode with the origin position and add it to frontier list
-	// Iterate while we have node in the frontier list
+		// Create a PathNode with the origin position and add it to frontier list
+		frontier.list.Add(PathNode(0, 0, origin, nullptr));
 
-	// L13: TODO 3: Get the lowest score cell from frontier list and delete it from the frontier list
-	// Keep a reference to the node before deleting the node from the list
+		// Iterate while we have node in the frontier list
+		while (frontier.list.Count() > 0)
+		{
+			// L13: DONE 3: Get the lowest score cell from frontier list and delete it from the frontier list
+			// Keep a reference to the node before deleting the node from the list
+			ListItem<PathNode>* lowest = frontier.GetNodeLowestScore();
+			ListItem<PathNode>* node = new ListItem<PathNode>(*lowest);
+			frontier.list.Del(lowest);
 
-	// L13: TODO 6: If we just added the destination, we are done!
-	// Backtrack to create the final path
-	// Use the Pathnode::parent and Flip() the path when you are finish
 
-	// L13: TODO 4: Fill a list of all adjancent nodes. 
-	// use the FindWalkableAdjacents function
+			// L13: DONE 6: If we just added the destination, we are done!
+			if (node->data.pos == destination)
+			{
+				lastPath.Clear();
 
-	// L13: TODO 5: Iterate adjancent nodes:
-	// ignore the nodes already in the visited list
-	// if is not in the visited lits
-		// add the neighbourg to the visited list
-		// If the neighbourgh is NOT found in the frontier list, calculate its F and add it to the frontier list
-		// If it is already in the frontier list, check if it is a better path (compare G)
+				// Backtrack to create the final path
+				// Use the Pathnode::parent and Flip() the path when you are finish
+				const PathNode* pathNode = &node->data;
+
+				while (pathNode)
+				{
+					lastPath.PushBack(pathNode->pos);
+					pathNode = pathNode->parent;
+				}
+
+				lastPath.Flip();
+				ret = lastPath.Count();
+				LOG("Created path of %d steps in %d iterations", ret, iterations);
+				break;
+			}
+
+			// L13: DONE 4: Fill a list of all adjancent nodes. 
+			// use the FindWalkableAdjacents function
+			PathList adjacent;
+			node->data.FindWalkableAdjacents(adjacent);
+
+			// L13: DONE 5: Iterate adjancent nodes:
+			// If it is a better path, Update the parent
+			ListItem<PathNode>* neighbourg = adjacent.list.start;
+			while (neighbourg != NULL)
+			{
+				// ignore nodes in the visited list
+				if (visited.Find(neighbourg->data.pos) == NULL) {
+
+					//add the neighbourg to the visited list
+					visited.list.Add(neighbourg->data);
+
+					// If the neighbourgh is NOT found in the frontier list, calculate its F and add it to the frontier list
+					ListItem<PathNode>* neighbourgInFrontier = frontier.Find(neighbourg->data.pos);
+					if (neighbourgInFrontier == NULL)
+					{
+						neighbourg->data.CalculateF(destination);
+						frontier.list.Add(neighbourg->data);
+					}
+					else
+					{
+						// If it is already in the frontier list, check if it is a better path (compare G)
+						if (neighbourgInFrontier->data.g > neighbourg->data.g + 1)
+						{
+							neighbourgInFrontier->data.parent = neighbourg->data.parent;
+							neighbourgInFrontier->data.CalculateF(destination);
+						}
+					}
+				}
+
+				neighbourg = neighbourg->next;
+			}
+			++iterations;
+		}
+	}
 
 	return ret;
 }
