@@ -54,9 +54,22 @@ bool Scene::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Called before the first frame
+// Called before Fthe first frame
 bool Scene::Start()
 {
+	bool ret = false;
+	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+
+	if (parseResult) {
+		ret = true;
+		configNode = configFile.child("config");
+	}
+	else {
+		LOG("Error in App::LoadConfig(): %s", parseResult.description());
+	}
+
+	return ret;
+
 	fondo0 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
 	fondo1 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
 	fondo2 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());

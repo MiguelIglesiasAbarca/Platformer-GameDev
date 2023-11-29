@@ -48,6 +48,7 @@ private:
 	SDL_Texture* fondo2;
 	SDL_Texture* fondo3;
 	SDL_Texture* fondo4;
+	pugi::xml_document configFile;
 	pugi::xml_node configNode;
 
 };
