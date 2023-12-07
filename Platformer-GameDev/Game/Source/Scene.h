@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "Enemy_A.h"
 #include "Trap_01.h"
 #include "Tomate.h"
 

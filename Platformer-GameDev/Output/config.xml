@@ -92,6 +92,7 @@
 
     <map path="Assets/Maps/" name="MapTemplate.tmx"/>
     <player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-anim.png"/>
+	<enemy_a x="100" y="1700" speed="7.0" texturepath="Assets/Textures/tomate.png"/>
     
   </scene>
 
