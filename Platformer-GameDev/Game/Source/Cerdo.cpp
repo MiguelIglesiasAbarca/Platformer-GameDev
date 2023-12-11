@@ -31,7 +31,7 @@ bool Cerdo::Awake() {
 bool Cerdo::Start() {
 
 	//initilize textures
-	//pathTexture = app->tex->Load("Assets/Textures/path.png");
+	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::CERDO;
@@ -64,6 +64,16 @@ bool Cerdo::Update(float dt)
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
 	app->render->DrawTexture(texture, position.x, position.y);
+
+	if (app->physics->debug)
+	{
+		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(pathTexture, pos.x, pos.y);
+		}
+	}
 
 	return true;
 }

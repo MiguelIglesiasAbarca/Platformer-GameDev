@@ -32,6 +32,7 @@ public:
 	float speed = 7.0f;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
+	SDL_Texture* pathTexture = NULL;
 	PhysBody* pbody;
 	iPoint playerTilePos;
 	//bool isJumping = false;
