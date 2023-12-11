@@ -51,6 +51,12 @@ bool Scene::Awake(pugi::xml_node& config)
 		cerdo->parameters = cerdoNode;
 	}
 
+	for (pugi::xml_node tomateNode = config.child("tomate"); tomateNode; tomateNode = tomateNode.next_sibling("tomate"))
+	{
+		Food* tomate = (Food*)app->entityManager->CreateEntity(EntityType::TOMATE);
+		tomate->parameters = tomateNode;
+	}
+
 	if (config.child("map")) {
 		//Get the map name from the config file and assigns the value in the module
 		app->map->name = config.child("map").attribute("name").as_string();

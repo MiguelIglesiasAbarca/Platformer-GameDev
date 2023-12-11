@@ -1,5 +1,5 @@
-#ifndef __TOMATE_H__
-#define __TOMATE_H__
+#ifndef __FOOD__
+#define __FOOD__
 
 #include "Entity.h"
 #include "Point.h"
@@ -7,12 +7,12 @@
 
 struct SDL_Texture;
 
-class Tomate : public Entity
+class Food : public Entity
 {
 public:
 
-	Tomate();
-	virtual ~Tomate();
+	Food();
+	virtual ~Food();
 
 	bool Awake();
 
@@ -29,6 +29,7 @@ public:
 private:
 
 	SDL_Texture* texture;
+	int movement = position.x;
 	const char* texturePath;
 	PhysBody* pbody;
 };

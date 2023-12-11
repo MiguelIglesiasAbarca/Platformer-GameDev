@@ -9,14 +9,19 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Animation.h"
+#include "Food.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
+    coin = nullptr;
 }
 
-Player::~Player() {}
+Player::~Player() 
+{
+
+}
 
 bool Player::Awake() {
 
@@ -261,9 +266,17 @@ bool Player::Update(float dt)
 
 bool Player::CleanUp()
 {
-	return true;
-}
+    // Libera la memoria de la moneda si existe
+    if (coin != nullptr)
+    {
+        delete coin;
+        coin = nullptr;
+    }
 
+    // ... Otro código existente ...
+
+    return true;
+}
 void Player::Reset()
 {
     isDead = false;

@@ -2,6 +2,7 @@
 #define __PLAYER_H__
 
 #include "Entity.h"
+#include "Food.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
@@ -18,7 +19,7 @@ public:
 
 	bool Awake();
 
-	bool Start();
+	bool Start() override;
 
 	bool Update(float dt);
 
@@ -29,6 +30,8 @@ public:
 	void Reset();
 
 	void OnDeath();
+
+	Food* coin;
 
 public:
 	float speed = 7.0f;

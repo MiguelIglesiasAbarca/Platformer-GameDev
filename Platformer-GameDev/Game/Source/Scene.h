@@ -4,9 +4,10 @@
 #include "Module.h"
 #include "Player.h"
 #include "Cerdo.h"
+#include "Food.h"
 #include "Item.h"
 #include "Trap_01.h"
-#include "Tomate.h"
+//#include "Tomate.h"
 
 struct SDL_Texture;
 

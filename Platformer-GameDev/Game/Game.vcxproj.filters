@@ -23,9 +23,9 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Trap_01.cpp" />
-    <ClCompile Include="Source\Tomate.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\Cerdo.cpp" />
+    <ClCompile Include="Source\Food.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -73,9 +73,9 @@
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Trap_01.h" />
-    <ClInclude Include="Source\Tomate.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\Cerdo.h" />
+    <ClInclude Include="Source\Food.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
