@@ -25,6 +25,7 @@ enum bodyType {
 
 enum class ColliderType {
 	PLAYER,
+	CERDO,
 	ITEM,
 	TRAP,
 	NEXTLEVEL,

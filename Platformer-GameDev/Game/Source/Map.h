@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
+#include "Pathfinding.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -123,6 +124,9 @@ public:
 
 	bool loadCollisions(std::string layerName);
 
+	// L13: Create navigation map for pathfinding
+	void CreateNavigationMap(int& width, int& height, uchar** buffer) const;
+
 	iPoint MapToWorld(int x, int y) const;
 	iPoint Map::WorldToMap(int x, int y);
 
@@ -140,6 +144,9 @@ public:
 	MapData mapData;
 	SString name;
 	SString path;
+	MapLayer* navigationLayer;
+	PathFinding* pathfinding;
+	int blockedGid = 49;
 
 private:
 

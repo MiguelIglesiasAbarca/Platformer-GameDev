@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 #include "Player.h"
+#include "Cerdo.h"
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
@@ -88,6 +89,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::TRAP:
 		entity = new Trap();
+		break;
+	case EntityType::CERDO:
+		entity = new Cerdo();
 		break;
 	default:
 		break;

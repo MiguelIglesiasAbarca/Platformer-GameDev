@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "Cerdo.h"
 #include "Item.h"
 #include "Trap_01.h"
 #include "Tomate.h"
@@ -36,12 +37,17 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+public:
+
+	Player* player;
+
 private:
+
 	SDL_Texture* img;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
-	Player* player;
+	
 
 	SDL_Texture* fondo0;
 	SDL_Texture* fondo1;

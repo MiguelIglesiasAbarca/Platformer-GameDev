@@ -45,6 +45,12 @@ bool Scene::Awake(pugi::xml_node& config)
 		player->parameters = config.child("player");
 	}
 
+	for (pugi::xml_node cerdoNode = config.child("cerdo"); cerdoNode; cerdoNode = cerdoNode.next_sibling("cerdo"))
+	{
+		Cerdo* cerdo = (Cerdo*)app->entityManager->CreateEntity(EntityType::CERDO);
+		cerdo->parameters = cerdoNode;
+	}
+
 	if (config.child("map")) {
 		//Get the map name from the config file and assigns the value in the module
 		app->map->name = config.child("map").attribute("name").as_string();
@@ -70,12 +76,12 @@ bool Scene::Start()
 
 	return ret;
 
-	fondo0 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
+	/*fondo0 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
 	fondo1 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
 	fondo2 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
 	fondo3 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
 	fondo4 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
-	app->win->GetWindowSize(windowW, windowH);
+	app->win->GetWindowSize(windowW, windowH);*/
 	
 	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 	//Get the size of the window
