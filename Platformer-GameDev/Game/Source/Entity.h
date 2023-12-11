@@ -14,7 +14,7 @@ enum class EntityType
 	CERDO,
 	ITEM,
 	TRAP,
-	TOMATE,
+	COMIDA,
 	UNKNOWN,
 };
 

@@ -51,8 +51,8 @@ bool Cerdo::Start() {
 bool Cerdo::Update(float dt)
 {
 
-	playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
-	cerdoPosition = app->map->WorldToMap(position.x,position.y);
+	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
+	cerdoPosition = app->map->WorldToMap(position.x+8,position.y);
 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
@@ -72,7 +72,7 @@ bool Cerdo::Update(float dt)
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTexture, pos.x, pos.y);
+			app->render->DrawTexture(pathTexture, pos.x+8, pos.y+8);
 		}
 	}
 

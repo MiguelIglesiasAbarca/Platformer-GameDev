@@ -72,6 +72,7 @@ bool Player::Start() {
     pbody = app->physics->CreateCircle(position.x+100, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
+    jumpFXid = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
     deathFxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
 
 	return true;
@@ -308,6 +309,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
+        //foodCounter++;
 		break;
     case ColliderType::PLATFORM:
         LOG("Collision PLATFORM");

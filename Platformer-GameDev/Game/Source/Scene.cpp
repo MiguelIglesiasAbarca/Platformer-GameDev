@@ -51,10 +51,25 @@ bool Scene::Awake(pugi::xml_node& config)
 		cerdo->parameters = cerdoNode;
 	}
 
-	for (pugi::xml_node tomateNode = config.child("tomate"); tomateNode; tomateNode = tomateNode.next_sibling("tomate"))
+	//for (pugi::xml_node tomateNode = config.child("tomate"); tomateNode; tomateNode = tomateNode.next_sibling("tomate"))
+	//{
+	//	Food* tomate = (Food*)app->entityManager->CreateEntity(EntityType::COMIDA);
+	//	tomate->parameters = tomateNode;
+	//}
+
+	for (pugi::xml_node foodNode = config.child("comida"); foodNode; foodNode = foodNode.next_sibling("comida"))
 	{
-		Food* tomate = (Food*)app->entityManager->CreateEntity(EntityType::TOMATE);
-		tomate->parameters = tomateNode;
+		for (pugi::xml_node tomateNode = foodNode.child("tomate"); tomateNode; tomateNode = tomateNode.next_sibling("tomate"))
+		{
+			Food* tomate = (Food*)app->entityManager->CreateEntity(EntityType::COMIDA);
+			tomate->parameters = tomateNode;
+		}
+
+		for (pugi::xml_node quesoNode = foodNode.child("queso"); quesoNode; quesoNode = quesoNode.next_sibling("queso"))
+		{
+			Food* queso = (Food*)app->entityManager->CreateEntity(EntityType::COMIDA);
+			queso->parameters = quesoNode;
+		}
 	}
 
 	if (config.child("map")) {

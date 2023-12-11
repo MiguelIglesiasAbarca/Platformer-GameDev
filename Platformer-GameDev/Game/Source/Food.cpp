@@ -9,7 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 
-Food::Food() : Entity(EntityType::TOMATE)
+Food::Food() : Entity(EntityType::COMIDA)
 {
 	name.Create("Food");
 }
@@ -33,7 +33,7 @@ bool Food::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x, position.y, 8, bodyType::KINEMATIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 16, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::ITEM;
 
 	return true;

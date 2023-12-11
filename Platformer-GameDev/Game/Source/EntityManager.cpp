@@ -94,7 +94,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::CERDO:
 		entity = new Cerdo();
 		break;
-	case EntityType::TOMATE:
+	case EntityType::COMIDA:
 		entity = new Food();
 		break;
 	default:
@@ -115,6 +115,7 @@ void EntityManager::DestroyEntity(Entity* entity)
 		if (item->data == entity) entities.Del(item);
 	}
 }
+
 
 void EntityManager::AddEntity(Entity* entity)
 {

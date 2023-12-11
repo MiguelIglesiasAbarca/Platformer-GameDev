@@ -38,7 +38,7 @@ public:
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
-	int pickCoinFxId;
+	int jumpFXid;
 	int deathFxid;
 	bool isJumping = false;
 	bool running = false;
@@ -46,6 +46,7 @@ public:
 	bool left_right = true;
 	bool godMode = false;
 	int level = 1;
+	int foodCounter = 0;
 
 	Animation* currentAnimation = nullptr;
 	Animation idleRight;
