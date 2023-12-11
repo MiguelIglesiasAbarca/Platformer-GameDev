@@ -100,8 +100,8 @@
 	<!--enemies-->
 	<cerdo x ="550" y="1700" speed="7.0" texturepath="Assets/Textures/tomate.png"/>
 	<!--enemies-->
-	<tomate x ="550" y="1700" speed="7.0" texturepath="Assets/Textures/tomate.png"/>
-	<tomate x ="450" y="1700" speed="7.0" texturepath="Assets/Textures/tomate.png"/>
+	<!--<tomate x ="550" y="1700" speed="7.0" texturepath="Assets/Textures/tomate.png"/>
+	<tomate x ="450" y="1700" speed="7.0" texturepath="Assets/Textures/tomate.png"/>-->
   </scene>
 
 </config>

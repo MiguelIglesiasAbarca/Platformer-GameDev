@@ -314,9 +314,13 @@ bool Map::loadCollisions(std::string layerName)
 
 iPoint Map::WorldToMap(int x, int y)
 {
-	iPoint ret(0, 0);
+	iPoint ret;
 
-	return ret;
+	// L09: DONE 3: Get the screen coordinates of tile positions for isometric maps 
+		ret.x = x / mapData.tileWidth;
+		ret.y = y / mapData.tileHeight;	
+		
+		return ret;
 }
 
 // Get relative Tile rectangle

@@ -8,6 +8,12 @@
 
 #include "PugiXml\src\pugixml.hpp"
 
+enum MapOrientation
+{
+	ORTOGRAPHIC = 0,
+	ISOMETRIC
+};
+
 // Ignore Terrain Types and Tile Types for now, but we want the image!
 struct TileSet
 {
@@ -93,6 +99,7 @@ struct MapData
 	int	tileWidth;
 	int	tileHeight;
 	List<TileSet*> tilesets;
+	MapOrientation orientation;
 	MapTypes type;
 
 	List<MapLayer*> maplayers;
