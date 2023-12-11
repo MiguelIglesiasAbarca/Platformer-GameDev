@@ -141,6 +141,26 @@ bool Player::Update(float dt)
         currentVelocity = b2Vec2(0,0);
     }
 
+    //if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead)// Saltar solo si no estamos ya en el aire
+    //{
+    //    isJumping = true;
+    //    currentVelocity.y = -15;
+    //    pbody->body->SetLinearVelocity(currentVelocity);
+    //    app->audio->PlayFx(1, 0);
+
+    //    if (left_right == true)
+    //    {
+    //        currentAnimation = &jumpRight;
+
+    //        currentAnimation->Reset();
+    //    }
+    //    else
+    //    {
+    //        currentAnimation = &jumpLeft;
+    //        currentAnimation->Reset();
+    //    }
+    //}
+
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead)// Saltar solo si no estamos ya en el aire
     {
