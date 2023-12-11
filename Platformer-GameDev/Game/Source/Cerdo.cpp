@@ -52,13 +52,14 @@ bool Cerdo::Update(float dt)
 {
 
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+	cerdoPosition = app->map->WorldToMap(position.x,position.y);
 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 	
 	currentVelocity.y += 0.5;
 
-	app->map->pathfinding->CreatePath(position, playerTilePos);
+	app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;

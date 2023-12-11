@@ -34,6 +34,7 @@ public:
 	SDL_Texture* texture = NULL;
 	SDL_Texture* pathTexture = NULL;
 	PhysBody* pbody;
+	iPoint cerdoPosition;
 	iPoint playerTilePos;
 	//bool isJumping = false;
 	//bool running = false;

@@ -117,7 +117,8 @@ bool Player::Update(float dt)
     if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
         // Cambiar el estado del modo "godmode" al presionar F10
         godMode = !godMode;
-    }   
+    }  
+
 #pragma endregion
 
 #pragma region MOVEMENT

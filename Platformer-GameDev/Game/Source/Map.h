@@ -146,7 +146,7 @@ public:
 	SString path;
 	MapLayer* navigationLayer;
 	PathFinding* pathfinding;
-	int blockedGid = 49;
+	int blockedGid = 1;//cambiar segun mapa
 
 private:
 
