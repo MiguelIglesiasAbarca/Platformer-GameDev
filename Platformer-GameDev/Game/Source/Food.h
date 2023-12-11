@@ -22,6 +22,8 @@ public:
 
 	bool CleanUp();
 
+	void Food::OnCollision(PhysBody* physA, PhysBody* physB);
+
 public:
 
 	bool isPicked = false;

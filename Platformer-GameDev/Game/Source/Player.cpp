@@ -309,7 +309,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
-        //foodCounter++;
+        foodCounter++;
 		break;
     case ColliderType::PLATFORM:
         LOG("Collision PLATFORM");

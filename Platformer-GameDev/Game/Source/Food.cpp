@@ -35,6 +35,7 @@ bool Food::Start() {
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x, position.y, 16, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::ITEM;
+	pbody->listener = this;
 
 	return true;
 }
@@ -53,6 +54,33 @@ bool Food::Update(float dt)
 bool Food::CleanUp()
 {
 	return true;
+}
+
+void Food::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	switch (physB->ctype)
+	{
+	case ColliderType::PLAYER:
+		LOG("Collision PLAYER");
+		pbody->body->SetActive(false);
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+		pbody->body->SetAwake(this);
+		break;
+	case ColliderType::PLATFORM:
+		LOG("Collision PLATFORM");
+		break;
+	case ColliderType::WALL:
+		LOG("Collision WALL");
+		break;
+	case ColliderType::CEILING:
+		LOG("Collision CEILING");
+		break;
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
+	}
+
 }
 
 

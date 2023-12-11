@@ -1,4 +1,4 @@
-#include "Cerdo.h"
+#include "Cerdo_patrullador.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -11,14 +11,14 @@
 #include "EntityManager.h"
 #include "Map.h"
 
-Cerdo::Cerdo() : Entity(EntityType::CERDO)
+CerdoPatrullador::CerdoPatrullador() : Entity(EntityType::CERDO)
 {
-	name.Create("Cerdo");
+	name.Create("CerdoPatrullador");
 }
 
-Cerdo::~Cerdo() {}
+CerdoPatrullador::~CerdoPatrullador() {}
 
-bool Cerdo::Awake() {
+bool CerdoPatrullador::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -28,7 +28,7 @@ bool Cerdo::Awake() {
 	return true;
 }
 
-bool Cerdo::Start() {
+bool CerdoPatrullador::Start() {
 
 	//initilize textures
 	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
@@ -48,44 +48,44 @@ bool Cerdo::Start() {
 	return true;
 }
 
-bool Cerdo::Update(float dt)
+bool CerdoPatrullador::Update(float dt)
 {
 
-	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
-	cerdoPosition = app->map->WorldToMap(position.x+8,position.y);
+	//playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
+	//cerdoPosition = app->map->WorldToMap(position.x + 8, position.y);
 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
-	
+
 	currentVelocity.y += 0.5;
 
-	app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
+	//app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
 	app->render->DrawTexture(texture, position.x, position.y);
 
-	if (app->physics->debug)
+	/*if (app->physics->debug)
 	{
 		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTexture, pos.x+8, pos.y+8);
+			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);
 		}
-	}
+	}*/
 
 	return true;
 }
 
-bool Cerdo::CleanUp()
+bool CerdoPatrullador::CleanUp()
 {
 	return true;
 }
 
 
-void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
+void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
