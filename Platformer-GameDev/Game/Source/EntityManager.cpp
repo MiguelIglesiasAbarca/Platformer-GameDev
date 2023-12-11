@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 #include "Player.h"
+#include "Enemy_A.h"
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
@@ -88,6 +89,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::TRAP:
 		entity = new Trap();
+		break;
+	case EntityType::ENEMY_A:
+		entity = new Enemy_A();
 		break;
 	default:
 		break;

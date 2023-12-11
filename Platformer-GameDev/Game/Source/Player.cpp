@@ -37,17 +37,17 @@ bool Player::Start() {
 
     //idle
     idleRight.LoadAnimations("Idleright");
-    idleRight.speed = 0.2f;
+    idleRight.speed = 0.48f;
 
     idleLeft.LoadAnimations("Idleleft");
-    idleLeft.speed = 0.2f;
+    idleLeft.speed = 0.48f;
 
     //run
     runRight.LoadAnimations("Runright");
-    runRight.speed = 0.2f;
+    runRight.speed = 0.167f;
 
     runLeft.LoadAnimations("Runleft");
-    runLeft.speed = 0.2f;
+    runLeft.speed = 0.167f;
 
     //dead
     dead.LoadAnimations("Dead");
@@ -64,11 +64,11 @@ bool Player::Start() {
 
     currentAnimation = &idleRight;
 
-    pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
+    pbody = app->physics->CreateCircle(position.x+100, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
-    currentAnimation = &idleRight;
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav"); 
+    deathFxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
 
 	return true;
 }
@@ -130,13 +130,6 @@ bool Player::Update(float dt)
         }
     }
 
-   // Si no se presionan las teclas de movimiento, aplicar una fricción alta
-    if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) 
-    {
-        currentVelocity.x *= 0.0;
-        running = false;
-    }
-
     if (isDead)
     {
         currentVelocity = b2Vec2(0,0);
@@ -148,10 +141,12 @@ bool Player::Update(float dt)
         isJumping = true;
         currentVelocity.y = -15;
         pbody->body->SetLinearVelocity(currentVelocity);
+        app->audio->PlayFx(1, 0);
 
         if (left_right == true)
         {
             currentAnimation = &jumpRight;
+            
             currentAnimation->Reset();
         }
         else
@@ -159,6 +154,13 @@ bool Player::Update(float dt)
             currentAnimation = &jumpLeft;
             currentAnimation->Reset();
         }
+    } 
+    
+    // Si no se presionan las teclas de movimiento, aplicar una fricción alta
+    if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT) 
+    {
+        currentVelocity.x *= 0.0;
+        running = false;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead) 
@@ -244,7 +246,7 @@ bool Player::Update(float dt)
     position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
     position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-    app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+    app->render->DrawTexture(texture, position.x-5, position.y-2, &currentAnimation->GetCurrentFrame());
     currentAnimation->Update();
 
     if (isDead)
@@ -280,6 +282,7 @@ void Player::Reset()
 
 void Player::OnDeath()
 {
+    app->audio->PlayFx(2, 0);
     isDead = true;
     running = false;
     currentAnimation = &dead;

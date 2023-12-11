@@ -45,6 +45,12 @@ bool Scene::Awake(pugi::xml_node& config)
 		player->parameters = config.child("player");
 	}
 
+	for (pugi::xml_node enemyNode = config.child("enemy_a"); enemyNode; enemyNode = enemyNode.next_sibling("enemy_a"))
+	{
+		Enemy_A* enemy = (Enemy_A*)app->entityManager->CreateEntity(EntityType::ENEMY_A);
+		enemy->parameters = enemyNode;
+	}
+
 	if (config.child("map")) {
 		//Get the map name from the config file and assigns the value in the module
 		app->map->name = config.child("map").attribute("name").as_string();
@@ -57,6 +63,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	//app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
 
