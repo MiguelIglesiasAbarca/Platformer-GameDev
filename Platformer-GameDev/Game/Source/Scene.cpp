@@ -70,6 +70,12 @@ bool Scene::Awake(pugi::xml_node& config)
 			Food* queso = (Food*)app->entityManager->CreateEntity(EntityType::COMIDA);
 			queso->parameters = quesoNode;
 		}
+
+		for (pugi::xml_node masaNode = foodNode.child("masa"); masaNode; masaNode = masaNode.next_sibling("masa"))
+		{
+			Food* masa = (Food*)app->entityManager->CreateEntity(EntityType::COMIDA);
+			masa->parameters = masaNode;
+		}
 	}
 
 	if (config.child("map")) {

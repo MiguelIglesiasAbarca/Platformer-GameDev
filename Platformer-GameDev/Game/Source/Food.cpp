@@ -47,7 +47,7 @@ bool Food::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	app->render->DrawTexture(texture, position.x+8, position.y+8);
+	app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
 }
