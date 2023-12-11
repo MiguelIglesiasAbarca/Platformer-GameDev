@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Map.h"
 #include "Physics.h"
+#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,6 +37,15 @@ bool Map::Start() {
 	mapPath += name;
 	bool ret = Load(mapPath);
 
+	//Initialize pathfinding 
+	pathfinding = new PathFinding();
+
+	//Initialize the navigation map
+	uchar* navigationMap = NULL;
+	CreateNavigationMap(mapData.width, mapData.height, &navigationMap);
+	pathfinding->SetNavigationMap((uint)mapData.width, (uint)mapData.height, navigationMap);
+	RELEASE_ARRAY(navigationMap);
+
 	return ret;
 }
 
@@ -51,15 +61,15 @@ bool Map::Update(float dt)
 
 		if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
-			for (int x = 0; x < mapLayerItem->data->width; x++)
+			for (int i = 0; i < mapLayerItem->data->width; i++)
 			{
-				for (int y = 0; y < mapLayerItem->data->height; y++)
+				for (int j = 0; j < mapLayerItem->data->height; j++)
 				{
-					int gid = mapLayerItem->data->Get(x, y);
+					int gid = mapLayerItem->data->Get(i, j);
 					TileSet* tileset = GetTilesetFromTileId(gid);
 
 					SDL_Rect r = tileset->GetTileRect(gid);
-					iPoint pos = MapToWorld(x, y);
+					iPoint pos = MapToWorld(i, j);
 
 					app->render->DrawTexture(tileset->texture,
 						pos.x,
@@ -75,119 +85,46 @@ bool Map::Update(float dt)
 	return true;
 }
 
-bool Map::loadCollisions(std::string layerName)
-{
-	if (mapLoaded == false)
-		return false;
-
-	ListItem<MapLayer*>* mapLayerItem;
-	mapLayerItem = mapData.maplayers.start;
-	while (mapLayerItem != NULL) {
-		//if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && !mapLayerItem->data->properties.GetProperty("Draw")->value) {
-		if (mapLayerItem->data->name.GetString() == layerName) {
-
-			for (int x = 0; x < mapLayerItem->data->width; x++)
-			{
-
-				for (int y = 0; y < mapLayerItem->data->height; y++)
-				{
-					int gid = mapLayerItem->data->Get(x, y);
-					TileSet* tileset = GetTilesetFromTileId(gid);
-
-					SDL_Rect r = tileset->GetTileRect(gid);
-					iPoint pos = MapToWorld(x, y);
-
-					if (tileset->firstgid + 0 == gid) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
-						c1->ctype = ColliderType::PLATFORM;
-						/*PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y, 32, 1, STATIC);
-						c1->ctype = ColliderType::PLATFORM;
-						PhysBody* c2 = app->physics->CreateRectangle(pos.x , pos.y + 17, 1, 32, STATIC);
-						c2->ctype = ColliderType::WALL;
-						PhysBody* c3 = app->physics->CreateRectangle(pos.x + 32, pos.y + 17, 1, 32, STATIC);
-						c3->ctype = ColliderType::WALL;
-						PhysBody* c4 = app->physics->CreateRectangle(pos.x + 16, pos.y+32, 32, 1, STATIC);
-						c4->ctype = ColliderType::WALL;*/
-					}
-
-					if (tileset->firstgid + 1 == gid) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x +16, pos.y + 27, 20, 10, STATIC);
-						c1->ctype = ColliderType::TRAP;
-					}
-
-					if (tileset->firstgid + 2 == gid) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
-						c1->ctype = ColliderType::WALL;
-					}
-
-					if (tileset->firstgid + 3 == gid) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 1, 32, 2, STATIC);
-						c1->ctype = ColliderType::CEILING;
-					}
-
-				}
-			}
-		}
-		mapLayerItem = mapLayerItem->next;
-		PhysBody* c1 = app->physics->CreateRectangle(1500, 3032+8, 100, 1, STATIC);
-		c1->ctype = ColliderType::NEXTLEVEL;
-	}
-}
-
-
-iPoint Map::MapToWorld(int x, int y) const
-{
-	iPoint ret;
-
-	ret.x = x * mapData.tileWidth;
-	ret.y = y * mapData.tileHeight;
-
-	return ret;
-}
-
-iPoint Map::WorldToMap(int x, int y)
-{
-	iPoint ret(0, 0);
-
-	return ret;
-}
-
-// Get relative Tile rectangle
-SDL_Rect TileSet::GetTileRect(int gid) const
-{
-	SDL_Rect rect = { 0 };
-	int relativeIndex = gid - firstgid;
-
-	rect.w = tileWidth;
-	rect.h = tileHeight;
-	rect.x = margin + (tileWidth + spacing) * (relativeIndex % columns);
-	rect.y = margin + (tileWidth + spacing) * (relativeIndex / columns);
-
-	return rect;
-}
+//TileSet* Map::GetTilesetFromTileId(int gid) const
+//{
+//	ListItem<TileSet*>* item = mapData.tilesets.start;
+//	TileSet* set = NULL;
+//
+//	while (item)
+//	{
+//		set = item->data;
+//		if (gid < (item->data->firstgid + item->data->tilecount))
+//		{
+//			break;
+//		}
+//		item = item->next;
+//	}
+//
+//	return set;
+//}
 
 TileSet* Map::GetTilesetFromTileId(int gid) const
 {
-	ListItem<TileSet*>* item = mapData.tilesets.start;
 	TileSet* set = NULL;
 
-	while (item)
-	{
-		set = item->data;
-		if (gid < (item->data->firstgid + item->data->tilecount))
-		{
-			break;
-		}
-		item = item->next;
+	ListItem<TileSet*>* tileSet;
+	tileSet = mapData.tilesets.start;
+	while (tileSet != NULL) {
+		set = tileSet->data;
+		if (gid >= tileSet->data->firstgid && gid < (tileSet->data->firstgid + tileSet->data->tilecount)) break;
+		tileSet = tileSet->next;
 	}
 
 	return set;
 }
 
+
 // Called before quitting
 bool Map::CleanUp()
 {
 	LOG("Unloading map");
+
+	pathfinding->CleanUp();
 
 	ListItem<TileSet*>* item;
 	item = mapData.tilesets.start;
@@ -212,8 +149,8 @@ bool Map::CleanUp()
 	return true;
 }
 
-// Load new map
-bool Map::Load(SString mapFileName)
+
+ bool Map::Load(SString mapFileName)
 {
 	bool ret = true;
 
@@ -303,6 +240,99 @@ bool Map::Load(SString mapFileName)
 
 	return ret;
 }
+
+iPoint Map::MapToWorld(int x, int y) const
+{
+	iPoint ret;
+
+	ret.x = x * mapData.tileWidth;
+	ret.y = y * mapData.tileHeight;
+
+	return ret;
+}
+
+bool Map::loadCollisions(std::string layerName)
+{
+	if (mapLoaded == false)
+		return false;
+
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.maplayers.start;
+	while (mapLayerItem != NULL) {
+		//if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && !mapLayerItem->data->properties.GetProperty("Draw")->value) {
+		if (mapLayerItem->data->name.GetString() == layerName) {
+
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+					int gid = mapLayerItem->data->Get(x, y);
+					TileSet* tileset = GetTilesetFromTileId(gid);
+
+					SDL_Rect r = tileset->GetTileRect(gid);
+					iPoint pos = MapToWorld(x, y);
+
+					if (tileset->firstgid + 0 == gid) {
+						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+						c1->ctype = ColliderType::PLATFORM;
+						/*PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y, 32, 1, STATIC);
+						c1->ctype = ColliderType::PLATFORM;
+						PhysBody* c2 = app->physics->CreateRectangle(pos.x , pos.y + 17, 1, 32, STATIC);
+						c2->ctype = ColliderType::WALL;
+						PhysBody* c3 = app->physics->CreateRectangle(pos.x + 32, pos.y + 17, 1, 32, STATIC);
+						c3->ctype = ColliderType::WALL;
+						PhysBody* c4 = app->physics->CreateRectangle(pos.x + 16, pos.y+32, 32, 1, STATIC);
+						c4->ctype = ColliderType::WALL;*/
+					}
+
+					if (tileset->firstgid + 1 == gid) {
+						PhysBody* c1 = app->physics->CreateRectangle(pos.x +16, pos.y + 27, 20, 10, STATIC);
+						c1->ctype = ColliderType::TRAP;
+					}
+
+					if (tileset->firstgid + 2 == gid) {
+						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+						c1->ctype = ColliderType::WALL;
+					}
+
+					if (tileset->firstgid + 3 == gid) {
+						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 1, 32, 2, STATIC);
+						c1->ctype = ColliderType::CEILING;
+					}
+
+				}
+			}
+		}
+		mapLayerItem = mapLayerItem->next;
+		PhysBody* c1 = app->physics->CreateRectangle(1500, 3032+8, 100, 1, STATIC);
+		c1->ctype = ColliderType::NEXTLEVEL;
+	}
+}
+
+
+
+iPoint Map::WorldToMap(int x, int y)
+{
+	iPoint ret(0, 0);
+
+	return ret;
+}
+
+// Get relative Tile rectangle
+SDL_Rect TileSet::GetTileRect(int gid) const
+{
+	SDL_Rect rect = { 0 };
+	int relativeIndex = gid - firstgid;
+
+	rect.w = tileWidth;
+	rect.h = tileHeight;
+	rect.x = margin + (tileWidth + spacing) * (relativeIndex % columns);
+	rect.y = margin + (tileWidth + spacing) * (relativeIndex / columns);
+
+	return rect;
+}
+
 
 bool Map::LoadMap(pugi::xml_node mapFile)
 {
