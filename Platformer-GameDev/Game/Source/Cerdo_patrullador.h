@@ -26,7 +26,7 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	//void OnDeath();
+	void OnDeath();
 
 public:
 	float speed = 1.0f;
@@ -39,18 +39,19 @@ public:
 	int posA;
 	int posB;
 	bool direction = true;
+	int health = 100;
 	//bool isJumping = false;
 	//bool running = false;
 	//bool isDead = false;
 	//bool left_right = true;
 
 	Animation* currentAnimation = nullptr;
-	//Animation idleRight;
+	/*Animation idleRight;*/
 	//Animation idleLeft;
-	//Animation runRight;
-	//Animation runLeft;
+	Animation runRight;
+	Animation runLeft;
 	//Animation attack;
-	//Animation dead;
+	Animation dead;
 	//Animation jumpRight;
 	//Animation jumpLeft;
 };

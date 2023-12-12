@@ -30,17 +30,26 @@ bool CerdoPatrullador::Awake() {
 
 bool CerdoPatrullador::Start() {
 
+
+	//run
+	runRight.LoadAnimations("Runright");
+	runRight.speed = 0.167f;
+
+	runLeft.LoadAnimations("Runleft");
+	runLeft.speed = 0.167f;
+
+	dead.LoadAnimations("Dead");
+	dead.speed = 0.167f;
+
+	currentAnimation = &runRight;
+
 	//initilize textures
-	/*pathTexture = app->tex->Load("Assets/Textures/tomate.png");*/
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
 	posA = position.x - 50;
 	posB = position.x + 50;
-
-	//enemyPbody = app->physics->CreateRectangleSensor(position.x, position.y, 30, 54, bodyType::KINEMATIC);
-	//enemyPbody->ctype = ColliderType::ENEMY;
 
 	//initialTransform = pbody->body->GetTransform();
 
@@ -52,25 +61,27 @@ bool CerdoPatrullador::Start() {
 bool CerdoPatrullador::Update(float dt)
 {
 
-	//playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
-	//cerdoPosition = app->map->WorldToMap(position.x + 8, position.y);
-
-	
-
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 	currentVelocity.y += 0.5;
 
-	/*app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);*/
+	health -= 1;
 
-	if (position.x >= posB)
+	if (health <= 0)
+	{
+		OnDeath();
+	}
+
+	if (position.x >= posB )
 	{
 		direction = false;
+		currentAnimation = &runLeft;
 	}
 	if (position.x <= posA)
 	{
 		direction = true;
+		currentAnimation = &runRight;
 	}
 
 	if (direction == false)
@@ -87,17 +98,8 @@ bool CerdoPatrullador::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y);
-
-	/*if (app->physics->debug)
-	{
-		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);
-		}
-	}*/
+	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+	currentAnimation->Update();
 
 	return true;
 }
@@ -107,6 +109,13 @@ bool CerdoPatrullador::CleanUp()
 	return true;
 }
 
+void CerdoPatrullador::OnDeath()
+{
+	currentAnimation = &dead;
+	currentAnimation->loopCount = 0;
+	app->entityManager->DestroyEntity(this);
+	app->physics->world->DestroyBody(pbody->body);
+}
 
 void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 
