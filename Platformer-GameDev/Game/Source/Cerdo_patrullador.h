@@ -39,6 +39,7 @@ public:
 	int posA;
 	int posB;
 	bool direction = true;
+	bool isFollowingPlayer = false;
 	int health = 100;
 	//bool isJumping = false;
 	//bool running = false;

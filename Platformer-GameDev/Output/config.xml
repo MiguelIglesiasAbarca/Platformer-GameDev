@@ -114,7 +114,9 @@
 	<!--enemies-->
 	  <enemies>
 		  <!--<cerdo x ="550" y="1700" speed="7.0" texturepath="Assets/Textures/cerdo_rey.png"/>-->
-		  <cerdoPatrullador x ="450" y="1700" speed="2.0" texturepath="Assets/Textures/player-anim.png"/>
+		  <cerdoPatrullador x ="1200" y="1200" speed="2.0" texturepath="Assets/Textures/player-anim.png"/>
+		  <cerdoPatrullador x ="1730" y="780" speed="2.0" texturepath="Assets/Textures/player-anim.png"/>
+		  <cerdoPatrullador x ="1950" y="2650" speed="2.0" texturepath="Assets/Textures/player-anim.png"/>
 	  </enemies>
 	  
 	  <comida>

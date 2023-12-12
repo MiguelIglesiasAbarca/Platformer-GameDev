@@ -70,29 +70,50 @@ bool CerdoPatrullador::Update(float dt)
 
 	if (health <= 0)
 	{
-		OnDeath();
+		//OnDeath();
 	}
 
-	if (position.x >= posB )
+	if (posA -400 <= app->scene->player->position.x && app->scene->player->position.x <= posB+400 && app->scene->player->position.y < position.y && app->scene->player->position.y >= position.y - 32)
 	{
-		direction = false;
-		currentAnimation = &runLeft;
-	}
-	if (position.x <= posA)
-	{
-		direction = true;
-		currentAnimation = &runRight;
-	}
-
-	if (direction == false)
-	{
-		currentVelocity.x = -speed;
-		pbody->body->SetLinearVelocity(currentVelocity);
+		isFollowingPlayer = true;
+		if (position.x < app->scene->player->position.x)
+		{
+			currentVelocity.x = speed*2.5;
+			currentAnimation = &runRight;
+			pbody->body->SetLinearVelocity(currentVelocity);
+		}
+		else if (position.x > app->scene->player->position.x)
+		{
+			currentVelocity.x = -speed*2.5;
+			currentAnimation = &runLeft;
+			pbody->body->SetLinearVelocity(currentVelocity);
+		}
 	}
 	else
 	{
-		currentVelocity.x = speed;
-		pbody->body->SetLinearVelocity(currentVelocity);
+		isFollowingPlayer = false;
+		
+		if (position.x >= posB )
+		{
+			direction = false;
+			currentAnimation = &runLeft;
+		}
+		if (position.x <= posA)
+		{
+			direction = true;
+			currentAnimation = &runRight;
+		}
+
+		if (direction == false)
+		{
+			currentVelocity.x = -speed;
+			pbody->body->SetLinearVelocity(currentVelocity);
+		}
+		else
+		{
+			currentVelocity.x = speed;
+			pbody->body->SetLinearVelocity(currentVelocity);
+		}
 	}
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
