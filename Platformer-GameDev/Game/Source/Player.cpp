@@ -69,6 +69,9 @@ bool Player::Start() {
     attackRight.LoadAnimations("Attackright");
     attackRight.speed = 0.1f;
 
+    attackLeft.LoadAnimations("Attackleft");
+    attackLeft.speed = 0.1f;
+
 #pragma endregion
 
     currentAnimation = &idleRight;
@@ -228,7 +231,7 @@ bool Player::Update(float dt)
     if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isDead && !isAttacking)
     {
         running = false;
-        left_right = true;
+        //left_right = true;
         
 
         if (isJumping)
@@ -238,13 +241,28 @@ bool Player::Update(float dt)
         else
         {
             isAttacking = true;
-            currentAnimation = &attackRight;
+
+                 if (left_right == true)
+                 {
+                    currentAnimation = &attackRight;
+
+                    currentAnimation->Reset();
+                 }
+                 else
+                 {
+                    currentAnimation = &attackLeft;
+                    currentAnimation->Reset();
+                 }
+
+           
             currentAnimation->Reset();
             currentAnimation->loopCount = 0;
         }
+
+        
         
     }
-    if (currentAnimation == &attackRight && currentAnimation->HasFinished())
+    if (currentAnimation == &attackRight && &attackLeft && currentAnimation->HasFinished())
     {
         isAttacking = false;
     }

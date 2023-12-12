@@ -93,6 +93,12 @@
 	<frame x="85" y="351" w="72" h="72"/>
 	<frame x="156" y="351" w="72" h="72"/>
    </Attackright>
+
+  <Attackleft loop="false" speed ="0.5">
+	<frame x="11" y="437" w="72" h="72"/>
+	<frame x="85" y="434" w="72" h="72"/>
+	<frame x="156" y="434" w="72" h="72"/>
+  </Attackleft>
 	
   <scene>
 

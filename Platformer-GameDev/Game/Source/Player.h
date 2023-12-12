@@ -59,6 +59,7 @@ public:
 	Animation jumpRight;
 	Animation jumpLeft;
 	Animation attackRight;
+	Animation attackLeft;
 
 
 };
