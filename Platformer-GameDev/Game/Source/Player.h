@@ -43,6 +43,7 @@ public:
 	bool isJumping = false;
 	bool running = false;
 	bool isDead = false;
+	bool isAttacking = false;
 	bool left_right = true;
 	bool godMode = false;
 	int level = 1;
@@ -57,6 +58,7 @@ public:
 	Animation dead;
 	Animation jumpRight;
 	Animation jumpLeft;
+	Animation attackRight;
 
 
 };
