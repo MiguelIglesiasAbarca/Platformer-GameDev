@@ -32,11 +32,11 @@ bool CerdoPatrullador::Start() {
 
 
 	//run
-	runRight.LoadAnimations("Runright");
-	runRight.speed = 0.167f;
+	runRight.LoadAnimations("Bombright");
+	runRight.speed = 0.16f;
 
-	runLeft.LoadAnimations("Runleft");
-	runLeft.speed = 0.167f;
+	runLeft.LoadAnimations("Bombleft");
+	runLeft.speed = 0.16f;
 
 	dead.LoadAnimations("Dead");
 	dead.speed = 0.167f;
@@ -119,7 +119,7 @@ bool CerdoPatrullador::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x, position.y+1, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 
 	return true;
