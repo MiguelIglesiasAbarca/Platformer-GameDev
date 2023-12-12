@@ -67,10 +67,10 @@ bool Player::Start() {
 
     //attack
     attackRight.LoadAnimations("Attackright");
-    attackRight.speed = 0.1f;
+    attackRight.speed = 0.2f;
 
     attackLeft.LoadAnimations("Attackleft");
-    attackLeft.speed = 0.1f;
+    attackLeft.speed = 0.2f;
 
 #pragma endregion
 
@@ -228,18 +228,11 @@ bool Player::Update(float dt)
         }
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isDead && !isAttacking)
+    if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isDead && !isAttacking )
     {
         running = false;
         //left_right = true;
-        
 
-        if (isJumping)
-        {
-            currentAnimation = &jumpRight;
-        }
-        else
-        {
             isAttacking = true;
 
                  if (left_right == true)
@@ -254,15 +247,11 @@ bool Player::Update(float dt)
                     currentAnimation->Reset();
                  }
 
-           
             currentAnimation->Reset();
             currentAnimation->loopCount = 0;
-        }
 
-        
-        
     }
-    if (currentAnimation == &attackRight && &attackLeft && currentAnimation->HasFinished())
+    if (currentAnimation->HasFinished())
     {
         isAttacking = false;
     }
