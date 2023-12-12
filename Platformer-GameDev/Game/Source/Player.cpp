@@ -87,10 +87,20 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+
+    LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA %d", isAttacking);
     b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
     b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
     currentVelocity.y += 0.5;
+
+    if (isDead)
+    {
+        if (dead.HasFinished())
+        {
+            Reset();
+        }
+    }
 
 #pragma region DEBUG
 
@@ -147,26 +157,6 @@ bool Player::Update(float dt)
     {
         currentVelocity = b2Vec2(0,0);
     }
-
-    //if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead)// Saltar solo si no estamos ya en el aire
-    //{
-    //    isJumping = true;
-    //    currentVelocity.y = -15;
-    //    pbody->body->SetLinearVelocity(currentVelocity);
-    //    app->audio->PlayFx(1, 0);
-
-    //    if (left_right == true)
-    //    {
-    //        currentAnimation = &jumpRight;
-
-    //        currentAnimation->Reset();
-    //    }
-    //    else
-    //    {
-    //        currentAnimation = &jumpLeft;
-    //        currentAnimation->Reset();
-    //    }
-    //}
 
     // Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead)// Saltar solo si no estamos ya en el aire
@@ -232,28 +222,32 @@ bool Player::Update(float dt)
     {
         running = false;
         //left_right = true;
-
-            isAttacking = true;
-
-                 if (left_right == true)
-                 {
-                    currentAnimation = &attackRight;
-
-                    currentAnimation->Reset();
-                 }
-                 else
-                 {
-                    currentAnimation = &attackLeft;
-                    currentAnimation->Reset();
-                 }
-
-            currentAnimation->Reset();
+        isAttacking = true;
+        
+        if (left_right == true)
+        {
+            currentAnimation = &attackRight;
             currentAnimation->loopCount = 0;
-
+        }
+        else
+        {
+            currentAnimation = &attackLeft;
+            currentAnimation->loopCount = 0;
+        }
+        
+       
+       
     }
-    if (currentAnimation->HasFinished())
+    if (currentAnimation->HasFinished() && !isDead)
     {
         isAttacking = false;
+        currentAnimation->Reset();
+    }
+    if ((currentAnimation->HasFinished() && isDead))
+    {
+        isAttacking = false;
+        currentAnimation->Reset();
+        OnDeath();
     }
 
 #pragma endregion
@@ -310,33 +304,17 @@ bool Player::Update(float dt)
     app->render->DrawTexture(texture, position.x-5, position.y-2, &currentAnimation->GetCurrentFrame());
     currentAnimation->Update();
 
-    if (isDead)
-    {
-        if(dead.HasFinished())
-        { 
-            Reset();
-        }
-    }
-
     return true;
 }
 
 bool Player::CleanUp()
 {
-    // Libera la memoria de la moneda si existe
-    if (coin != nullptr)
-    {
-        delete coin;
-        coin = nullptr;
-    }
-
-    // ... Otro código existente ...
-
     return true;
 }
 void Player::Reset()
 {
     isDead = false;
+    isAttacking = false;
     currentAnimation = &idleRight;
     if (level == 1)
     {
