@@ -16,12 +16,8 @@ Food::Food() : Entity(EntityType::COMIDA)
 
 Food::~Food() {}
 
-bool Food::Awake() {
-
-	/*position.x = 200;
-	position.y = 1700;
-	texture = app->tex->Load("Assets/Textures/tomate.png");*/
-
+bool Food::Awake() 
+{
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();

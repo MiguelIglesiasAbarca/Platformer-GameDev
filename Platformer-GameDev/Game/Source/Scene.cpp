@@ -119,6 +119,7 @@ bool Scene::Start()
 
 	
 	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
+
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
 

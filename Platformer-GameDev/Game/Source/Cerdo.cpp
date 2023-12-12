@@ -73,7 +73,7 @@ bool Cerdo::Update(float dt)
 
 	distance = sqrt(pow(playerTilePos.x - cerdoPosition.x, 2) + pow(playerTilePos.y - cerdoPosition.y, 2));
 
-	app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
+	
 
 	if (distance < 4)
 	{
@@ -84,6 +84,8 @@ bool Cerdo::Update(float dt)
 	}
 	else if (distance >= 4 && distance <= 5)
 	{
+		app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
+
 		if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
 		{
 			isFollowingPlayer = true;
