@@ -87,8 +87,6 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-
-    LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA %d", isAttacking);
     b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
     b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 

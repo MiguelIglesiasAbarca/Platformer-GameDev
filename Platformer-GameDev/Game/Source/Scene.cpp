@@ -23,6 +23,7 @@ Scene::~Scene()
 // Called before render is available
 bool Scene::Awake(pugi::xml_node& config)
 {
+	configNode = config;
 	LOG("Loading Scene");
 	bool ret = true;
 
@@ -94,6 +95,15 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before Fthe first frame
 bool Scene::Start()
 {
+	fondo0 = app->tex->Load(configNode.child("background").attribute("path").as_string());
+	fondo1 = app->tex->Load(configNode.child("background1").attribute("path").as_string());
+	fondo2 = app->tex->Load(configNode.child("background2").attribute("path").as_string());
+	fondo3 = app->tex->Load(configNode.child("background3").attribute("path").as_string());
+	fondo4 = app->tex->Load(configNode.child("background4").attribute("path").as_string());
+
+	app->win->GetWindowSize(windowW, windowH);
+	/*
+	 
 	bool ret = false;
 	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 
@@ -105,14 +115,8 @@ bool Scene::Start()
 		LOG("Error in App::LoadConfig(): %s", parseResult.description());
 	}
 
-	return ret;
+	return ret;*/
 
-	/*fondo0 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
-	fondo1 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
-	fondo2 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
-	fondo3 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
-	fondo4 = app->tex->Load(configNode.child_value("background").attribute("path").as_string());
-	app->win->GetWindowSize(windowW, windowH);*/
 	
 	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 	//Get the size of the window
@@ -173,12 +177,13 @@ bool Scene::Update(float dt)
 			app->render->camera.y = -2950;
 		}
 	}
-	SDL_Rect Rectfondo0{ 0,0,1536 * 4,216 * 4 };
-	SDL_Rect Rectfondo1{ 0,0,1536 * 4,216 * 4 };
-	SDL_Rect Rectfondo2{ 0,0,1536 * 3,216 * 3 };
-	SDL_Rect Rectfondo3{ 0,0,1536 * 3,216 * 3 };
-	SDL_Rect Rectfondo4{ 0,0,1536 * 32,216 * 32 };
-	app->render->DrawTexture(fondo0, -100, 0, &Rectfondo0, 0.2f);
+
+	SDL_Rect Rectfondo0{ 0,0,576*scale,324*scale};
+	SDL_Rect Rectfondo1{ 0,0,576*scale,324*scale};
+	SDL_Rect Rectfondo2{ 0,0,576*scale,324*scale};
+	SDL_Rect Rectfondo3{ 0,0,576*scale,324*scale};
+	SDL_Rect Rectfondo4{ 0,0,576*scale,324*scale};
+	app->render->DrawTexture(fondo0, -100, 0, &Rectfondo0);
 	app->render->DrawTexture(fondo1, -150, -100, &Rectfondo0, 0.4f);
 	app->render->DrawTexture(fondo2, -150, 110, &Rectfondo0, 0.6f);
 	app->render->DrawTexture(fondo3, -150, 110, &Rectfondo0, 0.7f);
