@@ -65,7 +65,6 @@ void Food::OnCollision(PhysBody* physA, PhysBody* physB) {
 		pbody->body->SetActive(false);
 		app->entityManager->DestroyEntity(this);
 		app->physics->world->DestroyBody(pbody->body);
-		pbody->body->SetAwake(this);
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");

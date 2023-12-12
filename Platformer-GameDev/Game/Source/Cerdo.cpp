@@ -30,6 +30,18 @@ bool Cerdo::Awake() {
 
 bool Cerdo::Start() {
 
+	runRight.LoadAnimations("Runright");
+	runRight.speed = 0.167f;
+
+	runLeft.LoadAnimations("Runleft");
+	runLeft.speed = 0.167f;
+
+	idleRight.LoadAnimations("Idleright");
+	idleRight.speed = 0.167f;
+
+	idleLeft.LoadAnimations("Idleleft");
+	idleLeft.speed = 0.167f;
+
 	//initilize textures
 	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
 	texture = app->tex->Load(texturePath);
@@ -50,7 +62,7 @@ bool Cerdo::Start() {
 
 bool Cerdo::Update(float dt)
 {
-
+	currentAnimation = &idleLeft;
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
 	cerdoPosition = app->map->WorldToMap(position.x+8,position.y);
 
@@ -59,12 +71,49 @@ bool Cerdo::Update(float dt)
 	
 	currentVelocity.y += 0.5;
 
+	distance = sqrt(pow(playerTilePos.x - cerdoPosition.x, 2) + pow(playerTilePos.y - cerdoPosition.y, 2));
+
 	app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
+
+	if (distance < 4)
+	{
+		//currentAnimation = &attack;
+		currentAnimation = &idleRight;
+		currentVelocity.x = 0;
+		pbody->body->SetLinearVelocity(currentVelocity);
+	}
+	else if (distance >= 4 && distance <= 5)
+	{
+		if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
+		{
+			isFollowingPlayer = true;
+			if (position.x < app->scene->player->position.x)
+			{
+				currentAnimation = &runRight;
+				currentVelocity.x = speed*2.5;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+			else if (position.x > app->scene->player->position.x)
+			{
+				currentVelocity.x = -speed*2.5;
+				currentAnimation = &runLeft;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+		}
+	}
+	else
+	{
+		currentAnimation = &idleRight;
+		currentVelocity.x = 0;
+		pbody->body->SetLinearVelocity(currentVelocity);
+		app->map->pathfinding->ClearLastPath();
+	}
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y);
+	app->render->DrawTexture(texture, position.x, position.y-4, &currentAnimation->GetCurrentFrame());
+	currentAnimation->Update();
 
 	if (app->physics->debug)
 	{
@@ -83,7 +132,6 @@ bool Cerdo::CleanUp()
 {
 	return true;
 }
-
 
 void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
 

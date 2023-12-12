@@ -24,28 +24,32 @@ public:
 
 	bool CleanUp();
 
+	void Move(const iPoint& origin, const iPoint& destination);
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 	//void OnDeath();
 
 public:
-	float speed = 7.0f;
+	float speed = 1.0f;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	SDL_Texture* pathTexture = NULL;
 	PhysBody* pbody;
 	iPoint cerdoPosition;
+	bool isFollowingPlayer = false;
 	iPoint playerTilePos;
+	int distance;
 	//bool isJumping = false;
 	//bool running = false;
 	//bool isDead = false;
 	//bool left_right = true;
 
 	Animation* currentAnimation = nullptr;
-	//Animation idleRight;
-	//Animation idleLeft;
-	//Animation runRight;
-	//Animation runLeft;
+	Animation idleRight;
+	Animation idleLeft;
+	Animation runRight;
+	Animation runLeft;
 	//Animation attack;
 	//Animation dead;
 	//Animation jumpRight;
