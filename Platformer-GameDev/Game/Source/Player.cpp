@@ -345,6 +345,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
         LOG("Collision TRAP");
         OnDeath();
         break;
+    case ColliderType::CERDO:
+        LOG("Collision TRAP");
+        OnDeath();
+        break;
     case ColliderType::NEXTLEVEL:
         LOG("Collision NEXTLEVEL");
         level = 2;

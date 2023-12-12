@@ -29,13 +29,16 @@ public:
 	//void OnDeath();
 
 public:
-	float speed = 7.0f;
+	float speed = 1.0f;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	SDL_Texture* pathTexture = NULL;
 	PhysBody* pbody;
 	iPoint cerdoPosition;
 	iPoint playerTilePos;
+	int posA;
+	int posB;
+	bool direction = true;
 	//bool isJumping = false;
 	//bool running = false;
 	//bool isDead = false;

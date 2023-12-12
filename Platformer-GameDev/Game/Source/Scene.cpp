@@ -45,17 +45,21 @@ bool Scene::Awake(pugi::xml_node& config)
 		player->parameters = config.child("player");
 	}
 
-	for (pugi::xml_node cerdoNode = config.child("cerdo"); cerdoNode; cerdoNode = cerdoNode.next_sibling("cerdo"))
+	for (pugi::xml_node enemiesNode = config.child("enemies"); enemiesNode; enemiesNode = enemiesNode.next_sibling("enemies"))
 	{
-		Cerdo* cerdo = (Cerdo*)app->entityManager->CreateEntity(EntityType::CERDO);
-		cerdo->parameters = cerdoNode;
-	}
+		for (pugi::xml_node cerdoNode = enemiesNode.child("cerdo"); cerdoNode; cerdoNode = cerdoNode.next_sibling("cerdo"))
+		{
+			Cerdo* cerdo = (Cerdo*)app->entityManager->CreateEntity(EntityType::CERDO);
+			cerdo->parameters = cerdoNode;
+		}
 
-	//for (pugi::xml_node tomateNode = config.child("tomate"); tomateNode; tomateNode = tomateNode.next_sibling("tomate"))
-	//{
-	//	Food* tomate = (Food*)app->entityManager->CreateEntity(EntityType::COMIDA);
-	//	tomate->parameters = tomateNode;
-	//}
+		for (pugi::xml_node cerdoPatrulladorNode = enemiesNode.child("cerdoPatrullador"); cerdoPatrulladorNode; cerdoPatrulladorNode = cerdoPatrulladorNode.next_sibling("cerdoPatrullador"))
+		{
+			CerdoPatrullador* cerdoPatrullador = (CerdoPatrullador*)app->entityManager->CreateEntity(EntityType::CERDO_PATRULLADOR);
+			cerdoPatrullador->parameters = cerdoPatrulladorNode;
+		}
+		
+	}
 
 	for (pugi::xml_node foodNode = config.child("comida"); foodNode; foodNode = foodNode.next_sibling("comida"))
 	{

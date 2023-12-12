@@ -11,7 +11,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 
-CerdoPatrullador::CerdoPatrullador() : Entity(EntityType::CERDO)
+CerdoPatrullador::CerdoPatrullador() : Entity(EntityType::CERDO_PATRULLADOR)
 {
 	name.Create("CerdoPatrullador");
 }
@@ -31,15 +31,16 @@ bool CerdoPatrullador::Awake() {
 bool CerdoPatrullador::Start() {
 
 	//initilize textures
-	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
+	/*pathTexture = app->tex->Load("Assets/Textures/tomate.png");*/
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
+	posA = position.x - 50;
+	posB = position.x + 50;
 
 	//enemyPbody = app->physics->CreateRectangleSensor(position.x, position.y, 30, 54, bodyType::KINEMATIC);
 	//enemyPbody->ctype = ColliderType::ENEMY;
-	//enemyPbody->listener = this;
 
 	//initialTransform = pbody->body->GetTransform();
 
@@ -54,12 +55,34 @@ bool CerdoPatrullador::Update(float dt)
 	//playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
 	//cerdoPosition = app->map->WorldToMap(position.x + 8, position.y);
 
+	
+
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 	currentVelocity.y += 0.5;
 
-	//app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
+	/*app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);*/
+
+	if (position.x >= posB)
+	{
+		direction = false;
+	}
+	if (position.x <= posA)
+	{
+		direction = true;
+	}
+
+	if (direction == false)
+	{
+		currentVelocity.x = -speed;
+		pbody->body->SetLinearVelocity(currentVelocity);
+	}
+	else
+	{
+		currentVelocity.x = speed;
+		pbody->body->SetLinearVelocity(currentVelocity);
+	}
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;

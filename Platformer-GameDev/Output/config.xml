@@ -98,16 +98,18 @@
 	<background4 path="Assets/Textures/fondo4.png"/>
     <player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-anim.png"/>
 	<!--enemies-->
-	<!--<cerdo x ="550" y="1700" speed="7.0" texturepath="Assets/Textures/cerdo_rey.png"/>-->
+	
 	<!--enemies-->
+	  <enemies>
+		  <!--<cerdo x ="550" y="1700" speed="7.0" texturepath="Assets/Textures/cerdo_rey.png"/>-->
+		  <cerdoPatrullador x ="450" y="1700" speed="2.0" texturepath="Assets/Textures/cerdo_rey.png"/>
+	  </enemies>
 	  
-	<comida>
-		<tomate x ="1220" y="3300" speed="7.0" texturepath="Assets/Textures/tomate.png"/>
-	    <masa x ="1550" y="1590" speed="7.0" texturepath="Assets/Textures/masa.png"/> 
-		<queso x ="200" y="2800" speed="7.0" texturepath="Assets/Textures/queso.png"/>
-		<queso x ="200" y="2800" speed="7.0" texturepath="Assets/Textures/queso.png"/>
-		
-	</comida>
+	  <comida>
+		  <tomate x ="1220" y="3300" speed="7.0" texturepath="Assets/Textures/tomate.png"/>
+		  <masa x ="1550" y="1590" speed="7.0" texturepath="Assets/Textures/masa.png"/> 
+		  <queso x ="200" y="2800" speed="7.0" texturepath="Assets/Textures/queso.png"/>
+	  </comida>
   </scene>
 
 </config>
