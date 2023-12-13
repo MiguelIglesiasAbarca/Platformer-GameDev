@@ -330,8 +330,20 @@ bool Player::Update(float dt)
 	// Actualizar la posición en píxeles
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
+	if (!isAttacking)
+	{
+		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
+	}
+	else if (left_right == false)
+	{
+		app->render->DrawTexture(texture, position.x - 25, position.y - 2, &currentAnimation->GetCurrentFrame());
+	}
+	else if (left_right == true)
+	{
+		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
 
-	app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
+	}
+	//app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 
 	return true;
