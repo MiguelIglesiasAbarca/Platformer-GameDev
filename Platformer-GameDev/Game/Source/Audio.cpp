@@ -177,3 +177,21 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+void Audio::PauseFx(unsigned int id)
+{
+	if (!active)
+		return;
+
+	if (id > 0 && id <= fx.Count())
+	{
+		for (int i = 0; i < MIX_CHANNELS; ++i)
+		{
+			if (Mix_GetChunk(i) == fx[id - 1] && Mix_Playing(i))
+			{
+				Mix_HaltChannel(i);
+				break;
+			}
+		}
+	}
+}

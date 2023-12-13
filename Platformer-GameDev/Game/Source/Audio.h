@@ -33,6 +33,8 @@ public:
 
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	void PauseFx(unsigned int id);
+
 private:
 
 	_Mix_Music* music;

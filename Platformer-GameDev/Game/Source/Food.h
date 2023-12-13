@@ -30,6 +30,7 @@ public:
 
 private:
 
+	int pickFood_FXid;
 	SDL_Texture* texture;
 	int movement = position.x;
 	const char* texturePath;

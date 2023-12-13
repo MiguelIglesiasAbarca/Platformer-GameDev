@@ -49,6 +49,7 @@ public:
 	bool isAttacking = false;
 	bool left_right = true;
 	bool godMode = false;
+	bool runningFX = false;
 	int level = 1;
 	int foodCounter = 0;
 

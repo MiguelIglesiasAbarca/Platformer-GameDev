@@ -32,6 +32,7 @@ bool Food::Start() {
 	pbody = app->physics->CreateCircle(position.x, position.y, 16, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::ITEM;
 	pbody->listener = this;
+	pickFood_FXid = app->audio->LoadFx("Assets/Audio/Fx/pick_food_FX.wav");
 
 	return true;
 }
@@ -58,6 +59,7 @@ void Food::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
+		app->audio->PlayFx(pickFood_FXid, 0);
 		pbody->body->SetActive(false);
 		app->entityManager->DestroyEntity(this);
 		app->physics->world->DestroyBody(pbody->body);

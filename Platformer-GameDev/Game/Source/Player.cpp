@@ -41,35 +41,35 @@ bool Player::Start() {
 #pragma region LOAD_ANIMATIONS
 
 	//idle
-	idleRight.LoadAnimations("Idleright","player");
+	idleRight.LoadAnimations("Idleright", "player");
 	idleRight.speed = 0.48f;
 
-	idleLeft.LoadAnimations("Idleleft","player");
+	idleLeft.LoadAnimations("Idleleft", "player");
 	idleLeft.speed = 0.48f;
 
 	//run
-	runRight.LoadAnimations("Runright","player");
+	runRight.LoadAnimations("Runright", "player");
 	runRight.speed = 0.167f;
 
-	runLeft.LoadAnimations("Runleft","player");
+	runLeft.LoadAnimations("Runleft", "player");
 	runLeft.speed = 0.167f;
 
 	//dead
-	dead.LoadAnimations("Dead","player");
+	dead.LoadAnimations("Dead", "player");
 	dead.speed = 0.1f;
 
 	//jump
-	jumpRight.LoadAnimations("Jumpright","player");
+	jumpRight.LoadAnimations("Jumpright", "player");
 	jumpRight.speed = 0.05f;
 
-	jumpLeft.LoadAnimations("Jumpleft","player");
+	jumpLeft.LoadAnimations("Jumpleft", "player");
 	jumpLeft.speed = 0.05f;
 
 	//attack
-	attackRight.LoadAnimations("Attackright","player");
+	attackRight.LoadAnimations("Attackright", "player");
 	attackRight.speed = 0.15f;
 
-	attackLeft.LoadAnimations("Attackleft","player");
+	attackLeft.LoadAnimations("Attackleft", "player");
 	attackLeft.speed = 0.15f;
 
 #pragma endregion
@@ -81,7 +81,6 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 	jump_FXid = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
 	death_Fxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
-	pickFood_FXid = app->audio->LoadFx("Assets/Audio/Fx/pick_food_FX.wav");
 	attack_FXid = app->audio->LoadFx("Assets/Audio/Fx/attack_FX.wav");
 	running_FXid = app->audio->LoadFx("Assets/Audio/Fx/footstep_FX.wav");
 
@@ -165,7 +164,7 @@ bool Player::Update(float dt)
 		isJumping = true;
 		currentVelocity.y = -15;
 		pbody->body->SetLinearVelocity(currentVelocity);
-		app->audio->PlayFx(1, 0);
+		app->audio->PlayFx(jump_FXid, 0);
 
 		if (left_right == true)
 		{
@@ -183,16 +182,34 @@ bool Player::Update(float dt)
 	// Si no se presionan las teclas de movimiento, aplicar una fricción alta
 	if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
 	{
-		currentVelocity.x *= 0.0;
+		currentVelocity.x = 0.0;
 		running = false;
+		if (runningFX == true)
+		{
+			runningFX = false;
+			app->audio->PauseFx(running_FXid);
+		}
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead && !isAttacking)
 	{
 		currentVelocity.x = -speed;
-		running = true;
-		left_right = false;
-		app->audio->PlayFx(5, 1);
+		if (!running)
+		{
+			running = true;
+		}
+
+		if (left_right == true)
+		{
+			runningFX = false;
+			left_right = false;
+		}
+
+		if (runningFX == false)
+		{
+			app->audio->PlayFx(running_FXid, -1);
+			runningFX = true;
+		}
 
 		if (isJumping)
 		{
@@ -207,9 +224,21 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead && !isAttacking)
 	{
 		currentVelocity.x = speed;
-		running = true;
-		left_right = true;
-		app->audio->PlayFx(5, 1);
+		if (!running)
+		{
+			running = true;
+		}
+		if (left_right == false)
+		{
+			runningFX = false;
+			left_right = true;
+		}
+		
+		if (runningFX == false)
+		{
+			app->audio->PlayFx(running_FXid, -1);
+			runningFX = true;
+		}
 
 		if (isJumping)
 		{
@@ -226,7 +255,8 @@ bool Player::Update(float dt)
 		running = false;
 		//left_right = true;
 		isAttacking = true;
-		app->audio->PlayFx(4, 0);
+		app->audio->PlayFx(attack_FXid, 0);
+
 		if (left_right == true)
 		{
 			currentAnimation = &attackRight;
@@ -343,7 +373,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		foodCounter++;
-		app->audio->PlayFx(3, 0);
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
