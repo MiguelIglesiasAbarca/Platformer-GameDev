@@ -161,9 +161,14 @@ bool Player::Update(float dt)
 	// Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead && !isAttacking)// Saltar solo si no estamos ya en el aire
 	{
-		isJumping = true;
 		currentVelocity.y = -15;
 		pbody->body->SetLinearVelocity(currentVelocity);
+		if (runningFX == true || isJumping == false)
+		{
+			runningFX = false;
+			isJumping = true;
+			app->audio->PauseFx(running_FXid);
+		}
 		app->audio->PlayFx(jump_FXid, 0);
 
 		if (left_right == true)
@@ -199,10 +204,20 @@ bool Player::Update(float dt)
 			running = true;
 		}
 
-		if (left_right == true)
+		if (left_right == true && isJumping == true || left_right == true)
 		{
 			runningFX = false;
 			left_right = false;
+		}
+
+		if (isJumping || isAttacking)
+		{
+			currentAnimation = &jumpLeft;
+			app->audio->PauseFx(running_FXid);
+		}
+		else
+		{
+			currentAnimation = &runLeft;
 		}
 
 		if (runningFX == false)
@@ -211,14 +226,6 @@ bool Player::Update(float dt)
 			runningFX = true;
 		}
 
-		if (isJumping)
-		{
-			currentAnimation = &jumpLeft;
-		}
-		else
-		{
-			currentAnimation = &runLeft;
-		}
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead && !isAttacking)
@@ -228,19 +235,13 @@ bool Player::Update(float dt)
 		{
 			running = true;
 		}
-		if (left_right == false)
+		if (left_right == false && isJumping == true || left_right == false)
 		{
 			runningFX = false;
 			left_right = true;
 		}
-		
-		if (runningFX == false)
-		{
-			app->audio->PlayFx(running_FXid, -1);
-			runningFX = true;
-		}
 
-		if (isJumping)
+		if (isJumping || isAttacking)
 		{
 			currentAnimation = &jumpRight;
 		}
@@ -248,13 +249,20 @@ bool Player::Update(float dt)
 		{
 			currentAnimation = &runRight;
 		}
+
+		if (runningFX == false)
+		{
+			app->audio->PlayFx(running_FXid, -1);
+			runningFX = true;
+		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking && isAttacking == false)
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking)
 	{
 		running = false;
 		//left_right = true;
 		isAttacking = true;
+		app->audio->PauseFx(running_FXid);
 		app->audio->PlayFx(attack_FXid, 0);
 
 		if (left_right == true)
