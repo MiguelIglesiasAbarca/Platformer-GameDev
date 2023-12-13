@@ -225,26 +225,23 @@ bool Player::Update(float dt)
 		if (left_right == true)
 		{
 			currentAnimation = &attackRight;
+			currentAnimation->Reset();
 			currentAnimation->loopCount = 0;
 		}
 		else
 		{
 			currentAnimation = &attackLeft;
+			currentAnimation->Reset();
 			currentAnimation->loopCount = 0;
 		}
-
-
-
 	}
 	if (currentAnimation->HasFinished() && !isDead)
 	{
 		isAttacking = false;
-		currentAnimation->Reset();
 	}
 	if ((currentAnimation->HasFinished() && isDead))
 	{
 		isAttacking = false;
-		currentAnimation->Reset();
 		OnDeath();
 	}
 
