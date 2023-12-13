@@ -81,6 +81,7 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 	jumpFXid = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
 	deathFxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
+	pickFood = app->audio->LoadFx("Assets/Audio/Fx/pick_food_FX.wav");
 
 	return true;
 }
@@ -338,6 +339,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		foodCounter++;
+		app->audio->PlayFx(3, 0);
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");

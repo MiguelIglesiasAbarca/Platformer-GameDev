@@ -40,6 +40,7 @@ public:
 	PhysBody* pbody;
 	int jumpFXid;
 	int deathFxid;
+	int pickFood;
 	bool isJumping = false;
 	bool running = false;
 	bool isDead = false;
