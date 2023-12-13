@@ -38,9 +38,10 @@ public:
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
-	int jumpFXid;
-	int deathFxid;
-	int pickFood;
+	int jump_FXid;
+	int death_Fxid;
+	int pickFood_FXid;
+	int attack_FXid;
 	bool isJumping = false;
 	bool running = false;
 	bool isDead = false;

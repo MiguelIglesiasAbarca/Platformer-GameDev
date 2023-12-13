@@ -79,9 +79,10 @@ bool Player::Start() {
 	pbody = app->physics->CreateCircle(position.x + 100, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
-	jumpFXid = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
-	deathFxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
-	pickFood = app->audio->LoadFx("Assets/Audio/Fx/pick_food_FX.wav");
+	jump_FXid = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
+	death_Fxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
+	pickFood_FXid = app->audio->LoadFx("Assets/Audio/Fx/pick_food_FX.wav");
+	attack_FXid = app->audio->LoadFx("Assets/Audio/Fx/attack_FX.wav");
 
 	return true;
 }
@@ -222,7 +223,7 @@ bool Player::Update(float dt)
 		running = false;
 		//left_right = true;
 		isAttacking = true;
-
+		app->audio->PlayFx(4, 0);
 		if (left_right == true)
 		{
 			currentAnimation = &attackRight;
