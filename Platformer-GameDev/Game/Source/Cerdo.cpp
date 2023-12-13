@@ -73,8 +73,6 @@ bool Cerdo::Update(float dt)
 
 	distance = sqrt(pow(playerTilePos.x - cerdoPosition.x, 2) + pow(playerTilePos.y - cerdoPosition.y, 2));
 
-	
-
 	if (distance < 4)
 	{
 		//currentAnimation = &attack;
@@ -85,6 +83,30 @@ bool Cerdo::Update(float dt)
 	else if (distance >= 4 && distance <= 5)
 	{
 		app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
+		/*lastPath = app->map->pathfinding->GetLastPath();*/
+
+		//if (lastPath->Count() > 0)
+		//{
+		//	const iPoint* nextTile;
+		//	nextTile = lastPath->At(lastPath->Count() - 1);
+
+		//	if (nextTile->x == position.x)
+		//	{
+
+		//	}
+		//	else if (nextTile->x < position.x)
+		//	{
+		//		currentAnimation = &runRight;
+		//		currentVelocity.x = speed * 2.5;
+		//		pbody->body->SetLinearVelocity(currentVelocity);
+		//	}
+		//	else
+		//	{
+		//		currentVelocity.x = -speed * 2.5;
+		//		currentAnimation = &runLeft;
+		//		pbody->body->SetLinearVelocity(currentVelocity);
+		//	}
+		//}
 
 		if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
 		{

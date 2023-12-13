@@ -59,6 +59,12 @@ bool Scene::Awake(pugi::xml_node& config)
 			CerdoPatrullador* cerdoPatrullador = (CerdoPatrullador*)app->entityManager->CreateEntity(EntityType::CERDO_PATRULLADOR);
 			cerdoPatrullador->parameters = cerdoPatrulladorNode;
 		}
+
+	/*	for (pugi::xml_node dragonNode = enemiesNode.child("dragon"); dragonNode; dragonNode = dragonNode.next_sibling("dragon"))
+		{
+			Dragon* dragon = (Dragon*)app->entityManager->CreateEntity(EntityType::CERDO_PATRULLADOR);
+			cerdoPatrullador->parameters = cerdoPatrulladorNode;
+		}*/
 		
 	}
 

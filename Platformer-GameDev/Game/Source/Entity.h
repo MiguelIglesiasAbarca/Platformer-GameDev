@@ -13,6 +13,7 @@ enum class EntityType
 	PLAYER,
 	CERDO,
 	CERDO_PATRULLADOR,
+	DRAGON,
 	ITEM,
 	TRAP,
 	COMIDA,

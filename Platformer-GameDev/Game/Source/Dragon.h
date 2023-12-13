@@ -1,5 +1,5 @@
-#ifndef __CERDO__
-#define __CERDO__
+#ifndef __DRAGON__
+#define __DRAGON__
 
 #include "Entity.h"
 #include "Point.h"
@@ -8,13 +8,13 @@
 
 struct SDL_Texture;
 
-class Cerdo : public Entity
+class Dragon : public Entity
 {
 public:
 
-	Cerdo();
+	Dragon();
 
-	virtual ~Cerdo();
+	virtual ~Dragon();
 
 	bool Awake();
 
@@ -24,11 +24,9 @@ public:
 
 	bool CleanUp();
 
-	void Move(const iPoint& origin, const iPoint& destination);
-
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	//void OnDeath();
+	void OnDeath();
 
 public:
 	float speed = 1.0f;
@@ -37,24 +35,28 @@ public:
 	SDL_Texture* pathTexture = NULL;
 	PhysBody* pbody;
 	iPoint cerdoPosition;
-	bool isFollowingPlayer = false;
 	iPoint playerTilePos;
-	int distance;
-	/*const DynArray<iPoint>* lastPath;*/
+	int posA;
+	int posB;
+	bool direction = true;
+	bool isFollowingPlayer = false;
+	int health = 100;
 	//bool isJumping = false;
 	//bool running = false;
 	//bool isDead = false;
 	//bool left_right = true;
 
 	Animation* currentAnimation = nullptr;
-	Animation idleRight;
-	Animation idleLeft;
+	/*Animation idleRight;*/
+	//Animation idleLeft;
 	Animation runRight;
 	Animation runLeft;
 	//Animation attack;
-	//Animation dead;
+	Animation dead;
 	//Animation jumpRight;
 	//Animation jumpLeft;
 };
 
 #endif
+
+
