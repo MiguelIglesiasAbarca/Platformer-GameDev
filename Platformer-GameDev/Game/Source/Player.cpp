@@ -206,6 +206,7 @@ bool Player::Update(float dt)
 
 		if (left_right == true && isJumping == true || left_right == true)
 		{
+			app->audio->PauseFx(running_FXid);
 			runningFX = false;
 			left_right = false;
 		}
@@ -237,6 +238,7 @@ bool Player::Update(float dt)
 		}
 		if (left_right == false && isJumping == true || left_right == false)
 		{
+			app->audio->PauseFx(running_FXid);
 			runningFX = false;
 			left_right = true;
 		}
