@@ -26,7 +26,7 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\Cerdo.cpp" />
     <ClCompile Include="Source\Food.cpp" />
-    <ClCompile Include="Source\Cerdo_patrullador.cpp" />
+    <ClCompile Include="Source\Cerdo_bomba.cpp" />
     <ClCompile Include="Source\Dragon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +78,7 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\Cerdo.h" />
     <ClInclude Include="Source\Food.h" />
-    <ClInclude Include="Source\Cerdo_patrullador.h" />
+    <ClInclude Include="Source\Cerdo_bomba.h" />
     <ClInclude Include="Source\Dragon.h" />
   </ItemGroup>
   <ItemGroup>

@@ -41,36 +41,36 @@ bool Player::Start() {
 #pragma region LOAD_ANIMATIONS
 
 	//idle
-	idleRight.LoadAnimations("Idleright");
+	idleRight.LoadAnimations("Idleright","player");
 	idleRight.speed = 0.48f;
 
-	idleLeft.LoadAnimations("Idleleft");
+	idleLeft.LoadAnimations("Idleleft","player");
 	idleLeft.speed = 0.48f;
 
 	//run
-	runRight.LoadAnimations("Runright");
+	runRight.LoadAnimations("Runright","player");
 	runRight.speed = 0.167f;
 
-	runLeft.LoadAnimations("Runleft");
+	runLeft.LoadAnimations("Runleft","player");
 	runLeft.speed = 0.167f;
 
 	//dead
-	dead.LoadAnimations("Dead");
+	dead.LoadAnimations("Dead","player");
 	dead.speed = 0.1f;
 
 	//jump
-	jumpRight.LoadAnimations("Jumpright");
+	jumpRight.LoadAnimations("Jumpright","player");
 	jumpRight.speed = 0.05f;
 
-	jumpLeft.LoadAnimations("Jumpleft");
+	jumpLeft.LoadAnimations("Jumpleft","player");
 	jumpLeft.speed = 0.05f;
 
 	//attack
-	attackRight.LoadAnimations("Attackright");
-	attackRight.speed = 0.2f;
+	attackRight.LoadAnimations("Attackright","player");
+	attackRight.speed = 0.15f;
 
-	attackLeft.LoadAnimations("Attackleft");
-	attackLeft.speed = 0.2f;
+	attackLeft.LoadAnimations("Attackleft","player");
+	attackLeft.speed = 0.15f;
 
 #pragma endregion
 
@@ -157,7 +157,7 @@ bool Player::Update(float dt)
 	}
 
 	// Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead)// Saltar solo si no estamos ya en el aire
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead && !isAttacking)// Saltar solo si no estamos ya en el aire
 	{
 		isJumping = true;
 		currentVelocity.y = -15;
@@ -216,7 +216,7 @@ bool Player::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking)
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking && isAttacking == false)
 	{
 		running = false;
 		//left_right = true;

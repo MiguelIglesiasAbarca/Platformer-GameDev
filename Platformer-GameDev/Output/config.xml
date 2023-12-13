@@ -20,103 +20,7 @@
 		<music volume="10"/>
 		<fx volume="10"/>
 	</audio>
-	<Runright loop="true" speed ="0.2">
-		<frame x="6" y="14" w="45" h="38"/>
-		<frame x="84" y="14" w="45" h="38"/>
-		<frame x="162" y="14" w="45" h="38"/>
-		<frame x="240" y="14" w="45" h="38"/>
-		<frame x="318" y="14" w="45" h="38"/>
-		<frame x="396" y="14" w="45" h="38"/>
-		<frame x="474" y="14" w="45" h="38"/>
-		<frame x="552" y="14" w="45" h="38"/>
-	</Runright>
-
-	<Runleft loop="true" speed ="0.2">
-		<frame x="6" y="115" w="55" h="35"/>
-		<frame x="84" y="115" w="55" h="35"/>
-		<frame x="162" y="115" w="55" h="35"/>
-		<frame x="240" y="115" w="55" h="35"/>
-		<frame x="318" y="115" w="55" h="35"/>
-		<frame x="396" y="115" w="55" h="35"/>
-		<frame x="474" y="115" w="55" h="35"/>
-		<frame x="552" y="115" w="55" h="35"/>
-	</Runleft>
-
-	<Idleright loop="true" speed ="0.5">
-		<frame x="6" y="65" w="44" h="45"/>
-		<frame x="84" y="65" w="44" h="45"/>
-		<frame x="162" y="65" w="44" h="45"/>
-		<frame x="240" y="65" w="44" h="45"/>
-		<frame x="318" y="65" w="44" h="45"/>
-		<frame x="396" y="65" w="44" h="45"/>
-		<frame x="474" y="65" w="44" h="45"/>
-		<frame x="552" y="65" w="44" h="45"/>
-		<frame x="630" y="65" w="44" h="45"/>
-		<frame x="708" y="65" w="44" h="45"/>
-		<frame x="786" y="65" w="44" h="45"/>
-	</Idleright>
-
-	<Idleleft loop="true" speed ="0.5">
-		<frame x="10" y="265" w="44" h="45"/>
-		<frame x="88" y="265" w="44" h="45"/>
-		<frame x="166" y="265" w="44" h="45"/>
-		<frame x="244" y="265" w="44" h="45"/>
-		<frame x="322" y="265" w="44" h="45"/>
-		<frame x="400" y="265" w="44" h="45"/>
-		<frame x="478" y="265" w="44" h="45"/>
-		<frame x="556" y="265" w="44" h="45"/>
-		<frame x="634" y="265" w="44" h="45"/>
-		<frame x="712" y="265" w="44" h="45"/>
-		<frame x="790" y="265" w="44" h="45"/>
-	</Idleleft>
-
-	<Dead loop="false" speed ="0.1">
-		<frame x="6" y="167" w="49" h="46"/>
-		<frame x="80" y="167" w="49" h="46"/>
-		<frame x="157" y="167" w="49" h="46"/>
-		<frame x="235" y="167" w="49" h="46"/>
-	</Dead>
-
-	<Jumpright loop="false" speed ="0.1">
-		<frame x="6" y="211" w="43" h="43"/>
-		<frame x="82" y="211" w="43" h="43"/>
-	</Jumpright>
-
-	<Jumpleft loop="true" speed ="0.1">
-		<frame x="12" y="311" w="43" h="41"/>
-		<frame x="86" y="311" w="43" h="41"/>
-	</Jumpleft>
-
-	<Attackright loop="false" speed ="0.5">
-		<frame x="11" y="364" w="68" h="68"/>
-		<frame x="85" y="364" w="68" h="68"/>
-		<frame x="156" y="364" w="68" h="68"/>
-	</Attackright>
-
-	<Attackleft loop="false" speed ="0.5">
-		<frame x="11" y="432" w="90" h="90"/>
-		<frame x="101" y="432" w="90" h="90"/>
-		<frame x="191" y="432" w="90" h="90"/>
-	</Attackleft>
-
-	<Bombleft loop="true" speed ="0.5">
-		<frame x="0" y="535" w="26" h="26"/>
-		<frame x="26" y="535" w="26" h="26"/>
-		<frame x="52" y="535" w="26" h="26"/>
-		<frame x="78" y="535" w="26" h="26"/>
-		<frame x="104" y="535" w="26" h="26"/>
-		<frame x="130" y="535" w="26" h="26"/>
-	</Bombleft>
-
-	<Bombright loop="true" speed ="0.5">
-		<frame x="0" y="561" w="26" h="26"/>
-		<frame x="26" y="561" w="26" h="26"/>
-		<frame x="52" y="561" w="26" h="26"/>
-		<frame x="78" y="561" w="26" h="26"/>
-		<frame x="104" y="561" w="26" h="26"/>
-		<frame x="130" y="561" w="26" h="26"/>
-	</Bombright>
-
+	
 	<scene>
 
 		<map path="Assets/Maps/" name="MapTemplate.tmx"/>
@@ -125,7 +29,7 @@
 		<background2 path="Assets/Textures/fondo2.png"/>
 		<background3 path="Assets/Textures/fondo3.png"/>
 		<background4 path="Assets/Textures/fondo4.png"/>
-		
+
 		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-anim.png"/>
 
 		<enemies>
@@ -141,5 +45,193 @@
 			<queso x ="200" y="2800" texturepath="Assets/Textures/queso.png"/>
 		</comida>
 	</scene>
+	
+	<player>
+		<animations>
+			<Runright loop="true" speed ="0.2">
+				<frame x="6" y="14" w="45" h="38"/>
+				<frame x="84" y="14" w="45" h="38"/>
+				<frame x="162" y="14" w="45" h="38"/>
+				<frame x="240" y="14" w="45" h="38"/>
+				<frame x="318" y="14" w="45" h="38"/>
+				<frame x="396" y="14" w="45" h="38"/>
+				<frame x="474" y="14" w="45" h="38"/>
+				<frame x="552" y="14" w="45" h="38"/>
+			</Runright>
+
+			<Runleft loop="true" speed ="0.2">
+				<frame x="6" y="115" w="55" h="35"/>
+				<frame x="84" y="115" w="55" h="35"/>
+				<frame x="162" y="115" w="55" h="35"/>
+				<frame x="240" y="115" w="55" h="35"/>
+				<frame x="318" y="115" w="55" h="35"/>
+				<frame x="396" y="115" w="55" h="35"/>
+				<frame x="474" y="115" w="55" h="35"/>
+				<frame x="552" y="115" w="55" h="35"/>
+			</Runleft>
+
+			<Idleright loop="true" speed ="0.5">
+				<frame x="6" y="65" w="44" h="45"/>
+				<frame x="84" y="65" w="44" h="45"/>
+				<frame x="162" y="65" w="44" h="45"/>
+				<frame x="240" y="65" w="44" h="45"/>
+				<frame x="318" y="65" w="44" h="45"/>
+				<frame x="396" y="65" w="44" h="45"/>
+				<frame x="474" y="65" w="44" h="45"/>
+				<frame x="552" y="65" w="44" h="45"/>
+				<frame x="630" y="65" w="44" h="45"/>
+				<frame x="708" y="65" w="44" h="45"/>
+				<frame x="786" y="65" w="44" h="45"/>
+			</Idleright>
+
+			<Idleleft loop="true" speed ="0.5">
+				<frame x="10" y="265" w="44" h="45"/>
+				<frame x="88" y="265" w="44" h="45"/>
+				<frame x="166" y="265" w="44" h="45"/>
+				<frame x="244" y="265" w="44" h="45"/>
+				<frame x="322" y="265" w="44" h="45"/>
+				<frame x="400" y="265" w="44" h="45"/>
+				<frame x="478" y="265" w="44" h="45"/>
+				<frame x="556" y="265" w="44" h="45"/>
+				<frame x="634" y="265" w="44" h="45"/>
+				<frame x="712" y="265" w="44" h="45"/>
+				<frame x="790" y="265" w="44" h="45"/>
+			</Idleleft>
+
+			<Dead loop="false" speed ="0.1">
+				<frame x="6" y="167" w="49" h="46"/>
+				<frame x="80" y="167" w="49" h="46"/>
+				<frame x="157" y="167" w="49" h="46"/>
+				<frame x="235" y="167" w="49" h="46"/>
+			</Dead>
+
+			<Jumpright loop="false" speed ="0.1">
+				<frame x="6" y="211" w="43" h="43"/>
+				<frame x="82" y="211" w="43" h="43"/>
+			</Jumpright>
+
+			<Jumpleft loop="true" speed ="0.1">
+				<frame x="12" y="311" w="43" h="41"/>
+				<frame x="86" y="311" w="43" h="41"/>
+			</Jumpleft>
+
+			<Attackright loop="false" speed ="0.5">
+				<frame x="11" y="364" w="68" h="68"/>
+				<frame x="85" y="364" w="68" h="68"/>
+				<frame x="156" y="364" w="68" h="68"/>
+			</Attackright>
+
+			<Attackleft loop="false" speed ="0.5">
+				<frame x="11" y="432" w="90" h="90"/>
+				<frame x="101" y="432" w="90" h="90"/>
+				<frame x="191" y="432" w="90" h="90"/>
+			</Attackleft>
+		</animations>
+	</player>
+	
+	<cerdo>
+		<animations>
+			<Runright loop="true" speed ="0.2">
+				<frame x="6" y="14" w="45" h="38"/>
+				<frame x="84" y="14" w="45" h="38"/>
+				<frame x="162" y="14" w="45" h="38"/>
+				<frame x="240" y="14" w="45" h="38"/>
+				<frame x="318" y="14" w="45" h="38"/>
+				<frame x="396" y="14" w="45" h="38"/>
+				<frame x="474" y="14" w="45" h="38"/>
+				<frame x="552" y="14" w="45" h="38"/>
+			</Runright>
+
+			<Runleft loop="true" speed ="0.2">
+				<frame x="6" y="115" w="55" h="35"/>
+				<frame x="84" y="115" w="55" h="35"/>
+				<frame x="162" y="115" w="55" h="35"/>
+				<frame x="240" y="115" w="55" h="35"/>
+				<frame x="318" y="115" w="55" h="35"/>
+				<frame x="396" y="115" w="55" h="35"/>
+				<frame x="474" y="115" w="55" h="35"/>
+				<frame x="552" y="115" w="55" h="35"/>
+			</Runleft>
+
+			<Idleright loop="true" speed ="0.5">
+				<frame x="6" y="65" w="44" h="45"/>
+				<frame x="84" y="65" w="44" h="45"/>
+				<frame x="162" y="65" w="44" h="45"/>
+				<frame x="240" y="65" w="44" h="45"/>
+				<frame x="318" y="65" w="44" h="45"/>
+				<frame x="396" y="65" w="44" h="45"/>
+				<frame x="474" y="65" w="44" h="45"/>
+				<frame x="552" y="65" w="44" h="45"/>
+				<frame x="630" y="65" w="44" h="45"/>
+				<frame x="708" y="65" w="44" h="45"/>
+				<frame x="786" y="65" w="44" h="45"/>
+			</Idleright>
+
+			<Idleleft loop="true" speed ="0.5">
+				<frame x="10" y="265" w="44" h="45"/>
+				<frame x="88" y="265" w="44" h="45"/>
+				<frame x="166" y="265" w="44" h="45"/>
+				<frame x="244" y="265" w="44" h="45"/>
+				<frame x="322" y="265" w="44" h="45"/>
+				<frame x="400" y="265" w="44" h="45"/>
+				<frame x="478" y="265" w="44" h="45"/>
+				<frame x="556" y="265" w="44" h="45"/>
+				<frame x="634" y="265" w="44" h="45"/>
+				<frame x="712" y="265" w="44" h="45"/>
+				<frame x="790" y="265" w="44" h="45"/>
+			</Idleleft>
+
+			<Dead loop="false" speed ="0.1">
+				<frame x="6" y="167" w="49" h="46"/>
+				<frame x="80" y="167" w="49" h="46"/>
+				<frame x="157" y="167" w="49" h="46"/>
+				<frame x="235" y="167" w="49" h="46"/>
+			</Dead>
+
+			<Jumpright loop="false" speed ="0.1">
+				<frame x="6" y="211" w="43" h="43"/>
+				<frame x="82" y="211" w="43" h="43"/>
+			</Jumpright>
+
+			<Jumpleft loop="true" speed ="0.1">
+				<frame x="12" y="311" w="43" h="41"/>
+				<frame x="86" y="311" w="43" h="41"/>
+			</Jumpleft>
+
+			<Attackright loop="false" speed ="0.5">
+				<frame x="11" y="364" w="68" h="68"/>
+				<frame x="85" y="364" w="68" h="68"/>
+				<frame x="156" y="364" w="68" h="68"/>
+			</Attackright>
+
+			<Attackleft loop="false" speed ="0.5">
+				<frame x="11" y="432" w="90" h="90"/>
+				<frame x="101" y="432" w="90" h="90"/>
+				<frame x="191" y="432" w="90" h="90"/>
+			</Attackleft>
+		</animations>
+	</cerdo>
+	
+	<cerdoBomba>
+		<animations>
+			<Bombleft loop="true" speed ="0.5">
+				<frame x="0" y="535" w="26" h="26"/>
+				<frame x="26" y="535" w="26" h="26"/>
+				<frame x="52" y="535" w="26" h="26"/>
+				<frame x="78" y="535" w="26" h="26"/>
+				<frame x="104" y="535" w="26" h="26"/>
+				<frame x="130" y="535" w="26" h="26"/>
+			</Bombleft>
+			
+			<Bombright loop="true" speed ="0.5">
+				<frame x="0" y="561" w="26" h="26"/>
+				<frame x="26" y="561" w="26" h="26"/>
+				<frame x="52" y="561" w="26" h="26"/>
+				<frame x="78" y="561" w="26" h="26"/>
+				<frame x="104" y="561" w="26" h="26"/>
+				<frame x="130" y="561" w="26" h="26"/>
+			</Bombright>
+		</animations>
+	</cerdoBomba>
 
 </config>

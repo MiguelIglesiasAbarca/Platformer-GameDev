@@ -1,7 +1,7 @@
 #include "EntityManager.h"
 #include "Player.h"
 #include "Cerdo.h"
-#include "Cerdo_patrullador.h"
+#include "Cerdo_bomba.h"
 #include "Food.h"
 #include "App.h"
 #include "Textures.h"

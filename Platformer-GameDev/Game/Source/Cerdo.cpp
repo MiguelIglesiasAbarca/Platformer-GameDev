@@ -30,16 +30,16 @@ bool Cerdo::Awake() {
 
 bool Cerdo::Start() {
 
-	runRight.LoadAnimations("Runright");
+	runRight.LoadAnimations("Runright","cerdo");
 	runRight.speed = 0.167f;
 
-	runLeft.LoadAnimations("Runleft");
+	runLeft.LoadAnimations("Runleft","cerdo");
 	runLeft.speed = 0.167f;
 
-	idleRight.LoadAnimations("Idleright");
+	idleRight.LoadAnimations("Idleright","cerdo");
 	idleRight.speed = 0.167f;
 
-	idleLeft.LoadAnimations("Idleleft");
+	idleLeft.LoadAnimations("Idleleft","cerdo");
 	idleLeft.speed = 0.167f;
 
 	//initilize textures

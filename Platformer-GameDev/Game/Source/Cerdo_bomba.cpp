@@ -1,4 +1,4 @@
-#include "Cerdo_patrullador.h"
+#include "Cerdo_bomba.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -32,13 +32,13 @@ bool CerdoPatrullador::Start() {
 
 
 	//run
-	runRight.LoadAnimations("Bombright");
+	runRight.LoadAnimations("Bombright","cerdoBomba");
 	runRight.speed = 0.16f;
 
-	runLeft.LoadAnimations("Bombleft");
+	runLeft.LoadAnimations("Bombleft","cerdoBomba");
 	runLeft.speed = 0.16f;
 
-	dead.LoadAnimations("Dead");
+	dead.LoadAnimations("Dead","cerdoBomba");
 	dead.speed = 0.167f;
 
 	currentAnimation = &runRight;

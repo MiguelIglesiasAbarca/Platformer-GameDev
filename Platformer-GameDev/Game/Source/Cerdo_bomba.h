@@ -1,5 +1,5 @@
-#ifndef __CERDO_PATRULLADOR__
-#define __CERDO_PATRULLADOR__
+#ifndef __CERDO_BOMBA__
+#define __CERDO_BOMBA__
 
 #include "Entity.h"
 #include "Point.h"
