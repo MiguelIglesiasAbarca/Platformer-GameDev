@@ -162,6 +162,7 @@ unsigned int Audio::LoadFx(const char* path)
 }
 
 // Play WAV
+
 bool Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;

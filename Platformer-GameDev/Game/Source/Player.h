@@ -42,6 +42,7 @@ public:
 	int death_Fxid;
 	int pickFood_FXid;
 	int attack_FXid;
+	int running_FXid;
 	bool isJumping = false;
 	bool running = false;
 	bool isDead = false;

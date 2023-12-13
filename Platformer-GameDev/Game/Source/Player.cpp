@@ -83,6 +83,7 @@ bool Player::Start() {
 	death_Fxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
 	pickFood_FXid = app->audio->LoadFx("Assets/Audio/Fx/pick_food_FX.wav");
 	attack_FXid = app->audio->LoadFx("Assets/Audio/Fx/attack_FX.wav");
+	running_FXid = app->audio->LoadFx("Assets/Audio/Fx/footstep_FX.wav");
 
 	return true;
 }
@@ -191,6 +192,7 @@ bool Player::Update(float dt)
 		currentVelocity.x = -speed;
 		running = true;
 		left_right = false;
+		app->audio->PlayFx(5, 1);
 
 		if (isJumping)
 		{
@@ -207,6 +209,7 @@ bool Player::Update(float dt)
 		currentVelocity.x = speed;
 		running = true;
 		left_right = true;
+		app->audio->PlayFx(5, 1);
 
 		if (isJumping)
 		{
