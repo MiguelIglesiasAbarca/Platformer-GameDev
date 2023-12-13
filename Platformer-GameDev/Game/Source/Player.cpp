@@ -216,7 +216,7 @@ bool Player::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isDead && !isAttacking)
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking)
 	{
 		running = false;
 		//left_right = true;
