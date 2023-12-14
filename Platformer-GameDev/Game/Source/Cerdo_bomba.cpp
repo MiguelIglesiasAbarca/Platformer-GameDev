@@ -37,9 +37,12 @@ bool CerdoPatrullador::Start() {
 
 	runLeft.LoadAnimations("Bombleft", "cerdoBomba");
 	runLeft.speed = 0.16f;
-
+	//dead
 	dead.LoadAnimations("Dead", "cerdoBomba");
 	dead.speed = 0.25f;
+	//watifok
+	watifokIn.LoadAnimations("Watifokin", "cerdoBomba");
+	watifokIn.speed = 0.005f;
 
 	currentAnimation = &runRight;
 
@@ -70,6 +73,18 @@ bool CerdoPatrullador::Update(float dt)
 
 	//health -= 1;
 	
+	if (isFollowingPlayer)
+	{
+		app->render->DrawTexture(texture, position.x-10, position.y - 10, &watifokIn.GetCurrentFrame());
+	}
+	/*else
+	{
+		app->render->DrawTexture(texture, position.x, position.y + 1, &watifokIn.GetCurrentFrame());
+	}*/
+
+	// Resto de tu código de dibujo...
+
+
 	if (isDead) {
 		// If the "cerdobomba" is dead, play the boom animation and draw the sprite
 		currentAnimation->Update();
@@ -94,6 +109,8 @@ bool CerdoPatrullador::Update(float dt)
 		{
 			app->audio->PlayFx(pigOink_FXid, 0);
 			isFollowingPlayer = true;
+
+			watifokIn.Reset();
 		}
 
 		if (position.x < app->scene->player->position.x)

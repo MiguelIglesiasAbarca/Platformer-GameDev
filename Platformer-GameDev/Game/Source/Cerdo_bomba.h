@@ -53,6 +53,7 @@ public:
 	//Animation idleLeft;
 	Animation runRight;
 	Animation runLeft;
+	Animation watifokIn;
 	//Animation attack;
 	Animation dead;
 	//Animation jumpRight;
