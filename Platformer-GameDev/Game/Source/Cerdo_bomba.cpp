@@ -42,7 +42,7 @@ bool CerdoPatrullador::Start() {
 	dead.speed = 0.25f;
 	//watifok
 	watifokIn.LoadAnimations("Watifokin", "cerdoBomba");
-	watifokIn.speed = 0.005f;
+	watifokIn.speed = 0.05f;
 
 	currentAnimation = &runRight;
 
@@ -159,12 +159,15 @@ bool CerdoPatrullador::Update(float dt)
 	}
 	else if(isFollowingPlayer)
 	{
-		app->render->DrawTexture(texture, position.x+7, position.y - 5, &watifokIn.GetCurrentFrame());
 		app->render->DrawTexture(texture, position.x, position.y +1, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+		currentAnimation = &watifokIn;
+		app->render->DrawTexture(texture, position.x + 7, position.y - 5, &currentAnimation->GetCurrentFrame());
 		currentAnimation->Update();
 	}
 	else
 	{
+		currentAnimation->Reset();
 		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame());
 		currentAnimation->Update();
 	}
