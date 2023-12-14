@@ -32,14 +32,14 @@ bool CerdoPatrullador::Start() {
 
 
 	//run
-	runRight.LoadAnimations("Bombright","cerdoBomba");
+	runRight.LoadAnimations("Bombright", "cerdoBomba");
 	runRight.speed = 0.16f;
 
-	runLeft.LoadAnimations("Bombleft","cerdoBomba");
+	runLeft.LoadAnimations("Bombleft", "cerdoBomba");
 	runLeft.speed = 0.16f;
 
-	dead.LoadAnimations("Dead","cerdoBomba");
-	dead.speed = 0.167f;
+	dead.LoadAnimations("Dead", "cerdoBomba");
+	dead.speed = 0.25f;
 
 	currentAnimation = &runRight;
 
@@ -51,6 +51,8 @@ bool CerdoPatrullador::Start() {
 	posA = position.x - 50;
 	posB = position.x + 50;
 
+	pigExplosion_FXid = app->audio->LoadFx("Assets/Audio/Fx/pig_explosion_FX.wav");
+	pigOink_FXid = app->audio->LoadFx("Assets/Audio/Fx/pig_oink_FX.wav");
 	//initialTransform = pbody->body->GetTransform();
 
 	//LoadAnimations();
@@ -67,24 +69,35 @@ bool CerdoPatrullador::Update(float dt)
 	currentVelocity.y += 0.5;
 
 	health -= 1;
+	
+	if (currentAnimation->HasFinished() && isDead)
+	{
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
 
 	if (health <= 0)
 	{
 		//OnDeath();
 	}
 
-	if (posA -400 <= app->scene->player->position.x && app->scene->player->position.x <= posB+400 && app->scene->player->position.y < position.y && app->scene->player->position.y >= position.y - 32)
+	if (posA - 400 <= app->scene->player->position.x && app->scene->player->position.x <= posB + 400 && app->scene->player->position.y < position.y && app->scene->player->position.y >= position.y - 32)
 	{
-		isFollowingPlayer = true;
+		if (isFollowingPlayer == false)
+		{
+			app->audio->PlayFx(pigOink_FXid, 0);
+			isFollowingPlayer = true;
+		}
+
 		if (position.x < app->scene->player->position.x)
 		{
-			currentVelocity.x = speed*2.5;
+			currentVelocity.x = speed * 2.5;
 			currentAnimation = &runRight;
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
 		else if (position.x > app->scene->player->position.x)
 		{
-			currentVelocity.x = -speed*2.5;
+			currentVelocity.x = -speed * 2.5;
 			currentAnimation = &runLeft;
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
@@ -92,8 +105,8 @@ bool CerdoPatrullador::Update(float dt)
 	else
 	{
 		isFollowingPlayer = false;
-		
-		if (position.x >= posB )
+
+		if (position.x >= posB)
 		{
 			direction = false;
 			currentAnimation = &runLeft;
@@ -115,13 +128,24 @@ bool CerdoPatrullador::Update(float dt)
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
 	}
-
+	
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y+1, &currentAnimation->GetCurrentFrame());
-	currentAnimation->Update();
-
+	if (isDead)
+	{
+		currentAnimation = &dead;
+		currentAnimation->loopCount = 0;
+		currentVelocity.x = 0;
+		pbody->body->SetLinearVelocity(currentVelocity);
+		app->render->DrawTexture(texture, position.x-75, position.y - 124, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+	}
+	else
+	{
+		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+	}
 	return true;
 }
 
@@ -132,16 +156,18 @@ bool CerdoPatrullador::CleanUp()
 
 void CerdoPatrullador::OnDeath()
 {
-	currentAnimation = &dead;
-	currentAnimation->loopCount = 0;
-	app->entityManager->DestroyEntity(this);
-	app->physics->world->DestroyBody(pbody->body);
+	isDead = true;
 }
 
 void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
+	case ColliderType::PLAYER:
+		LOG("Collision PLAYER");
+		app->audio->PlayFx(pigExplosion_FXid, 0);
+		OnDeath();
+		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		break;

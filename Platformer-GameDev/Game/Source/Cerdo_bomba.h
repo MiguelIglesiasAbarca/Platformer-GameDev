@@ -41,9 +41,11 @@ public:
 	bool direction = true;
 	bool isFollowingPlayer = false;
 	int health = 100;
+	int pigExplosion_FXid;
+	int pigOink_FXid;
 	//bool isJumping = false;
 	//bool running = false;
-	//bool isDead = false;
+	bool isDead = false;
 	//bool left_right = true;
 
 	Animation* currentAnimation = nullptr;
