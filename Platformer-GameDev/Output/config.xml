@@ -248,8 +248,8 @@
 
 			<Watifokin loop="true" speed ="0.5">
 				
-				<frame x="62" y="787" w="45" h="45"/>
-				<frame x="134" y="787" w="45" h="45"/>
+				<frame x="0" y="739" w="16" h="16"/>
+				<frame x="16" y="739" w="16" h="16"/>
 			</Watifokin>
 
 			<Watifokout loop="true" speed ="0.5">

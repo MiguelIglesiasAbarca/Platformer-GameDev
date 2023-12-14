@@ -73,24 +73,16 @@ bool CerdoPatrullador::Update(float dt)
 
 	//health -= 1;
 	
-	if (isFollowingPlayer)
+	/*if (isFollowingPlayer)
 	{
 		app->render->DrawTexture(texture, position.x-10, position.y - 10, &watifokIn.GetCurrentFrame());
-	}
+	}*/
 	/*else
 	{
 		app->render->DrawTexture(texture, position.x, position.y + 1, &watifokIn.GetCurrentFrame());
 	}*/
 
 	// Resto de tu código de dibujo...
-
-
-	if (isDead) {
-		// If the "cerdobomba" is dead, play the boom animation and draw the sprite
-		currentAnimation->Update();
-		app->render->DrawTexture(texture, position.x - 75, position.y - 124, &currentAnimation->GetCurrentFrame());
-		return true;
-	}
 
 	if (currentAnimation->HasFinished() && isDead)
 	{
@@ -110,7 +102,7 @@ bool CerdoPatrullador::Update(float dt)
 			app->audio->PlayFx(pigOink_FXid, 0);
 			isFollowingPlayer = true;
 
-			watifokIn.Reset();
+			//watifokIn.Reset();
 		}
 
 		if (position.x < app->scene->player->position.x)
@@ -165,6 +157,12 @@ bool CerdoPatrullador::Update(float dt)
 		app->render->DrawTexture(texture, position.x-75, position.y - 124, &currentAnimation->GetCurrentFrame());
 		currentAnimation->Update();
 	}
+	else if(isFollowingPlayer)
+	{
+		app->render->DrawTexture(texture, position.x+7, position.y - 5, &watifokIn.GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x, position.y +1, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+	}
 	else
 	{
 		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame());
@@ -188,15 +186,6 @@ void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
 		app->audio->PlayFx(pigExplosion_FXid, 0);
-		
-		health -= 1;
-		
-		// Switch to the boom animation when the "cerdobomba" touches the player
-		currentAnimation = &dead;
-		currentAnimation->loopCount = 0;
-
-		// Optionally add any other logic related to death
-
 		OnDeath(); // Call the OnDeath function
 		break;
 	case ColliderType::ITEM:
