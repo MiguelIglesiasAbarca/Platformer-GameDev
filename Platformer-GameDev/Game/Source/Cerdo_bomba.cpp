@@ -68,8 +68,15 @@ bool CerdoPatrullador::Update(float dt)
 
 	currentVelocity.y += 0.5;
 
-	health -= 1;
+	//health -= 1;
 	
+	if (isDead) {
+		// If the "cerdobomba" is dead, play the boom animation and draw the sprite
+		currentAnimation->Update();
+		app->render->DrawTexture(texture, position.x - 75, position.y - 124, &currentAnimation->GetCurrentFrame());
+		return true;
+	}
+
 	if (currentAnimation->HasFinished() && isDead)
 	{
 		app->entityManager->DestroyEntity(this);
@@ -78,7 +85,7 @@ bool CerdoPatrullador::Update(float dt)
 
 	if (health <= 0)
 	{
-		//OnDeath();
+		OnDeath();
 	}
 
 	if (posA - 400 <= app->scene->player->position.x && app->scene->player->position.x <= posB + 400 && app->scene->player->position.y < position.y && app->scene->player->position.y >= position.y - 32)
@@ -160,13 +167,20 @@ void CerdoPatrullador::OnDeath()
 }
 
 void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
-
-	switch (physB->ctype)
-	{
+	switch (physB->ctype) {
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
 		app->audio->PlayFx(pigExplosion_FXid, 0);
-		OnDeath();
+		
+		health -= 1;
+		
+		// Switch to the boom animation when the "cerdobomba" touches the player
+		currentAnimation = &dead;
+		currentAnimation->loopCount = 0;
+
+		// Optionally add any other logic related to death
+
+		OnDeath(); // Call the OnDeath function
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
