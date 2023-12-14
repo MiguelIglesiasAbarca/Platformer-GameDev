@@ -37,6 +37,9 @@
 			<cerdoPatrullador x ="1200" y="1200" speed="3.0" texturepath="Assets/Textures/player-anim.png"/>
 			<cerdoPatrullador x ="1730" y="780" speed="3.0" texturepath="Assets/Textures/player-anim.png"/>
 			<cerdoPatrullador x ="1950" y="2650" speed="3.0" texturepath="Assets/Textures/player-anim.png"/>
+			<cerdoPatrullador x ="1450" y="3020" speed="3.0" texturepath="Assets/Textures/player-anim.png"/>
+			<cerdoPatrullador x ="2350" y="2050" speed="3.0" texturepath="Assets/Textures/player-anim.png"/>
+			<cerdoPatrullador x ="2701" y="1850" speed="3.0" texturepath="Assets/Textures/player-anim.png"/>
 		</enemies>
 
 		<comida>
