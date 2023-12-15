@@ -167,7 +167,6 @@ bool CerdoPatrullador::Update(float dt)
 	}
 	else
 	{
-		currentAnimation->Reset();
 		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame());
 		currentAnimation->Update();
 	}
