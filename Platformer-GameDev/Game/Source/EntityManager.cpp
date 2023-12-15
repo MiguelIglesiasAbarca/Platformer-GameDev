@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Cerdo.h"
 #include "Cerdo_bomba.h"
+#include "Dragon.h"
 #include "Food.h"
 #include "App.h"
 #include "Textures.h"
@@ -97,6 +98,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::CERDO_PATRULLADOR:
 		entity = new CerdoPatrullador();
+		break;
+	case EntityType::DRAGON:
+		entity = new Dragon();
 		break;
 	case EntityType::COMIDA:
 		entity = new Food();

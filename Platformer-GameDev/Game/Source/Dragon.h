@@ -41,14 +41,16 @@ public:
 	bool direction = true;
 	bool isFollowingPlayer = false;
 	int health = 100;
+	int distance;
+	bool isDead = false;
 	//bool isJumping = false;
 	//bool running = false;
 	//bool isDead = false;
 	//bool left_right = true;
 
 	Animation* currentAnimation = nullptr;
-	/*Animation idleRight;*/
-	//Animation idleLeft;
+	Animation idleRight;
+	Animation idleLeft;
 	Animation runRight;
 	Animation runLeft;
 	//Animation attack;

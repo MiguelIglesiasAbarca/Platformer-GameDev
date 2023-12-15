@@ -60,11 +60,11 @@ bool Scene::Awake(pugi::xml_node& config)
 			cerdoPatrullador->parameters = cerdoPatrulladorNode;
 		}
 
-	/*	for (pugi::xml_node dragonNode = enemiesNode.child("dragon"); dragonNode; dragonNode = dragonNode.next_sibling("dragon"))
+		for (pugi::xml_node dragonNode = enemiesNode.child("dragon"); dragonNode; dragonNode = dragonNode.next_sibling("dragon"))
 		{
-			Dragon* dragon = (Dragon*)app->entityManager->CreateEntity(EntityType::CERDO_PATRULLADOR);
-			cerdoPatrullador->parameters = cerdoPatrulladorNode;
-		}*/
+			Dragon* dragon = (Dragon*)app->entityManager->CreateEntity(EntityType::DRAGON);
+			dragon->parameters = dragonNode;
+		}
 		
 	}
 
@@ -124,7 +124,7 @@ bool Scene::Start()
 	return ret;*/
 
 	
-	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
+	//app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);

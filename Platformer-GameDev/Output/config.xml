@@ -39,7 +39,8 @@
 			<cerdoPatrullador x ="1950" y="2650" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
-			<cerdoPatrullador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
+			<!--<cerdoPatrullador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
+			<dragon x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 		</enemies>
 
 		<comida>
@@ -261,5 +262,35 @@
 			</Watifokout>
 		</animations>
 	</cerdoBomba>
+
+	<dragon>
+		<animations>
+			<Idleleft loop="true" speed ="0.5">
+				<frame x="0" y="755" w="55" h="37"/>
+				<frame x="55" y="755" w="55" h="37"/>
+				<frame x="110" y="755" w="55" h="37"/>
+			</Idleleft>
+
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="755" w="55" h="37"/>
+				<frame x="55" y="755" w="55" h="37"/>
+				<frame x="110" y="755" w="55" h="37"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="588" w="150" h="150"/>
+				<frame x="150" y="588" w="150" h="150"/>
+				<frame x="300" y="588" w="150" h="150"/>
+				<frame x="450" y="588" w="150" h="150"/>
+				<frame x="600" y="588" w="150" h="150"/>
+				<frame x="750" y="588" w="150" h="150"/>
+				<frame x="900" y="588" w="150" h="150"/>
+				<frame x="1050" y="588" w="150" h="150"/>
+				<frame x="1200" y="588" w="150" h="150"/>
+				<frame x="1350" y="588" w="150" h="150"/>
+				<frame x="1500" y="588" w="150" h="150"/>
+			</Dead>
+		</animations>
+	</dragon>
 
 </config>

@@ -32,20 +32,21 @@ bool Dragon::Start() {
 
 
 	//run
-	runRight.LoadAnimations("Bombright");
-	runRight.speed = 0.16f;
+	idleRight.LoadAnimations("Idleright", "dragon");
+	idleRight.speed = 0.16f;
 
-	runLeft.LoadAnimations("Bombleft");
-	runLeft.speed = 0.16f;
+	idleLeft.LoadAnimations("Idleleft", "dragon");
+	idleLeft.speed = 0.16f;
 
-	dead.LoadAnimations("Dead");
+	dead.LoadAnimations("Dead", "dragon");
 	dead.speed = 0.167f;
 
 	currentAnimation = &runRight;
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);
+	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
+	pbody = app->physics->CreateCircle(position.x, position.y, 15, bodyType::KINEMATIC); // porque no funciona ?? 
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
 	posA = position.x - 50;
@@ -66,16 +67,39 @@ bool Dragon::Update(float dt)
 
 	currentVelocity.y += 0.5;
 
-	health -= 1;
+	//health -= 1;
+
+	/*if (isFollowingPlayer)
+	{
+		app->render->DrawTexture(texture, position.x-10, position.y - 10, &watifokIn.GetCurrentFrame());
+	}*/
+	/*else
+	{
+		app->render->DrawTexture(texture, position.x, position.y + 1, &watifokIn.GetCurrentFrame());
+	}*/
+
+	// Resto de tu código de dibujo...
+
+	if (currentAnimation->HasFinished() && isDead)
+	{
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
 
 	if (health <= 0)
 	{
-		//OnDeath();
+		OnDeath();
 	}
 
 	if (posA - 400 <= app->scene->player->position.x && app->scene->player->position.x <= posB + 400 && app->scene->player->position.y < position.y && app->scene->player->position.y >= position.y - 32)
 	{
-		isFollowingPlayer = true;
+		if (isFollowingPlayer == false)
+		{
+			isFollowingPlayer = true;
+
+			//watifokIn.Reset();
+		}
+
 		if (position.x < app->scene->player->position.x)
 		{
 			currentVelocity.x = speed * 2.5;
@@ -119,9 +143,20 @@ bool Dragon::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame());
-	currentAnimation->Update();
-
+	if (isDead)
+	{
+		currentAnimation = &dead;
+		currentAnimation->loopCount = 0;
+		currentVelocity.x = 0;
+		pbody->body->SetLinearVelocity(currentVelocity);
+		app->render->DrawTexture(texture, position.x - 75, position.y - 124, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+	}
+	else
+	{
+		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+	}
 	return true;
 }
 
