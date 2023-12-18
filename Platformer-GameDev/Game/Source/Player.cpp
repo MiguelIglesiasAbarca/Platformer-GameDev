@@ -44,15 +44,9 @@ bool Player::Start() {
 	idleRight.LoadAnimations("Idleright", "player");
 	idleRight.speed = 0.48f;
 
-	/*idleLeft.LoadAnimations("Idleleft", "player");
-	idleLeft.speed = 0.48f;*/
-
 	//run
 	runRight.LoadAnimations("Runright", "player");
 	runRight.speed = 0.167f;
-
-	runLeft.LoadAnimations("Runleft", "player");
-	runLeft.speed = 0.167f;
 
 	//dead
 	dead.LoadAnimations("Dead", "player");
@@ -62,15 +56,9 @@ bool Player::Start() {
 	jumpRight.LoadAnimations("Jumpright", "player");
 	jumpRight.speed = 0.05f;
 
-	jumpLeft.LoadAnimations("Jumpleft", "player");
-	jumpLeft.speed = 0.05f;
-
 	//attack
 	attackRight.LoadAnimations("Attackright", "player");
 	attackRight.speed = 0.15f;
-
-	attackLeft.LoadAnimations("Attackleft", "player");
-	attackLeft.speed = 0.15f;
 
 #pragma endregion
 
@@ -94,17 +82,18 @@ bool Player::Update(float dt)
 
 	currentVelocity.y += 0.5;
 
+
 	if (isDead)
 	{
 		if (dead.HasFinished())
 		{
 			Reset();
 		}
+		currentVelocity = b2Vec2(0, 0);
 	}
 
 #pragma region DEBUG
 
-	// Verificar si el jugador está en el suelo (velocidad vertical cercana a cero)
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		isDead = false;
@@ -146,11 +135,6 @@ bool Player::Update(float dt)
 		currentAnimation = &idleRight;
 	}
 
-	if (isDead)
-	{
-		currentVelocity = b2Vec2(0, 0);
-	}
-
 	// Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping && !isDead && !isAttacking)// Saltar solo si no estamos ya en el aire
 	{
@@ -167,13 +151,10 @@ bool Player::Update(float dt)
 		if (looksRight == true)
 		{
 			currentAnimation = &jumpRight;
-
-			currentAnimation->Reset();
 		}
 		else
 		{
-			currentAnimation = &jumpLeft;
-			currentAnimation->Reset();
+			currentAnimation = &jumpRight;
 		}
 	}
 
@@ -191,6 +172,7 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead && !isAttacking)
 	{
+		looksRight = false;
 		currentVelocity.x = -speed;
 		if (!running)
 		{
@@ -206,12 +188,12 @@ bool Player::Update(float dt)
 
 		if (isJumping || isAttacking)
 		{
-			currentAnimation = &jumpLeft;
+			currentAnimation = &jumpRight;
 			app->audio->PauseFx(running_FXid);
 		}
 		else
 		{
-			currentAnimation = &runLeft;
+			currentAnimation = &runRight;
 		}
 
 		if (runningFX == false)
@@ -224,6 +206,7 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !isDead && !isAttacking)
 	{
+		looksRight = true;
 		currentVelocity.x = speed;
 		if (!running)
 		{
@@ -268,11 +251,12 @@ bool Player::Update(float dt)
 		}
 		else
 		{
-			currentAnimation = &attackLeft;
+			currentAnimation = &attackRight;
 			currentAnimation->Reset();
 			currentAnimation->loopCount = 0;
 		}
 	}
+	
 	if (currentAnimation->HasFinished() && !isDead)
 	{
 		isAttacking = false;
@@ -333,20 +317,25 @@ bool Player::Update(float dt)
 	// Actualizar la posición en píxeles
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
-	if (!isAttacking)
+
+	if (!isAttacking && !looksRight)
 	{
-		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
-	else if (looksRight == false)
-	{
-		app->render->DrawTexture(texture, position.x - 25, position.y - 2, &currentAnimation->GetCurrentFrame(),SDL_FLIP_HORIZONTAL);
-	}
-	else if (looksRight == true)
+	else if (!isAttacking && looksRight)
 	{
 		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
 
 	}
-	//app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
+	else if (isAttacking && !looksRight)
+	{
+		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+	}
+	else if (isAttacking && looksRight)
+	{
+		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
+	};
+
 	currentAnimation->Update();
 
 	return true;

@@ -47,7 +47,7 @@ public:
 	bool running = false;
 	bool isDead = false;
 	bool isAttacking = false;
-	bool looksRight = true;
+	bool looksRight = false;
 	bool godMode = false;
 	bool runningFX = false;
 	int level = 1;
