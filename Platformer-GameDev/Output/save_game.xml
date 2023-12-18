@@ -5,10 +5,13 @@
 	<textures />
 	<audio />
 	<:anonymous />
-	<scene />
+	<scene>
+		<player x="623" y="1048" />
+		<pconditions godMode="true" isDead="false" isJumping="false" running="false" left_right="false" />
+	</scene>
 	<:anonymous />
 	<entitymanager />
 	<renderer>
-		<camera x="-392" y="-784" />
+		<camera x="-123" y="-548" />
 	</renderer>
 </game_state>

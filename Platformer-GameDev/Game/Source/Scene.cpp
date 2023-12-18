@@ -214,6 +214,37 @@ bool Scene::PostUpdate()
 	return ret;
 }
 
+bool Scene::LoadState(pugi::xml_node node) 
+{
+	player->position.x = node.child("player").attribute("x").as_int();
+	player->position.y = node.child("player").attribute("y").as_int(); 
+	player->godMode = node.child("pconditions").attribute("godMode").as_bool();
+	player->isDead = node.child("pconditions").attribute("isAlive").as_bool();
+	player->isJumping = node.child("pconditions").attribute("isJumping").as_bool();
+	player->running = node.child("pconditions").attribute("running").as_bool();
+	player->left_right = node.child("pconditions").attribute("left_right").as_bool();
+
+	player->pbody->body->SetTransform({ PIXEL_TO_METERS(player->position.x), PIXEL_TO_METERS(player->position.y) }, 0);
+
+	return true;
+}
+
+bool Scene::SaveState(pugi::xml_node node) 
+{
+	pugi::xml_node posNode = node.append_child("player");
+	posNode.append_attribute("x").set_value(player->position.x);
+	posNode.append_attribute("y").set_value(player->position.y);
+
+	pugi::xml_node pconditionsNode = node.append_child("pconditions");
+	pconditionsNode.append_attribute("godMode").set_value(player->godMode);
+	pconditionsNode.append_attribute("isDead").set_value(player->isDead);
+	pconditionsNode.append_attribute("isJumping").set_value(player->isJumping);
+	pconditionsNode.append_attribute("running").set_value(player->running);
+	pconditionsNode.append_attribute("left_right").set_value(player->left_right);
+
+	return true;
+}
+
 // Called before quitting
 bool Scene::CleanUp()
 {
