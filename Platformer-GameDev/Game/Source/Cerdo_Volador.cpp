@@ -46,11 +46,9 @@ bool Cerdo_Volador::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
-	pbody = app->physics->CreateCircle(position.x, position.y, 15, bodyType::KINEMATIC); // porque no funciona ?? 
+	pbody = app->physics->CreateCircle(position.x, position.y, 15, bodyType::KINEMATIC);
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
-	posA = position.x - 50;
-	posB = position.x + 50;
 
 	//initialTransform = pbody->body->GetTransform();
 
@@ -168,7 +166,7 @@ bool Cerdo_Volador::Update(float dt)
 		pbody->body->SetLinearVelocity(currentVelocity);
 		app->map->pathfinding->ClearLastPath();
 	}
-
+	
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 

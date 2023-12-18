@@ -227,7 +227,7 @@ bool Scene::LoadState(pugi::xml_node node)
 	player->isDead = node.child("pconditions").attribute("isAlive").as_bool();
 	player->isJumping = node.child("pconditions").attribute("isJumping").as_bool();
 	player->running = node.child("pconditions").attribute("running").as_bool();
-	player->left_right = node.child("pconditions").attribute("left_right").as_bool();
+	player->looksRight = node.child("pconditions").attribute("left_right").as_bool();
 
 	player->pbody->body->SetTransform({ PIXEL_TO_METERS(player->position.x), PIXEL_TO_METERS(player->position.y) }, 0);
 
@@ -245,7 +245,7 @@ bool Scene::SaveState(pugi::xml_node node)
 	pconditionsNode.append_attribute("isDead").set_value(player->isDead);
 	pconditionsNode.append_attribute("isJumping").set_value(player->isJumping);
 	pconditionsNode.append_attribute("running").set_value(player->running);
-	pconditionsNode.append_attribute("left_right").set_value(player->left_right);
+	pconditionsNode.append_attribute("left_right").set_value(player->looksRight);
 
 	return true;
 }

@@ -49,8 +49,6 @@ bool Dragon::Start() {
 	pbody = app->physics->CreateCircle(position.x, position.y, 15, bodyType::KINEMATIC); // porque no funciona ?? 
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
-	posA = position.x - 50;
-	posB = position.x + 50;
 
 	//initialTransform = pbody->body->GetTransform();
 

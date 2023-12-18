@@ -36,8 +36,6 @@ public:
 	PhysBody* pbody;
 	iPoint enemyPosition;
 	iPoint playerTilePos;
-	int posA;
-	int posB;
 	bool direction = true;
 	bool isFollowingPlayer = false;
 	int health = 100;
