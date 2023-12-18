@@ -1,5 +1,5 @@
-#ifndef __DRAGON__
-#define __DRAGON__
+#ifndef __CERDO_VOLADOR__
+#define __CERDO_VOLADOR__
 
 #include "Entity.h"
 #include "Point.h"
@@ -8,13 +8,13 @@
 
 struct SDL_Texture;
 
-class Dragon : public Entity
+class Cerdo_Volador : public Entity
 {
 public:
 
-	Dragon();
+	Cerdo_Volador();
 
-	virtual ~Dragon();
+	virtual ~Cerdo_Volador();
 
 	bool Awake();
 
@@ -60,5 +60,3 @@ public:
 };
 
 #endif
-
-

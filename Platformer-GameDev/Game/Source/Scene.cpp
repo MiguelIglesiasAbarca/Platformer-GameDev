@@ -65,7 +65,12 @@ bool Scene::Awake(pugi::xml_node& config)
 			Dragon* dragon = (Dragon*)app->entityManager->CreateEntity(EntityType::DRAGON);
 			dragon->parameters = dragonNode;
 		}
-		
+
+		for (pugi::xml_node cerdoVoladorNode = enemiesNode.child("cerdoVolador"); cerdoVoladorNode; cerdoVoladorNode = cerdoVoladorNode.next_sibling("cerdoVolador"))
+		{
+			Cerdo_Volador* cerdoVolador = (Cerdo_Volador*)app->entityManager->CreateEntity(EntityType::CERDO_VOLADOR);
+			cerdoVolador->parameters = cerdoVoladorNode;
+		}
 	}
 
 	for (pugi::xml_node foodNode = config.child("comida"); foodNode; foodNode = foodNode.next_sibling("comida"))
@@ -191,10 +196,10 @@ bool Scene::Update(float dt)
 	SDL_Rect Rectfondo3{ 0,0,576*scale,324*scale};
 	SDL_Rect Rectfondo4{ 0,0,576*scale,324*scale};
 	app->render->DrawTexture(fondo0, -100, 0, &Rectfondo0);
-	app->render->DrawTexture(fondo1, -150, -100, &Rectfondo0, 0.4f);
-	app->render->DrawTexture(fondo2, -150, 110, &Rectfondo0, 0.6f);
-	app->render->DrawTexture(fondo3, -150, 110, &Rectfondo0, 0.7f);
-	app->render->DrawTexture(fondo4, -150, 0, &Rectfondo0, 0.4f);
+	app->render->DrawTexture(fondo1, -150, -100, &Rectfondo0, SDL_FLIP_NONE, 0.4f);
+	app->render->DrawTexture(fondo2, -150, 110, &Rectfondo0, SDL_FLIP_NONE, 0.6f);
+	app->render->DrawTexture(fondo3, -150, 110, &Rectfondo0, SDL_FLIP_NONE, 0.7f);
+	app->render->DrawTexture(fondo4, -150, 0, &Rectfondo0, SDL_FLIP_NONE,0.4f);
 
 	// L14: TODO 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveRequest();

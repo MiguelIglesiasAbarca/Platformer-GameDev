@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Food.cpp" />
     <ClCompile Include="Source\Cerdo_bomba.cpp" />
     <ClCompile Include="Source\Dragon.cpp" />
+    <ClCompile Include="Source\Cerdo_Volador.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Source\Food.h" />
     <ClInclude Include="Source\Cerdo_bomba.h" />
     <ClInclude Include="Source\Dragon.h" />
+    <ClInclude Include="Source\Cerdo_Volador.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

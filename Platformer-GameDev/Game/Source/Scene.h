@@ -6,6 +6,7 @@
 #include "Cerdo.h"
 #include "Cerdo_bomba.h"
 #include "Dragon.h"
+#include "Cerdo_Volador.h"
 #include "Food.h"
 #include "Item.h"
 #include "Trap_01.h"

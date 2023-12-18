@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Cerdo.cpp" />
     <ClCompile Include="Source\Cerdo_bomba.cpp" />
+    <ClCompile Include="Source\Cerdo_Volador.cpp" />
     <ClCompile Include="Source\Dragon.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Food.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Cerdo.h" />
     <ClInclude Include="Source\Cerdo_bomba.h" />
+    <ClInclude Include="Source\Cerdo_Volador.h" />
     <ClInclude Include="Source\Dragon.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />

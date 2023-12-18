@@ -14,6 +14,7 @@ enum class EntityType
 	CERDO,
 	CERDO_PATRULLADOR,
 	DRAGON,
+	CERDO_VOLADOR,
 	ITEM,
 	TRAP,
 	COMIDA,

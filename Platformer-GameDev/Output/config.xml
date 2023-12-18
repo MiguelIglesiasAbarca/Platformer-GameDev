@@ -40,7 +40,8 @@
 			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 			<!--<cerdoPatrullador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
-			<dragon x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
+			<!--<dragon x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
+			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 		</enemies>
 
 		<comida>
@@ -272,9 +273,9 @@
 			</Idleleft>
 
 			<Idleright loop="true" speed ="0.5">
-				<frame x="0" y="755" w="55" h="37"/>
-				<frame x="55" y="755" w="55" h="37"/>
-				<frame x="110" y="755" w="55" h="37"/>
+				<frame x="0" y="792" w="55" h="37"/>
+				<frame x="55" y="792" w="55" h="37"/>
+				<frame x="110" y="792" w="55" h="37"/>
 			</Idleright>
 
 			<Dead loop="false" speed ="0.5">
@@ -293,4 +294,37 @@
 		</animations>
 	</dragon>
 
+	<cerdoVolador>
+		<animations>
+			<Idleleft loop="true" speed ="0.5">
+				<frame x="0" y="829" w="65" h="32"/>
+				<frame x="65" y="829" w="65" h="32"/>
+				<frame x="130" y="829" w="65" h="32"/>
+				<frame x="195" y="829" w="65" h="32"/>
+				<frame x="260" y="829" w="65" h="32"/>
+			</Idleleft>
+
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="829" w="65" h="32"/>
+				<frame x="65" y="829" w="65" h="32"/>
+				<frame x="130" y="829" w="65" h="32"/>
+				<frame x="195" y="829" w="65" h="32"/>
+				<frame x="260" y="829" w="65" h="32"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="588" w="150" h="150"/>
+				<frame x="150" y="588" w="150" h="150"/>
+				<frame x="300" y="588" w="150" h="150"/>
+				<frame x="450" y="588" w="150" h="150"/>
+				<frame x="600" y="588" w="150" h="150"/>
+				<frame x="750" y="588" w="150" h="150"/>
+				<frame x="900" y="588" w="150" h="150"/>
+				<frame x="1050" y="588" w="150" h="150"/>
+				<frame x="1200" y="588" w="150" h="150"/>
+				<frame x="1350" y="588" w="150" h="150"/>
+				<frame x="1500" y="588" w="150" h="150"/>
+			</Dead>
+		</animations>
+	</cerdoVolador>
 </config>

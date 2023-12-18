@@ -1,4 +1,4 @@
-#include "Dragon.h"
+#include "Cerdo_Volador.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -11,14 +11,14 @@
 #include "EntityManager.h"
 #include "Map.h"
 
-Dragon::Dragon() : Entity(EntityType::DRAGON)
+Cerdo_Volador::Cerdo_Volador() : Entity(EntityType::CERDO_VOLADOR)
 {
-	name.Create("Dragon");
+	name.Create("Cerdo_Volador");
 }
 
-Dragon::~Dragon() {}
+Cerdo_Volador::~Cerdo_Volador() {}
 
-bool Dragon::Awake() {
+bool Cerdo_Volador::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -28,17 +28,17 @@ bool Dragon::Awake() {
 	return true;
 }
 
-bool Dragon::Start() {
+bool Cerdo_Volador::Start() {
 
 
 	//run
-	idleRight.LoadAnimations("Idleright", "dragon");
+	idleRight.LoadAnimations("Idleright", "cerdoVolador");
 	idleRight.speed = 0.16f;
 
-	idleLeft.LoadAnimations("Idleleft", "dragon");
+	idleLeft.LoadAnimations("Idleleft", "cerdoVolador");
 	idleLeft.speed = 0.16f;
 
-	dead.LoadAnimations("Dead", "dragon");
+	dead.LoadAnimations("Dead", "cerdoVolador");
 	dead.speed = 0.167f;
 
 	currentAnimation = &idleRight;
@@ -59,7 +59,7 @@ bool Dragon::Start() {
 	return true;
 }
 
-bool Dragon::Update(float dt)
+bool Cerdo_Volador::Update(float dt)
 {
 
 	if (looksRight)
@@ -68,7 +68,7 @@ bool Dragon::Update(float dt)
 	}
 	else
 	{
-		currentAnimation = &idleLeft;
+		currentAnimation = &idleRight;
 	}
 
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
@@ -119,8 +119,7 @@ bool Dragon::Update(float dt)
 			isFollowingPlayer = true;
 			if (position.x < app->scene->player->position.x)
 			{
-				looksRight = false;
-				currentAnimation = &idleLeft;
+				looksRight = true;
 				currentVelocity.x = speed * 2.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
 				if (position.y + 10 < app->scene->player->position.y)
@@ -141,9 +140,8 @@ bool Dragon::Update(float dt)
 			}
 			else if (position.x > app->scene->player->position.x)
 			{
-				looksRight = true;
+				looksRight = false;
 				currentVelocity.x = -speed * 2.5;
-				currentAnimation = &idleRight;
 				pbody->body->SetLinearVelocity(currentVelocity);
 				if (position.y + 10 < app->scene->player->position.y)
 				{
@@ -174,7 +172,15 @@ bool Dragon::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame());
+	if (looksRight)
+	{
+		app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame());
+	}
+	else
+	{
+		app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+	}
+
 	currentAnimation->Update();
 
 	if (app->physics->debug)
@@ -189,12 +195,12 @@ bool Dragon::Update(float dt)
 	return true;
 }
 
-bool Dragon::CleanUp()
+bool Cerdo_Volador::CleanUp()
 {
 	return true;
 }
 
-void Dragon::OnDeath()
+void Cerdo_Volador::OnDeath()
 {
 	currentAnimation = &dead;
 	currentAnimation->loopCount = 0;
@@ -202,7 +208,7 @@ void Dragon::OnDeath()
 	app->physics->world->DestroyBody(pbody->body);
 }
 
-void Dragon::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Cerdo_Volador::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
