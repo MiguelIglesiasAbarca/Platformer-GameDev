@@ -44,8 +44,8 @@ bool Player::Start() {
 	idleRight.LoadAnimations("Idleright", "player");
 	idleRight.speed = 0.48f;
 
-	idleLeft.LoadAnimations("Idleleft", "player");
-	idleLeft.speed = 0.48f;
+	/*idleLeft.LoadAnimations("Idleleft", "player");
+	idleLeft.speed = 0.48f;*/
 
 	//run
 	runRight.LoadAnimations("Runright", "player");
@@ -143,14 +143,7 @@ bool Player::Update(float dt)
 
 	if (!running && !isDead && !isJumping && !isAttacking)
 	{
-		if (left_right == true)
-		{
-			currentAnimation = &idleRight;
-		}
-		else
-		{
-			currentAnimation = &idleLeft;
-		}
+		currentAnimation = &idleRight;
 	}
 
 	if (isDead)
@@ -171,7 +164,7 @@ bool Player::Update(float dt)
 		}
 		app->audio->PlayFx(jump_FXid, 0);
 
-		if (left_right == true)
+		if (looksRight == true)
 		{
 			currentAnimation = &jumpRight;
 
@@ -204,11 +197,11 @@ bool Player::Update(float dt)
 			running = true;
 		}
 
-		if (left_right == true && isJumping == true || left_right == true)
+		if (looksRight == true && isJumping == true || looksRight == true)
 		{
 			app->audio->PauseFx(running_FXid);
 			runningFX = false;
-			left_right = false;
+			looksRight = false;
 		}
 
 		if (isJumping || isAttacking)
@@ -236,11 +229,11 @@ bool Player::Update(float dt)
 		{
 			running = true;
 		}
-		if (left_right == false && isJumping == true || left_right == false)
+		if (looksRight == false && isJumping == true || looksRight == false)
 		{
 			app->audio->PauseFx(running_FXid);
 			runningFX = false;
-			left_right = true;
+			looksRight = true;
 		}
 
 		if (isJumping || isAttacking)
@@ -267,7 +260,7 @@ bool Player::Update(float dt)
 		app->audio->PauseFx(running_FXid);
 		app->audio->PlayFx(attack_FXid, 0);
 
-		if (left_right == true)
+		if (looksRight == true)
 		{
 			currentAnimation = &attackRight;
 			currentAnimation->Reset();
@@ -344,11 +337,11 @@ bool Player::Update(float dt)
 	{
 		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
 	}
-	else if (left_right == false)
+	else if (looksRight == false)
 	{
-		app->render->DrawTexture(texture, position.x - 25, position.y - 2, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x - 25, position.y - 2, &currentAnimation->GetCurrentFrame(),SDL_FLIP_HORIZONTAL);
 	}
-	else if (left_right == true)
+	else if (looksRight == true)
 	{
 		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
 
