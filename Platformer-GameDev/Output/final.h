@@ -1,11 +1,17 @@
 #ifndef __FINAL__
 #define __FINAL__
 
-#include "Entity.h"
-#include "Point.h"
-#include "SDL/include/SDL.h"
-#include "Animation.h"
+#include "Final.h"
 #include "PhysBody.h" // Asegúrate de que la ruta sea correcta
+#include "App.h"
+#include "Textures.h"
+#include "Input.h"
+#include "Render.h"
+#include "Scene.h"
+#include "Log.h"
+
+// Resto de las inclusiones y código de implementación...
+
 
 struct SDL_Texture;
 
