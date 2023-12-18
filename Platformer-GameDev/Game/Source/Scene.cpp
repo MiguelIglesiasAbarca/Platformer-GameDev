@@ -195,6 +195,11 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(fondo2, -150, 110, &Rectfondo0, 0.6f);
 	app->render->DrawTexture(fondo3, -150, 110, &Rectfondo0, 0.7f);
 	app->render->DrawTexture(fondo4, -150, 0, &Rectfondo0, 0.4f);
+
+	// L14: TODO 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveRequest();
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadRequest();
+
 	return true;
 }
 
