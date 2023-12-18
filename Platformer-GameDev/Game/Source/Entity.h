@@ -19,6 +19,7 @@ enum class EntityType
 	TRAP,
 	COMIDA,
 	UNKNOWN,
+	FINAL,
 };
 
 class Entity
