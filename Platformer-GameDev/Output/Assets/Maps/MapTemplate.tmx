@@ -36383,10 +36383,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1535"/>
+   <tile gid="1536"/>
+   <tile gid="1537"/>
+   <tile gid="1538"/>
    <tile gid="279"/>
    <tile gid="280"/>
    <tile gid="280"/>
@@ -36489,10 +36489,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1567"/>
+   <tile gid="1568"/>
+   <tile gid="1569"/>
+   <tile gid="1570"/>
    <tile gid="279"/>
    <tile gid="280"/>
    <tile gid="280"/>
@@ -36595,10 +36595,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1599"/>
+   <tile gid="1600"/>
+   <tile gid="1601"/>
+   <tile gid="1602"/>
    <tile gid="279"/>
    <tile gid="280"/>
    <tile gid="280"/>
