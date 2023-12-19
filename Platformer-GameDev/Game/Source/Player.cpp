@@ -207,10 +207,12 @@ bool Player::Update(float dt)
 		if (looksRight)
 		{
 			AttackpBody = app->physics->CreateCircle(position.x + 50, position.y + 15, 12, bodyType::DYNAMIC);
+			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		else
 		{
 			AttackpBody = app->physics->CreateCircle(position.x - 30, position.y + 15, 12, bodyType::DYNAMIC);
+			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		currentAnimation->Reset();
 	}
@@ -316,7 +318,7 @@ bool Player::Update(float dt)
 
 	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(), flip);
+	app->render->DrawTexture(texture, position.x, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();
 
 	return true;
@@ -358,6 +360,17 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		foodCounter++;
+		break;
+	case ColliderType::DAMAGE:
+		LOG("Collision DAMAGE");
+		if (!isDead)
+		{
+			OnDeath();
+		}
+		else
+		{
+			Reset();
+		}
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");

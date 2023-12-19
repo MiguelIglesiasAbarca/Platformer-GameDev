@@ -30,17 +30,23 @@ bool Cerdo::Awake() {
 
 bool Cerdo::Start() {
 
-	runRight.LoadAnimations("Runright","cerdo");
+	runRight.LoadAnimations("Runright", "cerdo");
 	runRight.speed = 0.167f;
 
-	runLeft.LoadAnimations("Runleft","cerdo");
+	runLeft.LoadAnimations("Runleft", "cerdo");
 	runLeft.speed = 0.167f;
 
-	idleRight.LoadAnimations("Idleright","cerdo");
+	idleRight.LoadAnimations("Idleright", "cerdo");
 	idleRight.speed = 0.167f;
 
-	idleLeft.LoadAnimations("Idleleft","cerdo");
+	idleLeft.LoadAnimations("Idleleft", "cerdo");
 	idleLeft.speed = 0.167f;
+
+	dead.LoadAnimations("Dead", "cerdo");
+	dead.speed = 0.1f;
+
+	attack.LoadAnimations("Attackright", "cerdo");
+	attack.speed = 0.1f;
 
 	//initilize textures
 	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
@@ -62,25 +68,38 @@ bool Cerdo::Start() {
 
 bool Cerdo::Update(float dt)
 {
-	currentAnimation = &idleLeft;
+	if (isDead)
+	{
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
+
+	if (destroyBody)
+	{
+		app->physics->world->DestroyBody(AttackpBody->body);
+		destroyBody = false;
+	}
+
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
-	cerdoPosition = app->map->WorldToMap(position.x+8,position.y);
+	cerdoPosition = app->map->WorldToMap(position.x + 8, position.y);
 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
-	
+
 	currentVelocity.y += 0.5;
 
 	distance = sqrt(pow(playerTilePos.x - cerdoPosition.x, 2) + pow(playerTilePos.y - cerdoPosition.y, 2));
 
-	if (distance < 4)
+	if (distance < 2 && !isDead && !app->scene->player->isDead)
 	{
-		//currentAnimation = &attack;
-		currentAnimation = &idleRight;
+		destroyBody = true;
+		currentAnimation = &attack;
 		currentVelocity.x = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
+		AttackpBody = app->physics->CreateCircle(position.x + 50, position.y + 15, 12, bodyType::DYNAMIC);
+		AttackpBody->ctype = ColliderType::DAMAGE;
 	}
-	else if (distance >= 4 && distance <= 5)
+	else if (distance >= 2 && distance <= 5 && !isDead)
 	{
 		app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
 		/*lastPath = app->map->pathfinding->GetLastPath();*/
@@ -114,18 +133,18 @@ bool Cerdo::Update(float dt)
 			if (position.x < app->scene->player->position.x)
 			{
 				currentAnimation = &runRight;
-				currentVelocity.x = speed*2.5;
+				currentVelocity.x = speed * 2.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 			else if (position.x > app->scene->player->position.x)
 			{
-				currentVelocity.x = -speed*2.5;
+				currentVelocity.x = -speed * 2.5;
 				currentAnimation = &runLeft;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 		}
 	}
-	else
+	else if (!isDead)
 	{
 		currentAnimation = &idleRight;
 		currentVelocity.x = 0;
@@ -136,7 +155,7 @@ bool Cerdo::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y-4, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 
 	if (app->physics->debug)
@@ -145,7 +164,7 @@ bool Cerdo::Update(float dt)
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTexture, pos.x+8, pos.y+8);
+			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);
 		}
 	}
 
@@ -163,6 +182,10 @@ void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
+		break;
+	case ColliderType::DAMAGE:
+		LOG("Collision DAMAGE");
+		isDead = true;
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
