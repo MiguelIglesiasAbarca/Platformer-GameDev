@@ -83,16 +83,21 @@ bool Cerdo::Update(float dt)
 
 	distance = playerTilePos.DistanceTo(enemyPosition);
 
-	if (distance < 4)
+	if (isDead)
+	{
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
+
+	if (distance < 2)
 	{
 		//currentAnimation = &attack;
-		isJumping = false;
 		currentAnimation = &idleRight;
 		currentVelocity.x = 0;
 		currentVelocity.y += 0.5;
 		pbody->body->SetLinearVelocity(currentVelocity);
 	}
-	else if (distance >= 4 && distance <= 10)
+	else if (distance >= 2 && distance <= 10)
 	{
 		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
 		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
@@ -105,18 +110,16 @@ bool Cerdo::Update(float dt)
 			int positionTilesy = position.y / 32;
 			if (path->At(1)->x < positionTilesx && path->At(1)->x != positionTilesx)
 			{
-				isJumping = false;
 				looksRight = false;
 				currentAnimation = &runRight;
-				currentVelocity.x = -speed*2.5;
+				currentVelocity.x = -speed*3;
 				currentVelocity.y += 0.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 			else if (path->At(1)->x > positionTilesx && path->At(1)->x != positionTilesx)
 			{
-				isJumping = false;
 				looksRight = true;
-				currentVelocity.x = speed*2.5;
+				currentVelocity.x = speed*3;
 				currentAnimation = &runRight;
 				currentVelocity.y += 0.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
@@ -194,6 +197,7 @@ void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
+		isJumping = false;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
