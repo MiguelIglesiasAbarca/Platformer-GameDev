@@ -68,10 +68,10 @@ void Final::OnCollision(PhysBody* physA, PhysBody* physB)
     // Maneja colisiones según sea necesario
 
     // Ejemplo:
-    if (physB->ctype == ColliderType::PLAYER)
+   /* if (physB->ctype == ColliderType::PLAYER)
     {
         isInContactWithPlayer = true;
-    }
+    }*/
 }
 
 void Final::ChangeSpriteOnContact()

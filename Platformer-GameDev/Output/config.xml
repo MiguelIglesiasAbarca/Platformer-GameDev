@@ -84,9 +84,9 @@
 			</Jumpright>
 
 			<Attackright loop="false" speed ="0.5">
-				<frame x="11" y="364" w="68" h="56"/>
-				<frame x="85" y="364" w="68" h="64"/>
-				<frame x="156" y="364" w="68" h="64"/>
+				<frame x="0" y="354" w="118" h="62"/>
+				<frame x="118" y="354" w="118" h="62"/>
+				<frame x="236" y="354" w="118" h="62"/>
 			</Attackright>
 			
 			<Dead loop="false" speed ="0.1">

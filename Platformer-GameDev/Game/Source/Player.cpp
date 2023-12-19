@@ -58,7 +58,7 @@ bool Player::Start() {
 
 	//attack
 	attackRight.LoadAnimations("Attackright", "player");
-	attackRight.speed = 0.15f;
+	attackRight.speed = 0.05f;
 
 #pragma endregion
 
@@ -82,7 +82,6 @@ bool Player::Update(float dt)
 
 	currentVelocity.y += 0.5;
 
-
 	if (isDead)
 	{
 		if (dead.HasFinished())
@@ -92,47 +91,28 @@ bool Player::Update(float dt)
 		currentVelocity = b2Vec2(0, 0);
 	}
 
-#pragma region DEBUG
-
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		isDead = false;
-		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
-		level = 1;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		isDead = false;
-		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
-		level = 2;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-	{
-		isDead = false;
-		if (level == 1)
-		{
-			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
-		}
-		else
-		{
-			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
-		}
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-		// Cambiar el estado del modo "godmode" al presionar F10
-		godMode = !godMode;
-	}
-
-#pragma endregion
-
-#pragma region MOVEMENT
-
 	if (!running && !isDead && !isJumping && !isAttacking)
 	{
 		currentAnimation = &idleRight;
+	}
+
+	if (destroyBody)
+	{
+		app->physics->world->DestroyBody(AttackpBody->body);
+		destroyBody = false;
+	}
+#pragma region MOVEMENT
+
+	// Si no se presionan las teclas de movimiento, aplicar una fricción alta
+	if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
+	{
+		currentVelocity.x = 0.0;
+		running = false;
+		if (runningFX == true)
+		{
+			runningFX = false;
+			app->audio->PauseFx(running_FXid);
+		}
 	}
 
 	// Saltar independientemente del "modo dios" si no estamos ya en el aire y en el suelo
@@ -147,27 +127,7 @@ bool Player::Update(float dt)
 			app->audio->PauseFx(running_FXid);
 		}
 		app->audio->PlayFx(jump_FXid, 0);
-
-		if (looksRight == true)
-		{
-			currentAnimation = &jumpRight;
-		}
-		else
-		{
-			currentAnimation = &jumpRight;
-		}
-	}
-
-	// Si no se presionan las teclas de movimiento, aplicar una fricción alta
-	if (app->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
-	{
-		currentVelocity.x = 0.0;
-		running = false;
-		if (runningFX == true)
-		{
-			runningFX = false;
-			app->audio->PauseFx(running_FXid);
-		}
+		currentAnimation = &jumpRight;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !isDead && !isAttacking)
@@ -238,33 +198,67 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking)
 	{
 		running = false;
-		//left_right = true;
 		isAttacking = true;
+		destroyBody = true;
 		app->audio->PauseFx(running_FXid);
 		app->audio->PlayFx(attack_FXid, 0);
-
-		if (looksRight == true)
+		currentAnimation = &attackRight;
+		currentAnimation->loopCount = 0;
+		if (looksRight)
 		{
-			currentAnimation = &attackRight;
-			currentAnimation->Reset();
-			currentAnimation->loopCount = 0;
+			AttackpBody = app->physics->CreateCircle(position.x + 50, position.y + 15, 12, bodyType::DYNAMIC);
 		}
 		else
 		{
-			currentAnimation = &attackRight;
-			currentAnimation->Reset();
-			currentAnimation->loopCount = 0;
+			AttackpBody = app->physics->CreateCircle(position.x - 30, position.y + 15, 12, bodyType::DYNAMIC);
 		}
+		currentAnimation->Reset();
 	}
-	
+
 	if (currentAnimation->HasFinished() && !isDead)
 	{
 		isAttacking = false;
 	}
-	if ((currentAnimation->HasFinished() && isDead))
+	else if ((currentAnimation->HasFinished() && isDead))
 	{
 		isAttacking = false;
 		OnDeath();
+	}
+
+#pragma endregion
+
+#pragma region DEBUG
+
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		isDead = false;
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
+		level = 1;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		isDead = false;
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+		level = 2;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		isDead = false;
+		if (level == 1)
+		{
+			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
+		}
+		else
+		{
+			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		// Cambiar el estado del modo "godmode" al presionar F10
+		godMode = !godMode;
 	}
 
 #pragma endregion
@@ -318,24 +312,11 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	if (!isAttacking && !looksRight)
-	{
-		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-	}
-	else if (!isAttacking && looksRight)
-	{
-		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	}
-	else if (isAttacking && !looksRight)
-	{
-		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-	}
-	else if (isAttacking && looksRight)
-	{
-		app->render->DrawTexture(texture, position.x - 5, position.y - 2, &currentAnimation->GetCurrentFrame());
-	};
+	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 
+	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();
 
 	return true;
