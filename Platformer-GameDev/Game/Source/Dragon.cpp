@@ -60,15 +60,6 @@ bool Dragon::Start() {
 bool Dragon::Update(float dt)
 {
 
-	if (looksRight)
-	{
-		currentAnimation = &idleRight;
-	}
-	else
-	{
-		currentAnimation = &idleLeft;
-	}
-
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
 	enemyPosition = app->map->WorldToMap(position.x + 8, position.y);
 
@@ -97,12 +88,14 @@ bool Dragon::Update(float dt)
 			int positionTilesy = position.y / 32;
 			if (path->At(1)->x < positionTilesx && path->At(1)->x != positionTilesx)
 			{
+				looksRight = false;
 				currentVelocity.x = -speed;
 				currentVelocity.y = 0;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 			else if (path->At(1)->x > positionTilesx && path->At(1)->x != positionTilesx)
 			{
+				looksRight = true;
 				currentVelocity.x = speed;
 				currentVelocity.y = 0;
 				pbody->body->SetLinearVelocity(currentVelocity);
@@ -121,80 +114,6 @@ bool Dragon::Update(float dt)
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 		}
-		currentAnimation = &idleRight;
-		/*lastPath = app->map->pathfinding->GetLastPath();*/
-
-		//if (lastPath->Count() > 0)
-		//{
-		//	const iPoint* nextTile;
-		//	nextTile = lastPath->At(lastPath->Count() - 1);
-
-		//	if (nextTile->x == position.x)
-		//	{
-
-		//	}
-		//	else if (nextTile->x < position.x)
-		//	{
-		//		currentAnimation = &runRight;
-		//		currentVelocity.x = speed * 2.5;
-		//		pbody->body->SetLinearVelocity(currentVelocity);
-		//	}
-		//	else
-		//	{
-		//		currentVelocity.x = -speed * 2.5;
-		//		currentAnimation = &runLeft;
-		//		pbody->body->SetLinearVelocity(currentVelocity);
-		//	}
-		//}
-
-		/*	if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
-		{
-			isFollowingPlayer = true;
-			if (position.x < app->scene->player->position.x)
-			{
-				looksRight = false;
-				currentAnimation = &idleLeft;
-				currentVelocity.x = speed * 2.5;
-				pbody->body->SetLinearVelocity(currentVelocity);
-				if (position.y + 10 < app->scene->player->position.y)
-				{
-					currentVelocity.y = speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else if (position.y - 10 > app->scene->player->position.y)
-				{
-					currentVelocity.y = -speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else
-				{
-					currentVelocity.y = 0;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-			}
-			else if (position.x > app->scene->player->position.x)
-			{
-				looksRight = true;
-				currentVelocity.x = -speed * 2.5;
-				currentAnimation = &idleRight;
-				pbody->body->SetLinearVelocity(currentVelocity);
-				if (position.y + 10 < app->scene->player->position.y)
-				{
-					currentVelocity.y = speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else if (position.y - 10 > app->scene->player->position.y)
-				{
-					currentVelocity.y = -speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else
-				{
-					currentVelocity.y = 0;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-			}
-		}*/
 	}
 	else if (distance > 10)
 	{
@@ -207,7 +126,11 @@ bool Dragon::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame());
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+
+	app->render->DrawTexture(texture, position.x-10, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();
 
 	if (app->physics->debug)

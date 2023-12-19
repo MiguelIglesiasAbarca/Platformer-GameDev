@@ -37,17 +37,18 @@ public:
 	SDL_Texture* pathTexture = NULL;
 	PhysBody* pbody;
 	PhysBody* AttackpBody;
-	iPoint cerdoPosition;
+	iPoint enemyPosition;
+	iPoint nextTilePath;
 	bool isFollowingPlayer = false;
 	iPoint playerTilePos;
 	int distance;
 	/*const DynArray<iPoint>* lastPath;*/
-	//bool isJumping = false;
+	bool isJumping = false;
 	//bool running = false;
 	bool isDead = false;
 	bool destroyBody = false;
 	bool isAttacking = false;
-	//bool left_right = true;
+	bool looksRight = true;
 
 	Animation* currentAnimation = nullptr;
 	Animation idleRight;
@@ -56,7 +57,7 @@ public:
 	Animation runLeft;
 	Animation attack;
 	Animation dead;
-	//Animation jumpRight;
+	Animation jumpRight;
 	//Animation jumpLeft;
 };
 

@@ -230,17 +230,17 @@
 
 	<dragon>
 		<animations>
-			<Idleleft loop="true" speed ="0.5">
+			<Idleright loop="true" speed ="0.5">
 				<frame x="0" y="755" w="55" h="37"/>
 				<frame x="55" y="755" w="55" h="37"/>
 				<frame x="110" y="755" w="55" h="37"/>
-			</Idleleft>
+			</Idleright>
 
-			<Idleright loop="true" speed ="0.5">
+			<Idleleft loop="true" speed ="0.5">
 				<frame x="0" y="792" w="55" h="37"/>
 				<frame x="55" y="792" w="55" h="37"/>
 				<frame x="110" y="792" w="55" h="37"/>
-			</Idleright>
+			</Idleleft>
 
 			<Dead loop="false" speed ="0.5">
 				<frame x="0" y="588" w="150" h="150"/>

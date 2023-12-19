@@ -42,6 +42,9 @@ bool Cerdo::Start() {
 	idleLeft.LoadAnimations("Idleleft", "cerdo");
 	idleLeft.speed = 0.167f;
 
+	jumpRight.LoadAnimations("Jumpright", "cerdo");
+	jumpRight.speed = 0.167f;
+
 	dead.LoadAnimations("Dead", "cerdo");
 	dead.speed = 0.1f;
 
@@ -54,6 +57,8 @@ bool Cerdo::Start() {
 	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
+
+	currentAnimation = &idleRight;
 
 	//enemyPbody = app->physics->CreateRectangleSensor(position.x, position.y, 30, 54, bodyType::KINEMATIC);
 	//enemyPbody->ctype = ColliderType::ENEMY;
@@ -68,90 +73,82 @@ bool Cerdo::Start() {
 
 bool Cerdo::Update(float dt)
 {
-	if (isDead)
-	{
-		app->entityManager->DestroyEntity(this);
-		app->physics->world->DestroyBody(pbody->body);
-	}
-
-	if (destroyBody)
-	{
-		app->physics->world->DestroyBody(AttackpBody->body);
-		destroyBody = false;
-	}
-
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
-	cerdoPosition = app->map->WorldToMap(position.x + 8, position.y);
+	enemyPosition = app->map->WorldToMap(position.x + 8, position.y);
 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 	currentVelocity.y += 0.5;
 
-	distance = sqrt(pow(playerTilePos.x - cerdoPosition.x, 2) + pow(playerTilePos.y - cerdoPosition.y, 2));
+	distance = playerTilePos.DistanceTo(enemyPosition);
 
-	if (distance < 2 && !isDead && !app->scene->player->isDead && !isAttacking)
+	if (distance < 4)
 	{
-		destroyBody = true;
-		if (currentAnimation != &attack)
-		{
-			currentAnimation = &attack;
-			currentAnimation->Reset();
-		}
-		currentVelocity.x = 0;
-		pbody->body->SetLinearVelocity(currentVelocity);
-		AttackpBody = app->physics->CreateCircle(position.x + 50, position.y + 15, 12, bodyType::DYNAMIC);
-		AttackpBody->ctype = ColliderType::DAMAGE;
-	}
-	else if (distance >= 2 && distance <= 5 && !isDead)
-	{
-		app->map->pathfinding->CreatePath(cerdoPosition, playerTilePos);
-		/*lastPath = app->map->pathfinding->GetLastPath();*/
-
-		//if (lastPath->Count() > 0)
-		//{
-		//	const iPoint* nextTile;
-		//	nextTile = lastPath->At(lastPath->Count() - 1);
-
-		//	if (nextTile->x == position.x)
-		//	{
-
-		//	}
-		//	else if (nextTile->x < position.x)
-		//	{
-		//		currentAnimation = &runRight;
-		//		currentVelocity.x = speed * 2.5;
-		//		pbody->body->SetLinearVelocity(currentVelocity);
-		//	}
-		//	else
-		//	{
-		//		currentVelocity.x = -speed * 2.5;
-		//		currentAnimation = &runLeft;
-		//		pbody->body->SetLinearVelocity(currentVelocity);
-		//	}
-		//}
-
-		if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
-		{
-			isFollowingPlayer = true;
-			if (position.x < app->scene->player->position.x)
-			{
-				currentAnimation = &runRight;
-				currentVelocity.x = speed * 2.5;
-				pbody->body->SetLinearVelocity(currentVelocity);
-			}
-			else if (position.x > app->scene->player->position.x)
-			{
-				currentVelocity.x = -speed * 2.5;
-				currentAnimation = &runLeft;
-				pbody->body->SetLinearVelocity(currentVelocity);
-			}
-		}
-	}
-	else if (!isDead)
-	{
+		//currentAnimation = &attack;
+		isJumping = false;
 		currentAnimation = &idleRight;
 		currentVelocity.x = 0;
+		currentVelocity.y += 0.5;
+		pbody->body->SetLinearVelocity(currentVelocity);
+	}
+	else if (distance >= 4 && distance <= 10)
+	{
+		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
+		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+		if (path->Count() > 1)
+		{
+			nextTilePath = { path->At(1)->x, path->At(1)->y };
+			//Move(enemyPosition, nextTilePath);
+
+			int positionTilesx = position.x / 32;
+			int positionTilesy = position.y / 32;
+			if (path->At(1)->x < positionTilesx && path->At(1)->x != positionTilesx)
+			{
+				isJumping = false;
+				looksRight = false;
+				currentAnimation = &runRight;
+				currentVelocity.x = -speed*2.5;
+				currentVelocity.y += 0.5;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+			else if (path->At(1)->x > positionTilesx && path->At(1)->x != positionTilesx)
+			{
+				isJumping = false;
+				looksRight = true;
+				currentVelocity.x = speed*2.5;
+				currentAnimation = &runRight;
+				currentVelocity.y += 0.5;
+				pbody->body->SetLinearVelocity(currentVelocity);
+
+			}
+			else if (path->At(1)->y > positionTilesy)
+			{
+				/*currentVelocity.y = speed;
+				currentVelocity.x = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);*/
+			}
+			else if (path->At(1)->y < positionTilesy && path->At(1)->y != positionTilesy)
+			{
+				if (!isJumping)
+				{
+					isJumping = true;
+					currentAnimation = &jumpRight;
+					currentVelocity.y =  -15;
+					pbody->body->SetLinearVelocity(currentVelocity);
+				}
+				/*currentVelocity.y = -speed;
+				currentVelocity.x = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);*/
+			}
+		}
+	}
+	else if (distance > 10)
+	{
+		isJumping = false;
+		currentVelocity.x = 0;
+		currentVelocity.y += 0.5;
+		currentAnimation = &idleRight;
 		pbody->body->SetLinearVelocity(currentVelocity);
 		app->map->pathfinding->ClearLastPath();
 	}
@@ -159,7 +156,11 @@ bool Cerdo::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame());
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+
+	app->render->DrawTexture(texture, position.x - 10, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();
 
 	if (app->physics->debug)
