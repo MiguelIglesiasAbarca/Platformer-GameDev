@@ -46,6 +46,7 @@ public:
 	//bool running = false;
 	bool isDead = false;
 	bool destroyBody = false;
+	bool isAttacking = false;
 	//bool left_right = true;
 
 	Animation* currentAnimation = nullptr;

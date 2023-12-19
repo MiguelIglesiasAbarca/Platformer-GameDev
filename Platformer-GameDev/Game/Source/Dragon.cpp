@@ -75,7 +75,7 @@ bool Dragon::Update(float dt)
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
-	distance = sqrt(pow(playerTilePos.x - enemyPosition.x, 2) + pow(playerTilePos.y - enemyPosition.y, 2));
+	distance = playerTilePos.DistanceTo(enemyPosition);
 
 	if (distance < 4)
 	{
@@ -87,6 +87,41 @@ bool Dragon::Update(float dt)
 	else if (distance >= 4 && distance <= 10)
 	{
 		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
+		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+		if (path->Count() > 1)
+		{
+			nextTilePath = { path->At(1)->x, path->At(1)->y };
+			//Move(enemyPosition, nextTilePath);
+
+			int positionTilesx = position.x / 32;
+			int positionTilesy = position.y / 32;
+			if (path->At(1)->x < positionTilesx && path->At(1)->x != positionTilesx)
+			{
+				currentVelocity.x = -speed;
+				currentVelocity.y = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+			else if (path->At(1)->x > positionTilesx && path->At(1)->x != positionTilesx)
+			{
+				currentVelocity.x = speed;
+				currentVelocity.y = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);
+
+			}
+			else if (path->At(1)->y > positionTilesy)
+			{
+				currentVelocity.y = speed;
+				currentVelocity.x = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+			else if (path->At(1)->y < positionTilesy)
+			{
+				currentVelocity.y = -speed;
+				currentVelocity.x = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+		}
+		currentAnimation = &idleRight;
 		/*lastPath = app->map->pathfinding->GetLastPath();*/
 
 		//if (lastPath->Count() > 0)
@@ -112,7 +147,7 @@ bool Dragon::Update(float dt)
 		//	}
 		//}
 
-		if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
+		/*	if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
 		{
 			isFollowingPlayer = true;
 			if (position.x < app->scene->player->position.x)
@@ -159,9 +194,9 @@ bool Dragon::Update(float dt)
 					pbody->body->SetLinearVelocity(currentVelocity);
 				}
 			}
-		}
+		}*/
 	}
-	else
+	else if (distance > 10)
 	{
 		currentVelocity.x = 0;
 		currentVelocity.y = 0;
@@ -198,6 +233,23 @@ void Dragon::OnDeath()
 	currentAnimation->loopCount = 0;
 	app->entityManager->DestroyEntity(this);
 	app->physics->world->DestroyBody(pbody->body);
+}
+
+void Dragon::Move(const iPoint& origin, const iPoint& destination)
+{
+	float xDiff = destination.x - origin.x;
+	float yDiff = destination.y - origin.y;
+
+	if (app->map->pathfinding->IsWalkable(destination) != 0)
+	{
+		velocity.x = (xDiff < 0) ? -2 : (xDiff > 0) ? 2 : 0;
+		velocity.y = (yDiff < 0) ? -2 : (yDiff > 0) ? -GRAVITY_Y : 0;
+
+		looksRight = (xDiff > 0);
+	}
+	else {
+		velocity = { 0, -GRAVITY_Y };
+	}
 }
 
 void Dragon::OnCollision(PhysBody* physA, PhysBody* physB) {

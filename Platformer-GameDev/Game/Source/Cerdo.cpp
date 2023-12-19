@@ -46,7 +46,7 @@ bool Cerdo::Start() {
 	dead.speed = 0.1f;
 
 	attack.LoadAnimations("Attackright", "cerdo");
-	attack.speed = 0.1f;
+	attack.speed = 0.01f;
 
 	//initilize textures
 	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
@@ -90,10 +90,14 @@ bool Cerdo::Update(float dt)
 
 	distance = sqrt(pow(playerTilePos.x - cerdoPosition.x, 2) + pow(playerTilePos.y - cerdoPosition.y, 2));
 
-	if (distance < 2 && !isDead && !app->scene->player->isDead)
+	if (distance < 2 && !isDead && !app->scene->player->isDead && !isAttacking)
 	{
 		destroyBody = true;
-		currentAnimation = &attack;
+		if (currentAnimation != &attack)
+		{
+			currentAnimation = &attack;
+			currentAnimation->Reset();
+		}
 		currentVelocity.x = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
 		AttackpBody = app->physics->CreateCircle(position.x + 50, position.y + 15, 12, bodyType::DYNAMIC);

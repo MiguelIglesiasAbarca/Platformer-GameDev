@@ -40,8 +40,8 @@
 			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 			<!--<cerdoPatrullador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
-			<!--<dragon x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
-			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
+			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
+			<!--<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
 		</enemies>
 
 		<comida>
@@ -167,7 +167,7 @@
 				<frame x="86" y="311" w="43" h="41"/>
 			</Jumpleft>
 
-			<Attackright loop="false" speed ="0.5">
+			<Attackright loop="true" speed ="0.5">
 				<frame x="11" y="364" w="68" h="68"/>
 				<frame x="85" y="364" w="68" h="68"/>
 				<frame x="156" y="364" w="68" h="68"/>
