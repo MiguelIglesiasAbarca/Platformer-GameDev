@@ -193,6 +193,10 @@ void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		break;
+	case ColliderType::DAMAGE:
+		LOG("Collision DAMAGE");
+		isDead = true;
+		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		break;

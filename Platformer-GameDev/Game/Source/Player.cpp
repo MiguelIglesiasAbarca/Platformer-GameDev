@@ -18,10 +18,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	coin = nullptr;
 }
 
-Player::~Player()
-{
-
-}
+Player::~Player();
 
 bool Player::Awake() {
 

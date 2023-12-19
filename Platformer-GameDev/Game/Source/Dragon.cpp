@@ -68,6 +68,12 @@ bool Dragon::Update(float dt)
 
 	distance = playerTilePos.DistanceTo(enemyPosition);
 
+	if (isDead)
+	{
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
+
 	if (distance < 4)
 	{
 		//currentAnimation = &attack;
@@ -184,6 +190,10 @@ void Dragon::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
+		break;
+	case ColliderType::DAMAGE:
+		LOG("Collision DAMAGE");
+		isDead = true;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
