@@ -33,15 +33,15 @@
 		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
 
 		<enemies>
-			<cerdo x ="550" y="1700" speed="2.0" texturepath="Assets/Textures/player-anim.png"/>
-			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
-			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
-			<cerdoPatrullador x ="1950" y="2650" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
-			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
-			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
+			<cerdo x ="550" y="1700" speed="2.0" texturepath="Assets/Textures/enemy-animation.png"/>
+			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
+			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
+			<cerdoPatrullador x ="1950" y="2650" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
+			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
+			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 			<!--<cerdoPatrullador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
-			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
-			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
+			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
+			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 		</enemies>
 
 		<comida>
@@ -103,54 +103,27 @@
 	<cerdo>
 		<animations>
 			<Runright loop="true" speed ="0.2">
-				<frame x="6" y="14" w="45" h="38"/>
-				<frame x="84" y="14" w="45" h="38"/>
-				<frame x="162" y="14" w="45" h="38"/>
-				<frame x="240" y="14" w="45" h="38"/>
-				<frame x="318" y="14" w="45" h="38"/>
-				<frame x="396" y="14" w="45" h="38"/>
-				<frame x="474" y="14" w="45" h="38"/>
-				<frame x="552" y="14" w="45" h="38"/>
+				<frame x="0" y="56" w="34" h="28"/>
+				<frame x="34" y="56" w="34" h="28"/>
+				<frame x="68" y="56" w="34" h="28"/>
+				<frame x="102" y="56" w="34" h="28"/>
+				<frame x="136" y="56" w="34" h="28"/>
+				<frame x="170" y="56" w="34" h="28"/>
 			</Runright>
-
-			<Runleft loop="true" speed ="0.2">
-				<frame x="6" y="115" w="55" h="35"/>
-				<frame x="84" y="115" w="55" h="35"/>
-				<frame x="162" y="115" w="55" h="35"/>
-				<frame x="240" y="115" w="55" h="35"/>
-				<frame x="318" y="115" w="55" h="35"/>
-				<frame x="396" y="115" w="55" h="35"/>
-				<frame x="474" y="115" w="55" h="35"/>
-				<frame x="552" y="115" w="55" h="35"/>
-			</Runleft>
-
+			
 			<Idleright loop="true" speed ="0.5">
-				<frame x="6" y="65" w="44" h="45"/>
-				<frame x="84" y="65" w="44" h="45"/>
-				<frame x="162" y="65" w="44" h="45"/>
-				<frame x="240" y="65" w="44" h="45"/>
-				<frame x="318" y="65" w="44" h="45"/>
-				<frame x="396" y="65" w="44" h="45"/>
-				<frame x="474" y="65" w="44" h="45"/>
-				<frame x="552" y="65" w="44" h="45"/>
-				<frame x="630" y="65" w="44" h="45"/>
-				<frame x="708" y="65" w="44" h="45"/>
-				<frame x="786" y="65" w="44" h="45"/>
+				<frame x="0" y="0" w="34" h="28"/>
+				<frame x="34" y="0" w="34" h="28"/>
+				<frame x="68" y="0" w="34" h="28"/>
+				<frame x="102" y="0" w="34" h="28"/>
+				<frame x="136" y="0" w="34" h="28"/>
+				<frame x="170" y="0" w="34" h="28"/>
+				<frame x="204" y="0" w="34" h="28"/>
+				<frame x="238" y="0" w="34" h="28"/>
+				<frame x="272" y="0" w="34" h="28"/>
+				<frame x="306" y="0" w="34" h="28"/>
+				<frame x="340" y="0" w="34" h="28"/>
 			</Idleright>
-
-			<Idleleft loop="true" speed ="0.5">
-				<frame x="10" y="265" w="44" h="45"/>
-				<frame x="88" y="265" w="44" h="45"/>
-				<frame x="166" y="265" w="44" h="45"/>
-				<frame x="244" y="265" w="44" h="45"/>
-				<frame x="322" y="265" w="44" h="45"/>
-				<frame x="400" y="265" w="44" h="45"/>
-				<frame x="478" y="265" w="44" h="45"/>
-				<frame x="556" y="265" w="44" h="45"/>
-				<frame x="634" y="265" w="44" h="45"/>
-				<frame x="712" y="265" w="44" h="45"/>
-				<frame x="790" y="265" w="44" h="45"/>
-			</Idleleft>
 
 			<Dead loop="false" speed ="0.1">
 				<frame x="6" y="167" w="49" h="46"/>
@@ -160,47 +133,30 @@
 			</Dead>
 
 			<Jumpright loop="false" speed ="0.1">
-				<frame x="6" y="211" w="43" h="43"/>
-				<frame x="82" y="211" w="43" h="43"/>
+				<frame x="0" y="28" w="34" h="28"/>
+				<frame x="34" y="28" w="34" h="28"/>
 			</Jumpright>
 
-			<Jumpleft loop="true" speed ="0.1">
-				<frame x="12" y="311" w="43" h="41"/>
-				<frame x="86" y="311" w="43" h="41"/>
-			</Jumpleft>
-
 			<Attackright loop="true" speed ="0.5">
-				<frame x="11" y="364" w="68" h="68"/>
-				<frame x="85" y="364" w="68" h="68"/>
-				<frame x="156" y="364" w="68" h="68"/>
+				<frame x="0" y="84" w="34" h="28"/>
+				<frame x="34" y="84" w="34" h="28"/>
+				<frame x="68" y="84" w="34" h="28"/>
+				<frame x="102" y="84" w="34" h="28"/>
+				<frame x="136" y="84" w="34" h="28"/>
 			</Attackright>
-
-			<Attackleft loop="false" speed ="0.5">
-				<frame x="11" y="432" w="90" h="90"/>
-				<frame x="101" y="432" w="90" h="90"/>
-				<frame x="191" y="432" w="90" h="90"/>
-			</Attackleft>
 		</animations>
 	</cerdo>
 	
 	<cerdoBomba>
 		<animations>
-			<Bombleft loop="true" speed ="0.5">
-				<frame x="0" y="535" w="26" h="26"/>
-				<frame x="26" y="535" w="26" h="26"/>
-				<frame x="52" y="535" w="26" h="26"/>
-				<frame x="78" y="535" w="26" h="26"/>
-				<frame x="104" y="535" w="26" h="26"/>
-				<frame x="130" y="535" w="26" h="26"/>
-			</Bombleft>
-			
+						
 			<Bombright loop="true" speed ="0.5">
-				<frame x="0" y="561" w="26" h="26"/>
-				<frame x="26" y="561" w="26" h="26"/>
-				<frame x="52" y="561" w="26" h="26"/>
-				<frame x="78" y="561" w="26" h="26"/>
-				<frame x="104" y="561" w="26" h="26"/>
-				<frame x="130" y="561" w="26" h="26"/>
+				<frame x="0" y="112" w="30" h="40"/>
+				<frame x="30" y="112" w="30" h="40"/>
+				<frame x="60" y="112" w="30" h="40"/>
+				<frame x="90" y="112" w="30" h="40"/>
+				<frame x="120" y="112" w="30" h="40"/>
+				<frame x="150" y="112" w="30" h="40"/>
 			</Bombright>
 
 			<Dead loop="false" speed ="0.5">
@@ -218,15 +174,14 @@
 			</Dead>
 
 			<Watifokin loop="true" speed ="0.5">
-				
-				<frame x="0" y="739" w="16" h="16"/>
-				<frame x="16" y="739" w="16" h="16"/>
+				<frame x="0" y="152" w="30" h="40"/>
+				<frame x="30" y="152" w="30" h="40"/>
+				<frame x="60" y="152" w="30" h="40"/>
+				<frame x="90" y="152" w="30" h="40"/>
+				<frame x="120" y="152" w="30" h="40"/>
+				<frame x="150" y="152" w="30" h="40"/>
 			</Watifokin>
 
-			<Watifokout loop="true" speed ="0.5">
-				<frame x="0" y="816" w="26" h="26"/>
-				<frame x="26" y="816" w="26" h="26"/>
-			</Watifokout>
 		</animations>
 	</cerdoBomba>
 
