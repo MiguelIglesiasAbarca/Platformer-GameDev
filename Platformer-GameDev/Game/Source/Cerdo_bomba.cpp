@@ -65,7 +65,7 @@ bool CerdoPatrullador::Update(float dt)
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 	currentVelocity.y += 0.5;
-	
+
 	if (isFollowingPlayer)
 	{
 		currentAnimation = &watifokIn;
@@ -133,13 +133,14 @@ bool CerdoPatrullador::Update(float dt)
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
 	}
-	
+
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;// Variable para controlar el la orientacion de la textura
 
-	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;// Se establece el volteo dependiendo de la condición looksRight
+	// Si looksRight es verdadero, se aplica un volteo horizontal; de lo contrario, no se aplica volteo (SDL_FLIP_NONE)
 
 	if (isDead)
 	{
@@ -147,13 +148,15 @@ bool CerdoPatrullador::Update(float dt)
 		currentAnimation->loopCount = 0;
 		currentVelocity.x = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
-		app->render->DrawTexture(texture, position.x-75, position.y - 124, &currentAnimation->GetCurrentFrame(),flip);
-		currentAnimation->Update();
+		app->render->DrawTexture(texture, position.x - 75, position.y - 124, &currentAnimation->GetCurrentFrame(), flip);// Dibuja la textura en la posición (position.x, position.y)
+		// Se aplica el volteo configurado anteriormente
+		currentAnimation->Update();// Actualiza la animación
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame(),flip);
-		currentAnimation->Update();
+		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame(), flip);// Dibuja la textura en la posición (position.x, position.y)
+		// Se aplica el volteo configurado anteriormente
+		currentAnimation->Update();// Actualiza la animación
 	}
 	return true;
 }
@@ -175,9 +178,9 @@ void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->audio->PlayFx(pigExplosion_FXid, 0);
 		OnDeath(); // Call the OnDeath function
 		break;
-	case ColliderType::DAMAGE:
+	case ColliderType::DAMAGE:// Si el tipo de colisionador es DAMAGE (daño)
 		LOG("Collision DAMAGE");
-		isDead = true;
+		isDead = true;// Marca al cerdo como muerto
 		break;
 	}
 

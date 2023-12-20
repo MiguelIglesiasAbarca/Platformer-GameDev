@@ -66,7 +66,7 @@ bool Cerdo::Update(float dt)
 
 	currentVelocity.y += 0.5;
 
-	distance = playerTilePos.DistanceTo(enemyPosition);
+	distance = playerTilePos.DistanceTo(enemyPosition); // calculamos la distancia entre player y enemigo
 
 	if (isDead)
 	{
@@ -95,14 +95,14 @@ bool Cerdo::Update(float dt)
 			{
 				looksRight = false;
 				currentAnimation = &runRight;
-				currentVelocity.x = -speed*3;
+				currentVelocity.x = -speed * 3;
 				currentVelocity.y += 0.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 			else if (path->At(1)->x > positionTilesx && path->At(1)->x != positionTilesx)
 			{
 				looksRight = true;
-				currentVelocity.x = speed*3;
+				currentVelocity.x = speed * 3;
 				currentAnimation = &runRight;
 				currentVelocity.y += 0.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
@@ -114,7 +114,7 @@ bool Cerdo::Update(float dt)
 				{
 					isJumping = true;
 					currentAnimation = &jumpRight;
-					currentVelocity.y =  -15;
+					currentVelocity.y = -15;
 					pbody->body->SetLinearVelocity(currentVelocity);
 				}
 			}
@@ -130,23 +130,27 @@ bool Cerdo::Update(float dt)
 		app->map->pathfinding->ClearLastPath();
 	}
 
+	// Obtiene la posición del cuerpo físico (pbody) y la convierte de unidades de metros a píxeles
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;// Variable para controlar el la orientacion de la textura
 
-	flip = looksRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	flip = looksRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;// Se establece el volteo dependiendo de la condición looksRight
+	// Si looksRight es verdadero, se aplica un volteo horizontal; de lo contrario, no se aplica volteo (SDL_FLIP_NONE)
 
-	app->render->DrawTexture(texture, position.x, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);
-	currentAnimation->Update();
+	app->render->DrawTexture(texture, position.x, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);// Dibuja la textura en la posición (position.x, position.y)
+	// Se aplica el volteo configurado anteriormente
 
-	if (app->physics->debug)
+	currentAnimation->Update();// Actualiza la animación
+
+	if (app->physics->debug)// Verifica si el modo de depuración está activado
 	{
-		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath(); // Obtiene el último camino calculado por el sistema de búsqueda de ruta
 		for (uint i = 0; i < path->Count(); ++i)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);// Convierte las coordenadas del punto del mapa a coordenadas del mundo
+			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);// Dibuja una textura (pathTexture) en la posición correspondiente al punto del camino
 		}
 	}
 
@@ -162,13 +166,13 @@ void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-	case ColliderType::DAMAGE:
+	case ColliderType::DAMAGE:// Si el tipo de colisionador es DAMAGE (daño)
 		LOG("Collision DAMAGE");
-		isDead = true;
+		isDead = true;// Marca al cerdo como muerto
 		break;
-	case ColliderType::PLATFORM:
+	case ColliderType::PLATFORM:// Si el tipo de colisionador es PLATFORM (plataforma)
 		LOG("Collision PLATFORM");
-		isJumping = false;
+		isJumping = false;// Indica que el cerdo ya no está saltando
 		break;
 	}
 
