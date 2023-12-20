@@ -34,13 +34,14 @@
 
 		<enemies>
 			<cerdo x ="550" y="1700" speed="2.0" texturepath="Assets/Textures/enemy-animation.png"/>
+			<cerdo x ="550" y="3200" speed="2.0" texturepath="Assets/Textures/enemy-animation.png"/>
 			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 			<cerdoPatrullador x ="1950" y="2650" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
-			<!--<cerdoPatrullador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
 			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
+			<dragon x ="550" y="2850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png"/>
 		</enemies>
 
