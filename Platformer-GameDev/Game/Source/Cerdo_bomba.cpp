@@ -35,8 +35,6 @@ bool CerdoPatrullador::Start() {
 	runRight.LoadAnimations("Bombright", "cerdoBomba");
 	runRight.speed = 0.16f;
 
-	runLeft.LoadAnimations("Bombleft", "cerdoBomba");
-	runLeft.speed = 0.16f;
 	//dead
 	dead.LoadAnimations("Dead", "cerdoBomba");
 	dead.speed = 0.25f;
@@ -56,9 +54,6 @@ bool CerdoPatrullador::Start() {
 
 	pigExplosion_FXid = app->audio->LoadFx("Assets/Audio/Fx/pig_explosion_FX.wav");
 	pigOink_FXid = app->audio->LoadFx("Assets/Audio/Fx/pig_oink_FX.wav");
-	//initialTransform = pbody->body->GetTransform();
-
-	//LoadAnimations();
 
 	return true;
 }
@@ -70,15 +65,11 @@ bool CerdoPatrullador::Update(float dt)
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 	currentVelocity.y += 0.5;
-
-	//health -= 1;
 	
 	if (isFollowingPlayer)
 	{
 		currentAnimation = &watifokIn;
 	}
-
-	// Resto de tu código de dibujo...
 
 	if (currentAnimation->HasFinished() && isDead)
 	{
@@ -97,8 +88,6 @@ bool CerdoPatrullador::Update(float dt)
 		{
 			app->audio->PlayFx(pigOink_FXid, 0);
 			isFollowingPlayer = true;
-
-			//watifokIn.Reset();
 		}
 
 		if (position.x < app->scene->player->position.x)
@@ -110,7 +99,7 @@ bool CerdoPatrullador::Update(float dt)
 		else if (position.x > app->scene->player->position.x)
 		{
 			currentVelocity.x = -speed * 2.5;
-			currentAnimation = &runLeft;
+			currentAnimation = &runRight;
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
 	}
@@ -121,7 +110,7 @@ bool CerdoPatrullador::Update(float dt)
 		if (position.x >= posB)
 		{
 			direction = false;
-			currentAnimation = &runLeft;
+			currentAnimation = &runRight;
 		}
 		if (position.x <= posA)
 		{
@@ -182,30 +171,9 @@ void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->audio->PlayFx(pigExplosion_FXid, 0);
 		OnDeath(); // Call the OnDeath function
 		break;
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		break;
 	case ColliderType::DAMAGE:
 		LOG("Collision DAMAGE");
 		isDead = true;
-		break;
-	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
-		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
-		break;
-	case ColliderType::CEILING:
-		LOG("Collision CEILING");
-		break;
-	case ColliderType::TRAP:
-		LOG("Collision TRAP");
-		break;
-	case ColliderType::NEXTLEVEL:
-		LOG("Collision NEXTLEVEL");
-		break;
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
 		break;
 	}
 

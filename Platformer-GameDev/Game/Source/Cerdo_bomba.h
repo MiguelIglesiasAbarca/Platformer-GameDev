@@ -34,8 +34,6 @@ public:
 	SDL_Texture* texture = NULL;
 	SDL_Texture* pathTexture = NULL;
 	PhysBody* pbody;
-	iPoint cerdoPosition;
-	iPoint playerTilePos;
 	int posA;
 	int posB;
 	bool direction = true;
@@ -43,21 +41,13 @@ public:
 	int health = 100;
 	int pigExplosion_FXid;
 	int pigOink_FXid;
-	//bool isJumping = false;
-	//bool running = false;
 	bool isDead = false;
 	bool looksRight = true;
 
 	Animation* currentAnimation = nullptr;
-	/*Animation idleRight;*/
-	//Animation idleLeft;
 	Animation runRight;
-	Animation runLeft;
 	Animation watifokIn;
-	//Animation attack;
 	Animation dead;
-	//Animation jumpRight;
-	//Animation jumpLeft;
 };
 
 #endif
