@@ -178,7 +178,8 @@ void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::DAMAGE:// Si el tipo de colisionador es DAMAGE (da�o)
 		LOG("Collision DAMAGE");
-		isDead = true;// Marca al cerdo como muerto
+		app->audio->PlayFx(pigExplosion_FXid, 0);
+		OnDeath();// Marca al cerdo como muerto
 		break;
 	}
 
