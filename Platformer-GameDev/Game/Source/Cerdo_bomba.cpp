@@ -92,12 +92,14 @@ bool CerdoPatrullador::Update(float dt)
 
 		if (position.x < app->scene->player->position.x)
 		{
+			looksRight = false;
 			currentVelocity.x = speed * 2.5;
 			currentAnimation = &runRight;
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
 		else if (position.x > app->scene->player->position.x)
 		{
+			looksRight = true;
 			currentVelocity.x = -speed * 2.5;
 			currentAnimation = &runRight;
 			pbody->body->SetLinearVelocity(currentVelocity);
