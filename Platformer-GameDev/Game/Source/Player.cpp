@@ -55,7 +55,7 @@ bool Player::Start() {
 
 	//attack
 	attackRight.LoadAnimations("Attackright", "player");
-	attackRight.speed = 0.05f;
+	attackRight.speed = 0.2f;
 
 #pragma endregion
 
@@ -315,7 +315,7 @@ bool Player::Update(float dt)
 
 	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 
-	app->render->DrawTexture(texture, position.x, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);
+	app->render->DrawTexture(texture, position.x -32 , position.y - 16, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();
 
 	return true;

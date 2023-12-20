@@ -30,7 +30,7 @@
 		<background3 path="Assets/Textures/fondo3.png"/>
 		<background4 path="Assets/Textures/fondo4.png"/>
 
-		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-anim.png"/>
+		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
 
 		<enemies>
 			<cerdo x ="550" y="1700" speed="2.0" texturepath="Assets/Textures/player-anim.png"/>
@@ -54,46 +54,46 @@
 	<player>
 		<animations>
 			<Idleright loop="true" speed ="0.5">
-				<frame x="6" y="65" w="44" h="45"/>
-				<frame x="84" y="65" w="44" h="45"/>
-				<frame x="162" y="65" w="44" h="45"/>
-				<frame x="240" y="65" w="44" h="45"/>
-				<frame x="318" y="65" w="44" h="45"/>
-				<frame x="396" y="65" w="44" h="45"/>
-				<frame x="474" y="65" w="44" h="45"/>
-				<frame x="552" y="65" w="44" h="45"/>
-				<frame x="630" y="65" w="44" h="45"/>
-				<frame x="708" y="65" w="44" h="45"/>
-				<frame x="786" y="65" w="44" h="45"/>
+				<frame x="0" y="70" w="100" h="70"/>
+				<frame x="100" y="70" w="100" h="70"/>
+				<frame x="200" y="70" w="100" h="70"/>
+				<frame x="300" y="70" w="100" h="70"/>
+				<frame x="400" y="70" w="100" h="70"/>
+				<frame x="500" y="70" w="100" h="70"/>
+				<frame x="600" y="70" w="100" h="70"/>
+				<frame x="700" y="70" w="100" h="70"/>
+				<frame x="800" y="70" w="100" h="70"/>
+				<frame x="900" y="70" w="100" h="70"/>
+				<frame x="1000" y="70" w="100" h="70"/>
 			</Idleright>
 			
 			<Runright loop="true" speed ="0.2">
-				<frame x="6" y="14" w="45" h="38"/>
-				<frame x="84" y="14" w="45" h="38"/>
-				<frame x="162" y="14" w="45" h="38"/>
-				<frame x="240" y="14" w="45" h="38"/>
-				<frame x="318" y="14" w="45" h="38"/>
-				<frame x="396" y="14" w="45" h="38"/>
-				<frame x="474" y="14" w="45" h="38"/>
-				<frame x="552" y="14" w="45" h="38"/>
+				<frame x="0" y="0" w="100" h="70"/>
+				<frame x="100" y="0" w="100" h="70"/>
+				<frame x="200" y="0" w="100" h="70"/>
+				<frame x="300" y="0" w="100" h="70"/>
+				<frame x="400" y="0" w="100" h="70"/>
+				<frame x="500" y="0" w="100" h="70"/>
+				<frame x="600" y="0" w="100" h="70"/>
+				<frame x="700" y="0" w="100" h="70"/>
 			</Runright>
 
 			<Jumpright loop="false" speed ="0.1">
-				<frame x="6" y="211" w="43" h="43"/>
-				<frame x="82" y="211" w="43" h="43"/>
+				<frame x="0" y="210" w="100" h="70"/>
+				<frame x="100" y="210" w="100" h="70"/>
 			</Jumpright>
 
 			<Attackright loop="false" speed ="0.5">
-				<frame x="0" y="354" w="118" h="62"/>
-				<frame x="118" y="354" w="118" h="62"/>
-				<frame x="236" y="354" w="118" h="62"/>
+				<frame x="0" y="280" w="100" h="70"/>
+				<frame x="100" y="280" w="100" h="70"/>
+				<frame x="200" y="280" w="100" h="70"/>
 			</Attackright>
 			
 			<Dead loop="false" speed ="0.1">
-				<frame x="6" y="167" w="49" h="46"/>
-				<frame x="80" y="167" w="49" h="46"/>
-				<frame x="157" y="167" w="49" h="46"/>
-				<frame x="235" y="167" w="49" h="46"/>
+				<frame x="0" y="140" w="100" h="70"/>
+				<frame x="100" y="140" w="100" h="70"/>
+				<frame x="200" y="140" w="100" h="70"/>
+				<frame x="300" y="140" w="100" h="70"/>
 			</Dead>
 		</animations>
 	</player>
