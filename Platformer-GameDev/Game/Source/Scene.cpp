@@ -244,7 +244,6 @@ bool Scene::LoadState(pugi::xml_node node)
 		cerdo->isDead = node.child(("Cerdo" + count).c_str()).child("CerdoPosition").attribute("isDead").as_bool();
 		cerdo->tp = true;
 	}
-	int nabo = 0;
 
 	for (int CerdoPatcount = 0; CerdoPatcount < CerdoPatrulladorlista.Count(); CerdoPatcount++) {
 
