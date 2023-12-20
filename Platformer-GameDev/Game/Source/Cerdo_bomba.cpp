@@ -73,14 +73,10 @@ bool CerdoPatrullador::Update(float dt)
 
 	//health -= 1;
 	
-	/*if (isFollowingPlayer)
+	if (isFollowingPlayer)
 	{
-		app->render->DrawTexture(texture, position.x-10, position.y - 10, &watifokIn.GetCurrentFrame());
-	}*/
-	/*else
-	{
-		app->render->DrawTexture(texture, position.x, position.y + 1, &watifokIn.GetCurrentFrame());
-	}*/
+		currentAnimation = &watifokIn;
+	}
 
 	// Resto de tu código de dibujo...
 
@@ -148,26 +144,22 @@ bool CerdoPatrullador::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+
 	if (isDead)
 	{
 		currentAnimation = &dead;
 		currentAnimation->loopCount = 0;
 		currentVelocity.x = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
-		app->render->DrawTexture(texture, position.x-75, position.y - 124, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
-	}
-	else if(isFollowingPlayer)
-	{
-		app->render->DrawTexture(texture, position.x, position.y +1, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
-		currentAnimation = &watifokIn;
-		app->render->DrawTexture(texture, position.x + 7, position.y - 5, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x-75, position.y - 124, &currentAnimation->GetCurrentFrame(),flip);
 		currentAnimation->Update();
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame(),flip);
 		currentAnimation->Update();
 	}
 	return true;

@@ -46,7 +46,7 @@ public:
 	//bool isJumping = false;
 	//bool running = false;
 	bool isDead = false;
-	//bool left_right = true;
+	bool looksRight = true;
 
 	Animation* currentAnimation = nullptr;
 	/*Animation idleRight;*/
