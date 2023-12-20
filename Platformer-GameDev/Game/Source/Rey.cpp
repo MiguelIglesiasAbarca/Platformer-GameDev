@@ -23,7 +23,7 @@ bool Rey::Awake() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
-	king_FXid = app->audio->LoadFx("Assets/Audio/Fx/pig_explosion_FX.wav");
+	king_FXid = app->audio->LoadFx("Assets/Audio/Fx/end_level_FX.wav");
 
 	return true;
 }
