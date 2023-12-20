@@ -35,9 +35,6 @@ bool Dragon::Start() {
 	idleRight.LoadAnimations("Idleright", "dragon");
 	idleRight.speed = 0.16f;
 
-	idleLeft.LoadAnimations("Idleleft", "dragon");
-	idleLeft.speed = 0.16f;
-
 	dead.LoadAnimations("Dead", "dragon");
 	dead.speed = 0.167f;
 
@@ -49,10 +46,6 @@ bool Dragon::Start() {
 	pbody = app->physics->CreateCircle(position.x, position.y, 15, bodyType::KINEMATIC); // porque no funciona ?? 
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
-
-	//initialTransform = pbody->body->GetTransform();
-
-	//LoadAnimations();
 
 	return true;
 }
@@ -76,7 +69,6 @@ bool Dragon::Update(float dt)
 
 	if (distance < 4)
 	{
-		//currentAnimation = &attack;
 		currentVelocity.x = 0;
 		currentVelocity.y = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
@@ -88,7 +80,6 @@ bool Dragon::Update(float dt)
 		if (path->Count() > 1)
 		{
 			nextTilePath = { path->At(1)->x, path->At(1)->y };
-			//Move(enemyPosition, nextTilePath);
 
 			int positionTilesx = position.x / 32;
 			int positionTilesy = position.y / 32;
@@ -164,51 +155,13 @@ void Dragon::OnDeath()
 	app->physics->world->DestroyBody(pbody->body);
 }
 
-void Dragon::Move(const iPoint& origin, const iPoint& destination)
-{
-	float xDiff = destination.x - origin.x;
-	float yDiff = destination.y - origin.y;
-
-	if (app->map->pathfinding->IsWalkable(destination) != 0)
-	{
-		velocity.x = (xDiff < 0) ? -2 : (xDiff > 0) ? 2 : 0;
-		velocity.y = (yDiff < 0) ? -2 : (yDiff > 0) ? -GRAVITY_Y : 0;
-
-		looksRight = (xDiff > 0);
-	}
-	else {
-		velocity = { 0, -GRAVITY_Y };
-	}
-}
-
 void Dragon::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		break;
-	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
-		break;
 	case ColliderType::DAMAGE:
 		LOG("Collision DAMAGE");
 		isDead = true;
-		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
-		break;
-	case ColliderType::CEILING:
-		LOG("Collision CEILING");
-		break;
-	case ColliderType::TRAP:
-		LOG("Collision TRAP");
-		break;
-	case ColliderType::NEXTLEVEL:
-		LOG("Collision NEXTLEVEL");
-		break;
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
 		break;
 	}
 

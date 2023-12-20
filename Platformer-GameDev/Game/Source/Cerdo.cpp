@@ -135,7 +135,7 @@ bool Cerdo::Update(float dt)
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+	flip = looksRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 
 	app->render->DrawTexture(texture, position.x - 10, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();

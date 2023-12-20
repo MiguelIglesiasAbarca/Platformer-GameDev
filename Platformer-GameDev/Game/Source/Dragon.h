@@ -29,8 +29,6 @@ public:
 
 	void OnDeath();
 
-	void Move(const iPoint& origin, const iPoint& destination);
-
 public:
 	float speed = 1.0f;
 	const char* texturePath;
@@ -40,26 +38,14 @@ public:
 	iPoint enemyPosition;
 	iPoint playerTilePos;
 	iPoint nextTilePath;
-	bool direction = true;
-	bool isFollowingPlayer = false;
-	int health = 100;
 	int distance;
 	bool isDead = false;
-	b2Vec2 velocity;
-	//bool isJumping = false;
-	//bool running = false;
-	//bool isDead = false;
 	bool looksRight = true;
 
 	Animation* currentAnimation = nullptr;
 	Animation idleRight;
-	Animation idleLeft;
 	Animation runRight;
-	Animation runLeft;
-	//Animation attack;
 	Animation dead;
-	//Animation jumpRight;
-	//Animation jumpLeft;
 };
 
 #endif
