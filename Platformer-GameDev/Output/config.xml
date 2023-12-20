@@ -41,7 +41,7 @@
 			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 			<!--<cerdoPatrullador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
 			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
-			<!--<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>-->
+			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/player-anim.png"/>
 		</enemies>
 
 		<comida>
@@ -49,6 +49,8 @@
 			<masa x ="1550" y="1590" texturepath="Assets/Textures/masa.png"/>
 			<queso x ="200" y="2800" texturepath="Assets/Textures/queso.png"/>
 		</comida>
+
+		<rey x ="3200" y="1321" speed="2.5" texturepath="Assets/Textures/Thronesad.png"/>
 	</scene>
 	
 	<player>

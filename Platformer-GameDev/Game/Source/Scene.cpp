@@ -94,6 +94,12 @@ bool Scene::Awake(pugi::xml_node& config)
 		}
 	}
 
+	for (pugi::xml_node reyNode = config.child("rey"); reyNode; reyNode = reyNode.next_sibling("rey"))
+	{
+		Rey* rey = (Rey*)app->entityManager->CreateEntity(EntityType::REY);
+		rey->parameters = reyNode;
+	}
+
 	if (config.child("map")) {
 		//Get the map name from the config file and assigns the value in the module
 		app->map->name = config.child("map").attribute("name").as_string();

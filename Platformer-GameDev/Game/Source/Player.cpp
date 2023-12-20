@@ -18,7 +18,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	coin = nullptr;
 }
 
-Player::~Player(){}
+Player::~Player() {}
 
 bool Player::Awake() {
 
@@ -192,7 +192,7 @@ bool Player::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking)
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && !isDead && !isAttacking)
 	{
 		running = false;
 		isAttacking = true;
@@ -203,12 +203,12 @@ bool Player::Update(float dt)
 		currentAnimation->loopCount = 0;
 		if (looksRight)
 		{
-			AttackpBody = app->physics->CreateCircle(position.x + 50, position.y + 15, 12, bodyType::DYNAMIC);
+			AttackpBody = app->physics->CreateCircle(position.x + 55, position.y + 15, 18, bodyType::DYNAMIC);
 			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		else
 		{
-			AttackpBody = app->physics->CreateCircle(position.x - 30, position.y + 15, 12, bodyType::DYNAMIC);
+			AttackpBody = app->physics->CreateCircle(position.x - 18, position.y + 15, 18, bodyType::DYNAMIC);
 			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		currentAnimation->Reset();
@@ -315,7 +315,7 @@ bool Player::Update(float dt)
 
 	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 
-	app->render->DrawTexture(texture, position.x -32 , position.y - 16, &currentAnimation->GetCurrentFrame(), flip);
+	app->render->DrawTexture(texture, position.x - 32, position.y - 16, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();
 
 	return true;

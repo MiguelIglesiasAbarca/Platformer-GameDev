@@ -27,6 +27,7 @@ enum class ColliderType {
 	PLAYER,
 	DAMAGE,
 	CERDO,
+	REY,
 	ITEM,
 	TRAP,
 	NEXTLEVEL,
