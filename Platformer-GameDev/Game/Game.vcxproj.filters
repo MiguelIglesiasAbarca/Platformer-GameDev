@@ -29,7 +29,6 @@
     <ClCompile Include="Source\Cerdo_bomba.cpp" />
     <ClCompile Include="Source\Dragon.cpp" />
     <ClCompile Include="Source\Cerdo_Volador.cpp" />
-    <ClCompile Include="Source\final.cpp" />
     <ClCompile Include="Source\Rey.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +83,6 @@
     <ClInclude Include="Source\Cerdo_bomba.h" />
     <ClInclude Include="Source\Dragon.h" />
     <ClInclude Include="Source\Cerdo_Volador.h" />
-    <ClInclude Include="Source\final.h" />
     <ClInclude Include="Source\Rey.h" />
   </ItemGroup>
   <ItemGroup>
