@@ -40,7 +40,7 @@ bool CerdoPatrullador::Start() {
 	dead.speed = 0.25f;
 	//watifok
 	watifokIn.LoadAnimations("Watifokin", "cerdoBomba");
-	watifokIn.speed = 0.05f;
+	watifokIn.speed = 0.16f;
 
 	currentAnimation = &runRight;
 
@@ -92,16 +92,16 @@ bool CerdoPatrullador::Update(float dt)
 
 		if (position.x < app->scene->player->position.x)
 		{
-			looksRight = false;
+			looksRight = true;
 			currentVelocity.x = speed * 2.5;
-			currentAnimation = &runRight;
+			currentAnimation = &watifokIn;
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
 		else if (position.x > app->scene->player->position.x)
 		{
-			looksRight = true;
+			looksRight = false;
 			currentVelocity.x = -speed * 2.5;
-			currentAnimation = &runRight;
+			currentAnimation = &watifokIn;
 			pbody->body->SetLinearVelocity(currentVelocity);
 		}
 	}
@@ -111,11 +111,13 @@ bool CerdoPatrullador::Update(float dt)
 
 		if (position.x >= posB)
 		{
+			looksRight = false;
 			direction = false;
 			currentAnimation = &runRight;
 		}
 		if (position.x <= posA)
 		{
+			looksRight = true;
 			direction = true;
 			currentAnimation = &runRight;
 		}
