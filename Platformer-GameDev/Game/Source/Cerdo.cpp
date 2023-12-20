@@ -33,14 +33,8 @@ bool Cerdo::Start() {
 	runRight.LoadAnimations("Runright", "cerdo");
 	runRight.speed = 0.167f;
 
-	runLeft.LoadAnimations("Runleft", "cerdo");
-	runLeft.speed = 0.167f;
-
 	idleRight.LoadAnimations("Idleright", "cerdo");
 	idleRight.speed = 0.167f;
-
-	idleLeft.LoadAnimations("Idleleft", "cerdo");
-	idleLeft.speed = 0.167f;
 
 	jumpRight.LoadAnimations("Jumpright", "cerdo");
 	jumpRight.speed = 0.167f;
@@ -51,7 +45,6 @@ bool Cerdo::Start() {
 	attack.LoadAnimations("Attackright", "cerdo");
 	attack.speed = 0.01f;
 
-	//initilize textures
 	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);
@@ -59,14 +52,6 @@ bool Cerdo::Start() {
 	pbody->listener = this;
 
 	currentAnimation = &idleRight;
-
-	//enemyPbody = app->physics->CreateRectangleSensor(position.x, position.y, 30, 54, bodyType::KINEMATIC);
-	//enemyPbody->ctype = ColliderType::ENEMY;
-	//enemyPbody->listener = this;
-
-	//initialTransform = pbody->body->GetTransform();
-
-	//LoadAnimations();
 
 	return true;
 }
@@ -91,7 +76,6 @@ bool Cerdo::Update(float dt)
 
 	if (distance < 2)
 	{
-		//currentAnimation = &attack;
 		currentAnimation = &idleRight;
 		currentVelocity.x = 0;
 		currentVelocity.y += 0.5;
@@ -104,7 +88,6 @@ bool Cerdo::Update(float dt)
 		if (path->Count() > 1)
 		{
 			nextTilePath = { path->At(1)->x, path->At(1)->y };
-			//Move(enemyPosition, nextTilePath);
 
 			int positionTilesx = position.x / 32;
 			int positionTilesy = position.y / 32;
@@ -125,12 +108,6 @@ bool Cerdo::Update(float dt)
 				pbody->body->SetLinearVelocity(currentVelocity);
 
 			}
-			else if (path->At(1)->y > positionTilesy)
-			{
-				/*currentVelocity.y = speed;
-				currentVelocity.x = 0;
-				pbody->body->SetLinearVelocity(currentVelocity);*/
-			}
 			else if (path->At(1)->y < positionTilesy && path->At(1)->y != positionTilesy)
 			{
 				if (!isJumping)
@@ -140,9 +117,6 @@ bool Cerdo::Update(float dt)
 					currentVelocity.y =  -15;
 					pbody->body->SetLinearVelocity(currentVelocity);
 				}
-				/*currentVelocity.y = -speed;
-				currentVelocity.x = 0;
-				pbody->body->SetLinearVelocity(currentVelocity);*/
 			}
 		}
 	}
@@ -188,9 +162,6 @@ void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		break;
 	case ColliderType::DAMAGE:
 		LOG("Collision DAMAGE");
 		isDead = true;
@@ -198,21 +169,6 @@ void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		isJumping = false;
-		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
-		break;
-	case ColliderType::CEILING:
-		LOG("Collision CEILING");
-		break;
-	case ColliderType::TRAP:
-		LOG("Collision TRAP");
-		break;
-	case ColliderType::NEXTLEVEL:
-		LOG("Collision NEXTLEVEL");
-		break;
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
 		break;
 	}
 

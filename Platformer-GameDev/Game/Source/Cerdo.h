@@ -28,8 +28,6 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	//void OnDeath();
-
 public:
 	float speed = 1.0f;
 	const char* texturePath;
@@ -39,12 +37,9 @@ public:
 	PhysBody* AttackpBody;
 	iPoint enemyPosition;
 	iPoint nextTilePath;
-	bool isFollowingPlayer = false;
 	iPoint playerTilePos;
 	int distance;
-	/*const DynArray<iPoint>* lastPath;*/
 	bool isJumping = false;
-	//bool running = false;
 	bool isDead = false;
 	bool destroyBody = false;
 	bool isAttacking = false;
@@ -52,13 +47,10 @@ public:
 
 	Animation* currentAnimation = nullptr;
 	Animation idleRight;
-	Animation idleLeft;
 	Animation runRight;
-	Animation runLeft;
+	Animation jumpRight;
 	Animation attack;
 	Animation dead;
-	Animation jumpRight;
-	//Animation jumpLeft;
 };
 
 #endif

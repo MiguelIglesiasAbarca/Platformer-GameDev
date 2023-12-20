@@ -343,7 +343,7 @@ void Player::Reset()
 
 void Player::OnDeath()
 {
-	app->audio->PlayFx(2, 0);
+	app->audio->PlayFx(death_Fxid, 0);
 	isDead = true;
 	running = false;
 	currentAnimation = &dead;
