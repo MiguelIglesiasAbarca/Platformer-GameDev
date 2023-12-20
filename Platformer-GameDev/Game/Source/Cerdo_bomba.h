@@ -41,7 +41,7 @@ public:
 	int health = 100;
 	int pigExplosion_FXid;
 	int pigOink_FXid;
-	bool isDead = false;
+	
 	bool looksRight = true;
 
 	Animation* currentAnimation = nullptr;

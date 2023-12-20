@@ -67,6 +67,12 @@ bool Dragon::Update(float dt)
 		app->physics->world->DestroyBody(pbody->body);
 	}
 
+	if (tp)
+	{
+		pbody->body->SetTransform({ PIXEL_TO_METERS(position.x), PIXEL_TO_METERS(position.y) }, 0);
+		tp = false;
+	}
+
 	if (distance < 4)
 	{
 		currentVelocity.x = 0;
@@ -120,6 +126,12 @@ bool Dragon::Update(float dt)
 		app->map->pathfinding->ClearLastPath();
 	}
 
+	if (!tp)
+	{
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+	}
+
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
@@ -139,6 +151,7 @@ bool Dragon::Update(float dt)
 			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);
 		}
 	}
+
 	return true;
 }
 

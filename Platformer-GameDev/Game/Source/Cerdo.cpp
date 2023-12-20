@@ -68,6 +68,12 @@ bool Cerdo::Update(float dt)
 
 	distance = playerTilePos.DistanceTo(enemyPosition); // calculamos la distancia entre player y enemigo
 
+	if (tp)
+	{
+		pbody->body->SetTransform({ PIXEL_TO_METERS(position.x), PIXEL_TO_METERS(position.y) }, 0);
+		tp = false;
+	}
+
 	if (isDead)
 	{
 		app->entityManager->DestroyEntity(this);
@@ -152,6 +158,12 @@ bool Cerdo::Update(float dt)
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);// Convierte las coordenadas del punto del mapa a coordenadas del mundo
 			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);// Dibuja una textura (pathTexture) en la posición correspondiente al punto del camino
 		}
+	}
+
+	if (!tp)
+	{
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 	}
 
 	return true;

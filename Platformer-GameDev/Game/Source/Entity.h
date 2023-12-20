@@ -92,6 +92,8 @@ public:
 	// want our Entity class, maybe it's not renderable...
 	iPoint position;       
 	bool renderable = true;
+	bool isDead = false;
+	bool tp = false;
 };
 
 #endif // __ENTITY_H__

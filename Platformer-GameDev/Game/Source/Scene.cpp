@@ -53,24 +53,28 @@ bool Scene::Awake(pugi::xml_node& config)
 			Cerdo* cerdo = (Cerdo*)app->entityManager->CreateEntity(EntityType::CERDO);
 			cerdo->parameters = cerdoNode;
 		}
+		Cerdolista;
 
 		for (pugi::xml_node cerdoPatrulladorNode = enemiesNode.child("cerdoPatrullador"); cerdoPatrulladorNode; cerdoPatrulladorNode = cerdoPatrulladorNode.next_sibling("cerdoPatrullador"))
 		{
 			CerdoPatrullador* cerdoPatrullador = (CerdoPatrullador*)app->entityManager->CreateEntity(EntityType::CERDO_PATRULLADOR);
 			cerdoPatrullador->parameters = cerdoPatrulladorNode;
 		}
+		CerdoPatrulladorlista;
 
 		for (pugi::xml_node dragonNode = enemiesNode.child("dragon"); dragonNode; dragonNode = dragonNode.next_sibling("dragon"))
 		{
 			Dragon* dragon = (Dragon*)app->entityManager->CreateEntity(EntityType::DRAGON);
 			dragon->parameters = dragonNode;
 		}
+		Dragonlista;
 
 		for (pugi::xml_node cerdoVoladorNode = enemiesNode.child("cerdoVolador"); cerdoVoladorNode; cerdoVoladorNode = cerdoVoladorNode.next_sibling("cerdoVolador"))
 		{
 			Cerdo_Volador* cerdoVolador = (Cerdo_Volador*)app->entityManager->CreateEntity(EntityType::CERDO_VOLADOR);
 			cerdoVolador->parameters = cerdoVoladorNode;
 		}
+		CerdoVoladorlista;
 	}
 
 	for (pugi::xml_node foodNode = config.child("comida"); foodNode; foodNode = foodNode.next_sibling("comida"))
@@ -99,6 +103,11 @@ bool Scene::Awake(pugi::xml_node& config)
 		Rey* rey = (Rey*)app->entityManager->CreateEntity(EntityType::REY);
 		rey->parameters = reyNode;
 	}
+
+	app->entityManager->GetCerdo(Cerdolista);
+	app->entityManager->GetCerdoVolador(CerdoVoladorlista);
+	app->entityManager->GetCerdoPatrullador(CerdoPatrulladorlista);
+	app->entityManager->GetDragon(Dragonlista);
 
 	if (config.child("map")) {
 		//Get the map name from the config file and assigns the value in the module
@@ -222,6 +231,67 @@ bool Scene::LoadState(pugi::xml_node node)
 
 	player->pbody->body->SetTransform({ PIXEL_TO_METERS(player->position.x), PIXEL_TO_METERS(player->position.y) }, 0);
 
+	for (int Cerdocount = 0; Cerdocount < Cerdolista.Count(); Cerdocount++) {
+
+		Entity* cerdo = Cerdolista.At(Cerdocount)->data;
+
+		// Convert the current count to a string for constructing XML attribute names.
+		std::string count = std::to_string(Cerdocount + 1);
+
+		// Update the position of the slime entity based on XML attributes.
+		cerdo->position.x = node.child(("Cerdo" + count).c_str()).child("CerdoPosition").attribute("x").as_int();
+		cerdo->position.y = node.child(("Cerdo" + count).c_str()).child("CerdoPosition").attribute("y").as_int();
+		cerdo->isDead = node.child(("Cerdo" + count).c_str()).child("CerdoPosition").attribute("isDead").as_bool();
+		cerdo->tp = true;
+	}
+
+	for (int CerdoPatcount = 0; CerdoPatcount < CerdoPatrulladorlista.Count(); CerdoPatcount++) {
+
+		Entity* cerdopat = CerdoPatrulladorlista.At(CerdoPatcount)->data;
+
+		// Convert the current count to a string for constructing XML attribute names.
+		std::string count = std::to_string(CerdoPatcount + 1);
+
+		// Update the position of the slime entity based on XML attributes.
+		cerdopat->position.x = node.child(("CerdoPat" + count).c_str()).child("CerdoPatPosition").attribute("x").as_int();
+		cerdopat->position.y = node.child(("CerdoPat" + count).c_str()).child("CerdoPatPosition").attribute("y").as_int();
+		cerdopat->isDead = node.child(("CerdoPat" + count).c_str()).child("CerdoPatPosition").attribute("isDead").as_bool();
+		cerdopat->tp = true;
+	}
+
+	for (int CerdoVolcount = 0; CerdoVolcount < CerdoVoladorlista.Count(); CerdoVolcount++) {
+
+		Entity* cerdovol = CerdoVoladorlista.At(CerdoVolcount)->data;
+
+		// Convert the current count to a string for constructing XML attribute names.
+		std::string count = std::to_string(CerdoVolcount + 1);
+
+		// Update the position of the slime entity based on XML attributes.
+		cerdovol->position.x = node.child(("CerdoVol" + count).c_str()).child("CerdoVolPosition").attribute("x").as_int();
+		cerdovol->position.y = node.child(("CerdoVol" + count).c_str()).child("CerdoVolPosition").attribute("y").as_int();
+		cerdovol->isDead = node.child(("CerdoVol" + count).c_str()).child("CerdoVolPosition").attribute("isDead").as_bool();
+		cerdovol->tp = true;
+	}
+
+	for (int Dragoncount = 0; Dragoncount < Dragonlista.Count(); Dragoncount++) {
+
+		Entity* dragon = Dragonlista.At(Dragoncount)->data;
+
+		// Convert the current count to a string for constructing XML attribute names.
+		std::string count = std::to_string(Dragoncount + 1);
+
+		// Update the position of the slime entity based on XML attributes.
+		dragon->position.x = node.child(("Dragon" + count).c_str()).child("DragonPosition").attribute("x").as_int();
+		dragon->position.y = node.child(("Dragon" + count).c_str()).child("DragonPosition").attribute("y").as_int();
+		dragon->isDead = node.child(("Dragon" + count).c_str()).child("DragonPosition").attribute("isDead").as_bool();
+		dragon->tp = true;
+	}
+	
+	List<Entity> Cerdolista;
+	List<Entity> CerdoPatrulladorlista;
+	List<Entity> CerdoVoladorlista;
+	List<Entity> Dragonlista;
+
 	return true;
 }
 
@@ -237,6 +307,39 @@ bool Scene::SaveState(pugi::xml_node node)
 	pconditionsNode.append_attribute("isJumping").set_value(player->isJumping);
 	pconditionsNode.append_attribute("running").set_value(player->running);
 	pconditionsNode.append_attribute("left_right").set_value(player->looksRight);
+
+	for (int CerdoCount = 0; CerdoCount < Cerdolista.Count(); CerdoCount++) {
+		std::string count = std::to_string(CerdoCount + 1);
+		Entity* cerdo = Cerdolista.At(CerdoCount)->data;
+		pugi::xml_node enemyNode = node.append_child(("Cerdo" + count).c_str()).append_child("CerdoPosition");
+		enemyNode.append_attribute("x").set_value(cerdo->position.x);
+		enemyNode.append_attribute("y").set_value(cerdo->position.y);
+		enemyNode.append_attribute("isDead").set_value(cerdo->isDead);
+	}
+	for (int CerdoPatCount = 0; CerdoPatCount < CerdoPatrulladorlista.Count(); CerdoPatCount++) {
+		std::string count = std::to_string(CerdoPatCount + 1);
+		Entity* cerdopat = CerdoPatrulladorlista.At(CerdoPatCount)->data;
+		pugi::xml_node enemyNode = node.append_child(("Cerdopat" + count).c_str()).append_child("CerdoPatPosition");
+		enemyNode.append_attribute("x").set_value(cerdopat->position.x);
+		enemyNode.append_attribute("y").set_value(cerdopat->position.y);
+		enemyNode.append_attribute("isDead").set_value(cerdopat->isDead);
+	}
+	for (int CerdoVolCount = 0; CerdoVolCount < CerdoVoladorlista.Count(); CerdoVolCount++) {
+		std::string count = std::to_string(CerdoVolCount + 1);
+		Entity* cerdovol = CerdoVoladorlista.At(CerdoVolCount)->data;
+		pugi::xml_node enemyNode = node.append_child(("Cerdovol" + count).c_str()).append_child("CerdovVolPosition");
+		enemyNode.append_attribute("x").set_value(cerdovol->position.x);
+		enemyNode.append_attribute("y").set_value(cerdovol->position.y);
+		enemyNode.append_attribute("isDead").set_value(cerdovol->isDead);
+	}
+	for (int DragonCount = 0; DragonCount < Dragonlista.Count(); DragonCount++) {
+		std::string count = std::to_string(DragonCount + 1);
+		Entity* dragon = Dragonlista.At(DragonCount)->data;
+		pugi::xml_node enemyNode = node.append_child(("Dragon" + count).c_str()).append_child("DragonPosition");
+		enemyNode.append_attribute("x").set_value(dragon->position.x);
+		enemyNode.append_attribute("y").set_value(dragon->position.y);
+		enemyNode.append_attribute("isDead").set_value(dragon->isDead);
+	}
 
 	return true;
 }

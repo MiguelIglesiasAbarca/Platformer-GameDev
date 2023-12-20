@@ -60,12 +60,23 @@ bool CerdoPatrullador::Start() {
 
 bool CerdoPatrullador::Update(float dt)
 {
+	if (tp)
+	{
+		pbody->body->SetTransform({ PIXEL_TO_METERS(position.x), PIXEL_TO_METERS(position.y) }, 0);
+		tp = false;
+	}
+	if (!tp)
+	{
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+	}
 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 	currentVelocity.y += 0.5;
 
+	
 	if (isFollowingPlayer)
 	{
 		currentAnimation = &watifokIn;
@@ -81,7 +92,7 @@ bool CerdoPatrullador::Update(float dt)
 	{
 		OnDeath();
 	}
-
+	
 	if (posA - 400 <= app->scene->player->position.x && app->scene->player->position.x <= posB + 400 && app->scene->player->position.y < position.y && app->scene->player->position.y >= position.y - 32)
 	{
 		if (isFollowingPlayer == false)
@@ -134,6 +145,8 @@ bool CerdoPatrullador::Update(float dt)
 		}
 	}
 
+	
+
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
@@ -156,6 +169,7 @@ bool CerdoPatrullador::Update(float dt)
 		app->render->DrawTexture(texture, position.x, position.y - 12, &currentAnimation->GetCurrentFrame(),flip);
 		currentAnimation->Update();
 	}
+
 	return true;
 }
 

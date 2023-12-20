@@ -33,6 +33,11 @@ public:
 
 	void AddEntity(Entity* entity);
 
+	void GetCerdo(List<Entity*>& Cerdolista) const;
+	void GetCerdoVolador(List<Entity*>& CerdoVoladorlista) const;
+	void GetCerdoPatrullador(List<Entity*>& CerdoPatrulladorlista) const;
+	void GetDragon(List<Entity*>& Dragonlista) const;
+
 public:
 
 	List<Entity*> entities;

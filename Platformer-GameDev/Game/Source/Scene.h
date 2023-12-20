@@ -67,6 +67,11 @@ private:
 	SDL_Texture* fondo4;
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
+	List<Entity*> Cerdolista;
+	List<Entity*> CerdoVoladorlista;
+	List<Entity*> CerdoPatrulladorlista;
+	List<Entity*> Dragonlista;
+
 
 };
 

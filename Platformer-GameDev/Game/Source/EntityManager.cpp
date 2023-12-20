@@ -138,6 +138,66 @@ void EntityManager::AddEntity(Entity* entity)
 	if ( entity != nullptr) entities.Add(entity);
 }
 
+void EntityManager::GetCerdo(List<Entity*>& Cerdolista) const
+{
+	Cerdolista.Clear();
+
+	ListItem<Entity*>* entity;
+
+	for (entity = entities.start; entity != NULL; entity = entity->next)
+	{
+		if (entity->data->type == EntityType::CERDO)
+		{
+			Cerdolista.Add(entity->data);
+		}
+	}
+}
+
+void EntityManager::GetCerdoVolador(List<Entity*>& CerdoVoladorlista) const
+{
+	CerdoVoladorlista.Clear();
+
+	ListItem<Entity*>* entity;
+
+	for (entity = entities.start; entity != NULL; entity = entity->next)
+	{
+		if (entity->data->type == EntityType::CERDO_VOLADOR)
+		{
+			CerdoVoladorlista.Add(entity->data);
+		}
+	}
+}
+
+void EntityManager::GetCerdoPatrullador(List<Entity*>& CerdoPatrulladorlista) const
+{
+	CerdoPatrulladorlista.Clear();
+
+	ListItem<Entity*>* entity;
+
+	for (entity = entities.start; entity != NULL; entity = entity->next)
+	{
+		if (entity->data->type == EntityType::CERDO_PATRULLADOR)
+		{
+			CerdoPatrulladorlista.Add(entity->data);
+		}
+	}
+}
+
+void EntityManager::GetDragon(List<Entity*>& Dragonlista) const
+{
+	Dragonlista.Clear();
+
+	ListItem<Entity*>* entity;
+
+	for (entity = entities.start; entity != NULL; entity = entity->next)
+	{
+		if (entity->data->type == EntityType::DRAGON)
+		{
+			Dragonlista.Add(entity->data);
+		}
+	}
+}
+
 bool EntityManager::Update(float dt)
 {
 	bool ret = true;
