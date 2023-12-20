@@ -58,9 +58,9 @@ void Food::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
 		app->audio->PlayFx(pickFood_FXid, 0);
-		//pbody->body->SetActive(false);
+		pbody->body->SetActive(false);
 		app->entityManager->DestroyEntity(this);
-		app->physics->world->DestroyBody(this);
+		app->physics->world->DestroyBody(pbody->body);
 		break;
 	}
 
