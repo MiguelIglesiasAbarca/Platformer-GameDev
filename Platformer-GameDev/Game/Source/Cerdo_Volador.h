@@ -36,25 +36,14 @@ public:
 	PhysBody* pbody;
 	iPoint enemyPosition;
 	iPoint playerTilePos;
-	bool direction = true;
-	bool isFollowingPlayer = false;
-	int health = 100;
 	int distance;
 	bool isDead = false;
-	//bool isJumping = false;
-	//bool running = false;
-	//bool isDead = false;
 	bool looksRight = true;
 
 	Animation* currentAnimation = nullptr;
 	Animation idleRight;
-	Animation idleLeft;
 	Animation runRight;
-	Animation runLeft;
-	//Animation attack;
 	Animation dead;
-	//Animation jumpRight;
-	//Animation jumpLeft;
 };
 
 #endif

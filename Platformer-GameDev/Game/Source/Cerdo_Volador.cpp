@@ -35,13 +35,8 @@ bool Cerdo_Volador::Start() {
 	idleRight.LoadAnimations("Idleright", "cerdoVolador");
 	idleRight.speed = 0.16f;
 
-	idleLeft.LoadAnimations("Idleleft", "cerdoVolador");
-	idleLeft.speed = 0.16f;
-
 	dead.LoadAnimations("Dead", "cerdoVolador");
 	dead.speed = 0.167f;
-
-	currentAnimation = &idleRight;
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
@@ -50,9 +45,7 @@ bool Cerdo_Volador::Start() {
 	pbody->ctype = ColliderType::CERDO;
 	pbody->listener = this;
 
-	//initialTransform = pbody->body->GetTransform();
-
-	//LoadAnimations();
+	currentAnimation = &idleRight;
 
 	return true;
 }
@@ -75,40 +68,12 @@ bool Cerdo_Volador::Update(float dt)
 
 	if (distance < 0)
 	{
-		//currentAnimation = &attack;
 		currentVelocity.x = 0;
 		currentVelocity.y = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
 	}
 	else if (distance >= 0 && distance <= 10)
 	{
-		//app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
-		/*lastPath = app->map->pathfinding->GetLastPath();*/
-
-		//if (lastPath->Count() > 0)
-		//{
-		//	const iPoint* nextTile;
-		//	nextTile = lastPath->At(lastPath->Count() - 1);
-
-		//	if (nextTile->x == position.x)
-		//	{
-
-		//	}
-		//	else if (nextTile->x < position.x)
-		//	{
-		//		currentAnimation = &runRight;
-		//		currentVelocity.x = speed * 2.5;
-		//		pbody->body->SetLinearVelocity(currentVelocity);
-		//	}
-		//	else
-		//	{
-		//		currentVelocity.x = -speed * 2.5;
-		//		currentAnimation = &runLeft;
-		//		pbody->body->SetLinearVelocity(currentVelocity);
-		//	}
-		//}
-
-		isFollowingPlayer = true;
 		if (position.x < app->scene->player->position.x)
 		{
 			looksRight = true;
@@ -116,12 +81,12 @@ bool Cerdo_Volador::Update(float dt)
 			pbody->body->SetLinearVelocity(currentVelocity);
 			if (position.y + 10 < app->scene->player->position.y)
 			{
-				currentVelocity.y = speed ;
+				currentVelocity.y = speed;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 			else if (position.y - 10 > app->scene->player->position.y)
 			{
-				currentVelocity.y = -speed ;
+				currentVelocity.y = -speed;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 			else
@@ -165,11 +130,11 @@ bool Cerdo_Volador::Update(float dt)
 
 	if (looksRight)
 	{
-		app->render->DrawTexture(texture, position.x-15, position.y, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x - 15, position.y, &currentAnimation->GetCurrentFrame());
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x-15, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		app->render->DrawTexture(texture, position.x - 15, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
 
 	currentAnimation->Update();
@@ -203,30 +168,9 @@ void Cerdo_Volador::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		break;
 	case ColliderType::DAMAGE:
 		LOG("Collision DAMAGE");
 		isDead = true;
-		break;
-	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
-		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
-		break;
-	case ColliderType::CEILING:
-		LOG("Collision CEILING");
-		break;
-	case ColliderType::TRAP:
-		LOG("Collision TRAP");
-		break;
-	case ColliderType::NEXTLEVEL:
-		LOG("Collision NEXTLEVEL");
-		break;
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
 		break;
 	}
 
