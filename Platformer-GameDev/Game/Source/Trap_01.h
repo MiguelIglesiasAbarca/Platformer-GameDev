@@ -24,14 +24,11 @@ public:
 
 public:
 
-	bool isPicked = false;
-
 private:
 
 	SDL_Texture* texture;
-	int movement = position.x;
 	const char* texturePath;
 	PhysBody* pbody;
 };
 
-#endif // __ITEM_H__
+#endif

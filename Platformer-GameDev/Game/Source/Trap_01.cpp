@@ -29,7 +29,6 @@ bool Trap::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
 	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 10, bodyType::STATIC);
 	pbody->ctype = ColliderType::TRAP;
 
@@ -38,8 +37,6 @@ bool Trap::Start() {
 
 bool Trap::Update(float dt)
 {
-	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics. 
-	
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
