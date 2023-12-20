@@ -4,6 +4,7 @@
 #include "Cerdo_bomba.h"
 #include "Dragon.h"
 #include "Cerdo_Volador.h"
+#include "Rey.h"
 #include "Food.h"
 #include "App.h"
 #include "Textures.h"
@@ -93,6 +94,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::TRAP:
 		entity = new Trap();
+		break;
+	case EntityType::REY:
+		entity = new Rey();
 		break;
 	case EntityType::CERDO:
 		entity = new Cerdo();

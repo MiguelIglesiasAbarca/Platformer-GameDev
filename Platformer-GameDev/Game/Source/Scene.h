@@ -8,6 +8,7 @@
 #include "Dragon.h"
 #include "Cerdo_Volador.h"
 #include "Food.h"
+#include "Rey.h"
 #include "Item.h"
 #include "Trap_01.h"
 //#include "Tomate.h"

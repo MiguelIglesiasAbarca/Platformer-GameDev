@@ -59,14 +59,10 @@ bool Cerdo_Volador::Start() {
 
 bool Cerdo_Volador::Update(float dt)
 {
-
-	if (looksRight)
+	if (isDead)
 	{
-		currentAnimation = &idleRight;
-	}
-	else
-	{
-		currentAnimation = &idleRight;
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
 	}
 
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 16, app->scene->player->position.y);
@@ -212,6 +208,10 @@ void Cerdo_Volador::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
+		break;
+	case ColliderType::DAMAGE:
+		LOG("Collision DAMAGE");
+		isDead = true;
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");

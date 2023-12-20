@@ -203,12 +203,12 @@ bool Player::Update(float dt)
 		currentAnimation->loopCount = 0;
 		if (looksRight)
 		{
-			AttackpBody = app->physics->CreateCircle(position.x + 50, position.y + 15, 12, bodyType::DYNAMIC);
+			AttackpBody = app->physics->CreateCircle(position.x + 55, position.y + 15, 18, bodyType::DYNAMIC);
 			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		else
 		{
-			AttackpBody = app->physics->CreateCircle(position.x - 30, position.y + 15, 12, bodyType::DYNAMIC);
+			AttackpBody = app->physics->CreateCircle(position.x - 18, position.y + 15, 18, bodyType::DYNAMIC);
 			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		currentAnimation->Reset();

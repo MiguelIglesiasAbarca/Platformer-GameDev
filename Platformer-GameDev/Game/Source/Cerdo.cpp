@@ -97,7 +97,7 @@ bool Cerdo::Update(float dt)
 		currentVelocity.y += 0.5;
 		pbody->body->SetLinearVelocity(currentVelocity);
 	}
-	else if (distance >= 2 && distance <= 10)
+	else if (distance >= 2 && distance <= 5)
 	{
 		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
 		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
@@ -146,7 +146,7 @@ bool Cerdo::Update(float dt)
 			}
 		}
 	}
-	else if (distance > 10)
+	else if (distance > 5)
 	{
 		isJumping = false;
 		currentVelocity.x = 0;
