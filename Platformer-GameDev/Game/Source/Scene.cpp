@@ -254,9 +254,9 @@ bool Scene::LoadState(pugi::xml_node node)
 		std::string count = std::to_string(CerdoPatcount + 1);
 
 		// Update the position of the slime entity based on XML attributes.
-		cerdopat->position.x = node.child(("CerdoPat" + count).c_str()).child("CerdoPatPosition").attribute("x").as_int();
-		cerdopat->position.y = node.child(("CerdoPat" + count).c_str()).child("CerdoPatPosition").attribute("y").as_int();
-		cerdopat->isDead = node.child(("CerdoPat" + count).c_str()).child("CerdoPatPosition").attribute("isDead").as_bool();
+		cerdopat->position.x = node.child(("Cerdopat" + count).c_str()).child("CerdoPatPosition").attribute("x").as_int();
+		cerdopat->position.y = node.child(("Cerdopat" + count).c_str()).child("CerdoPatPosition").attribute("y").as_int();
+		cerdopat->isDead = node.child(("Cerdopat" + count).c_str()).child("CerdoPatPosition").attribute("isDead").as_bool();
 		cerdopat->tp = true;
 	}
 
@@ -268,9 +268,9 @@ bool Scene::LoadState(pugi::xml_node node)
 		std::string count = std::to_string(CerdoVolcount + 1);
 
 		// Update the position of the slime entity based on XML attributes.
-		cerdovol->position.x = node.child(("CerdoVol" + count).c_str()).child("CerdoVolPosition").attribute("x").as_int();
-		cerdovol->position.y = node.child(("CerdoVol" + count).c_str()).child("CerdoVolPosition").attribute("y").as_int();
-		cerdovol->isDead = node.child(("CerdoVol" + count).c_str()).child("CerdoVolPosition").attribute("isDead").as_bool();
+		cerdovol->position.x = node.child(("Cerdovol" + count).c_str()).child("CerdoVolPosition").attribute("x").as_int();
+		cerdovol->position.y = node.child(("Cerdovol" + count).c_str()).child("CerdoVolPosition").attribute("y").as_int();
+		cerdovol->isDead = node.child(("Cerdovol" + count).c_str()).child("CerdoVolPosition").attribute("isDead").as_bool();
 		cerdovol->tp = true;
 	}
 
@@ -328,7 +328,7 @@ bool Scene::SaveState(pugi::xml_node node)
 	for (int CerdoVolCount = 0; CerdoVolCount < CerdoVoladorlista.Count(); CerdoVolCount++) {
 		std::string count = std::to_string(CerdoVolCount + 1);
 		Entity* cerdovol = CerdoVoladorlista.At(CerdoVolCount)->data;
-		pugi::xml_node enemyNode = node.append_child(("Cerdovol" + count).c_str()).append_child("CerdovVolPosition");
+		pugi::xml_node enemyNode = node.append_child(("Cerdovol" + count).c_str()).append_child("CerdoVolPosition");
 		enemyNode.append_attribute("x").set_value(cerdovol->position.x);
 		enemyNode.append_attribute("y").set_value(cerdovol->position.y);
 		enemyNode.append_attribute("isDead").set_value(cerdovol->isDead);

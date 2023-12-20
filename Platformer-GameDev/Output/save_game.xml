@@ -6,31 +6,31 @@
 	<audio />
 	<:anonymous />
 	<scene>
-		<player x="984" y="1412" />
+		<player x="869" y="1700" />
 		<pconditions godMode="false" isDead="false" isJumping="false" running="false" left_right="false" />
 		<Cerdo1>
-			<CerdoPosition x="1040" y="1429" isDead="false" />
+			<CerdoPosition x="849" y="1717" isDead="false" />
 		</Cerdo1>
 		<Cerdo2>
 			<CerdoPosition x="550" y="3413" isDead="false" />
 		</Cerdo2>
 		<Cerdopat1>
-			<CerdoPatPosition x="1187" y="1190" isDead="false" />
+			<CerdoPatPosition x="1144" y="1190" isDead="false" />
 		</Cerdopat1>
 		<Cerdopat2>
-			<CerdoPatPosition x="1721" y="774" isDead="false" />
+			<CerdoPatPosition x="1671" y="774" isDead="false" />
 		</Cerdopat2>
 		<Cerdopat3>
-			<CerdoPatPosition x="1941" y="2662" isDead="false" />
+			<CerdoPatPosition x="1891" y="2662" isDead="false" />
 		</Cerdopat3>
 		<Cerdopat4>
-			<CerdoPatPosition x="1441" y="3014" isDead="false" />
+			<CerdoPatPosition x="1391" y="3014" isDead="false" />
 		</Cerdopat4>
 		<Cerdopat5>
-			<CerdoPatPosition x="2341" y="2054" isDead="false" />
+			<CerdoPatPosition x="2291" y="2054" isDead="false" />
 		</Cerdopat5>
 		<Cerdovol1>
-			<CerdovVolPosition x="2683" y="1835" isDead="false" />
+			<CerdoVolPosition x="2683" y="1835" isDead="false" />
 		</Cerdovol1>
 		<Dragon1>
 			<DragonPosition x="2638" y="1835" isDead="false" />
@@ -42,6 +42,6 @@
 	<:anonymous />
 	<entitymanager />
 	<renderer>
-		<camera x="-484" y="-912" />
+		<camera x="-369" y="-1200" />
 	</renderer>
 </game_state>
