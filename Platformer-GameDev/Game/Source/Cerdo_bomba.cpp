@@ -139,7 +139,7 @@ bool CerdoPatrullador::Update(float dt)
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;// Variable para controlar el la orientacion de la textura
 
-	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;// Se establece el volteo dependiendo de la condición looksRight
+	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;// Se establece el volteo dependiendo de la condiciï¿½n looksRight
 	// Si looksRight es verdadero, se aplica un volteo horizontal; de lo contrario, no se aplica volteo (SDL_FLIP_NONE)
 
 	if (isDead)
@@ -148,15 +148,13 @@ bool CerdoPatrullador::Update(float dt)
 		currentAnimation->loopCount = 0;
 		currentVelocity.x = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
-		app->render->DrawTexture(texture, position.x - 75, position.y - 124, &currentAnimation->GetCurrentFrame(), flip);// Dibuja la textura en la posición (position.x, position.y)
-		// Se aplica el volteo configurado anteriormente
-		currentAnimation->Update();// Actualiza la animación
+		app->render->DrawTexture(texture, position.x-75, position.y - 104, &currentAnimation->GetCurrentFrame(),flip);
+		currentAnimation->Update();
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame(), flip);// Dibuja la textura en la posición (position.x, position.y)
-		// Se aplica el volteo configurado anteriormente
-		currentAnimation->Update();// Actualiza la animación
+		app->render->DrawTexture(texture, position.x, position.y - 12, &currentAnimation->GetCurrentFrame(),flip);
+		currentAnimation->Update();
 	}
 	return true;
 }
@@ -178,7 +176,7 @@ void CerdoPatrullador::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->audio->PlayFx(pigExplosion_FXid, 0);
 		OnDeath(); // Call the OnDeath function
 		break;
-	case ColliderType::DAMAGE:// Si el tipo de colisionador es DAMAGE (daño)
+	case ColliderType::DAMAGE:// Si el tipo de colisionador es DAMAGE (daï¿½o)
 		LOG("Collision DAMAGE");
 		isDead = true;// Marca al cerdo como muerto
 		break;
