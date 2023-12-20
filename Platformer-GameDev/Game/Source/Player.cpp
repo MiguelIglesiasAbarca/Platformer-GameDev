@@ -373,12 +373,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision PLATFORM");
 		isJumping = false;
 		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
-		break;
-	case ColliderType::CEILING:
-		LOG("Collision CEILING");
-		break;
 	case ColliderType::TRAP:
 		LOG("Collision TRAP");
 		OnDeath();
@@ -390,9 +384,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::NEXTLEVEL:
 		LOG("Collision NEXTLEVEL");
 		level = 2;
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
-		break;
 	}
 
 }

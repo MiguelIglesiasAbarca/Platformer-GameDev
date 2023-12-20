@@ -119,23 +119,8 @@ bool Scene::Start()
 	fondo4 = app->tex->Load(configNode.child("background4").attribute("path").as_string());
 
 	app->win->GetWindowSize(windowW, windowH);
-	/*
-	 
-	bool ret = false;
-	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 
-	if (parseResult) {
-		ret = true;
-		configNode = configFile.child("config");
-	}
-	else {
-		LOG("Error in App::LoadConfig(): %s", parseResult.description());
-	}
-
-	return ret;*/
-
-	
-	//app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
