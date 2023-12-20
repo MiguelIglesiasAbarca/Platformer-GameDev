@@ -24,6 +24,7 @@ bool Rey::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 	//speed = parameters.attribute("speed").as_float();
+	king_FXid = app->audio->LoadFx("Assets/Audio/Fx/pig_explosion_FX.wav");
 
 	return true;
 }
@@ -88,6 +89,7 @@ void Rey::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype) {
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
+		app->audio->PlayFx(king_FXid, 0);
 		texturePath = "Assets/Textures/Throneyum.png";
 		texture = app->tex->Load(texturePath);
 		break;

@@ -73,16 +73,16 @@ bool Cerdo_Volador::Update(float dt)
 
 	distance = sqrt(pow(playerTilePos.x - enemyPosition.x, 2) + pow(playerTilePos.y - enemyPosition.y, 2));
 
-	if (distance < 4)
+	if (distance < 0)
 	{
 		//currentAnimation = &attack;
 		currentVelocity.x = 0;
 		currentVelocity.y = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
 	}
-	else if (distance >= 4 && distance <= 10)
+	else if (distance >= 0 && distance <= 10)
 	{
-		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
+		//app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
 		/*lastPath = app->map->pathfinding->GetLastPath();*/
 
 		//if (lastPath->Count() > 0)
@@ -108,50 +108,47 @@ bool Cerdo_Volador::Update(float dt)
 		//	}
 		//}
 
-		if (app->map->pathfinding->IsWalkable(playerTilePos) != 0)
+		isFollowingPlayer = true;
+		if (position.x < app->scene->player->position.x)
 		{
-			isFollowingPlayer = true;
-			if (position.x < app->scene->player->position.x)
+			looksRight = true;
+			currentVelocity.x = speed;
+			pbody->body->SetLinearVelocity(currentVelocity);
+			if (position.y + 10 < app->scene->player->position.y)
 			{
-				looksRight = true;
-				currentVelocity.x = speed * 2.5;
+				currentVelocity.y = speed ;
 				pbody->body->SetLinearVelocity(currentVelocity);
-				if (position.y + 10 < app->scene->player->position.y)
-				{
-					currentVelocity.y = speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else if (position.y - 10 > app->scene->player->position.y)
-				{
-					currentVelocity.y = -speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else
-				{
-					currentVelocity.y = 0;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
 			}
-			else if (position.x > app->scene->player->position.x)
+			else if (position.y - 10 > app->scene->player->position.y)
 			{
-				looksRight = false;
-				currentVelocity.x = -speed * 2.5;
+				currentVelocity.y = -speed ;
 				pbody->body->SetLinearVelocity(currentVelocity);
-				if (position.y + 10 < app->scene->player->position.y)
-				{
-					currentVelocity.y = speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else if (position.y - 10 > app->scene->player->position.y)
-				{
-					currentVelocity.y = -speed * 2.5;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
-				else
-				{
-					currentVelocity.y = 0;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
+			}
+			else
+			{
+				currentVelocity.y = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+		}
+		else if (position.x > app->scene->player->position.x)
+		{
+			looksRight = false;
+			currentVelocity.x = -speed;
+			pbody->body->SetLinearVelocity(currentVelocity);
+			if (position.y + 10 < app->scene->player->position.y)
+			{
+				currentVelocity.y = speed;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+			else if (position.y - 10 > app->scene->player->position.y)
+			{
+				currentVelocity.y = -speed;
+				pbody->body->SetLinearVelocity(currentVelocity);
+			}
+			else
+			{
+				currentVelocity.y = 0;
+				pbody->body->SetLinearVelocity(currentVelocity);
 			}
 		}
 	}
@@ -162,17 +159,17 @@ bool Cerdo_Volador::Update(float dt)
 		pbody->body->SetLinearVelocity(currentVelocity);
 		app->map->pathfinding->ClearLastPath();
 	}
-	
+
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
 	if (looksRight)
 	{
-		app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x-15, position.y, &currentAnimation->GetCurrentFrame());
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y - 4, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		app->render->DrawTexture(texture, position.x-15, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
 
 	currentAnimation->Update();

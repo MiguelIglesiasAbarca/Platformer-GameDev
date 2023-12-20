@@ -33,6 +33,7 @@ public:
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	//SDL_Texture* pathTexture = NULL;
+	int king_FXid;
 	PhysBody* pbody;
 	//iPoint cerdoPosition;
 	//iPoint playerTilePos;
