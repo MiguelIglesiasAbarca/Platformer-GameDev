@@ -147,12 +147,12 @@ bool CerdoPatrullador::Update(float dt)
 		currentAnimation->loopCount = 0;
 		currentVelocity.x = 0;
 		pbody->body->SetLinearVelocity(currentVelocity);
-		app->render->DrawTexture(texture, position.x-75, position.y - 124, &currentAnimation->GetCurrentFrame(),flip);
+		app->render->DrawTexture(texture, position.x-75, position.y - 104, &currentAnimation->GetCurrentFrame(),flip);
 		currentAnimation->Update();
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y + 1, &currentAnimation->GetCurrentFrame(),flip);
+		app->render->DrawTexture(texture, position.x, position.y - 12, &currentAnimation->GetCurrentFrame(),flip);
 		currentAnimation->Update();
 	}
 	return true;

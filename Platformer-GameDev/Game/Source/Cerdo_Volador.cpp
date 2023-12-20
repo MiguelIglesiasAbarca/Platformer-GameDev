@@ -130,11 +130,11 @@ bool Cerdo_Volador::Update(float dt)
 
 	if (looksRight)
 	{
-		app->render->DrawTexture(texture, position.x - 15, position.y, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(texture, position.x - 10, position.y, &currentAnimation->GetCurrentFrame());
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x - 15, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		app->render->DrawTexture(texture, position.x - 10, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
 
 	currentAnimation->Update();
