@@ -30,28 +30,28 @@ bool Cerdo::Awake() {
 
 bool Cerdo::Start() {
 
-	runRight.LoadAnimations("Runright", "cerdo");
+	runRight.LoadAnimations("Runright", "cerdo");//animacion correr
 	runRight.speed = 0.167f;
 
-	idleRight.LoadAnimations("Idleright", "cerdo");
+	idleRight.LoadAnimations("Idleright", "cerdo");//animacion idle
 	idleRight.speed = 0.167f;
 
-	jumpRight.LoadAnimations("Jumpright", "cerdo");
+	jumpRight.LoadAnimations("Jumpright", "cerdo");//animiacion salto
 	jumpRight.speed = 0.167f;
 
-	dead.LoadAnimations("Dead", "cerdo");
+	dead.LoadAnimations("Dead", "cerdo");//animacion muerte
 	dead.speed = 0.1f;
 
-	attack.LoadAnimations("Attackright", "cerdo");
+	attack.LoadAnimations("Attackright", "cerdo");//animacion ataque
 	attack.speed = 0.01f;
 
-	pathTexture = app->tex->Load("Assets/Textures/tomate.png");
-	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);
-	pbody->ctype = ColliderType::CERDO;
-	pbody->listener = this;
+	pathTexture = app->tex->Load("Assets/Textures/tomate.png");//textura del pathfinding
+	texture = app->tex->Load(texturePath);//carga textura cerdo
+	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);//crear collider
+	pbody->ctype = ColliderType::CERDO;//establecer tipo de collider
+	pbody->listener = this;// Asigna el puntero 'this' (referencia al objeto actual) como el 'listener' del cuerpo físico 'pbody'
 
-	currentAnimation = &idleRight;
+	currentAnimation = &idleRight;//asignar 
 
 	return true;
 }
