@@ -11,6 +11,7 @@
 #include "Rey.h"
 #include "Item.h"
 #include "Trap_01.h"
+#include "Lives.h"
 //#include "Tomate.h"
 
 struct SDL_Texture;

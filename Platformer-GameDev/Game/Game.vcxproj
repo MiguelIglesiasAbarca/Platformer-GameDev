@@ -102,6 +102,7 @@
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Food.cpp" />
     <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\Lives.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Food.h" />
     <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\Lives.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />

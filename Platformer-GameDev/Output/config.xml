@@ -51,6 +51,8 @@
 			<queso x ="200" y="2800" texturepath="Assets/Textures/queso.png"/>
 		</comida>
 
+		<corazon x ="500" y="1000" texturepath="Assets/Textures/queso.png"/>
+
 		<rey x ="3200" y="1321" speed="2.5" texturepath="Assets/Textures/Thronesad.png"/>
 	</scene>
 	

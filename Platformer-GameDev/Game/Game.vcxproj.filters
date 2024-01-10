@@ -31,6 +31,7 @@
     <ClCompile Include="Source\Cerdo_Volador.cpp" />
     <ClCompile Include="Source\Rey.cpp" />
     <ClCompile Include="Source\Scenes.cpp" />
+    <ClCompile Include="Source\Lives.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="Source\Cerdo_Volador.h" />
     <ClInclude Include="Source\Rey.h" />
     <ClInclude Include="Source\Scenes.h" />
+    <ClInclude Include="Source\Lives.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

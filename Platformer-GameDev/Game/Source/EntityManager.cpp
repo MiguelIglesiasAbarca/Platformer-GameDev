@@ -6,6 +6,7 @@
 #include "Cerdo_Volador.h"
 #include "Rey.h"
 #include "Food.h"
+#include "Lives.h"
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
@@ -112,6 +113,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::COMIDA:
 		entity = new Food();
+		break;
+	case EntityType::VIDA:
+		entity = new Lives();
 		break;
 	default:
 		break;

@@ -98,6 +98,12 @@ bool Scene::Awake(pugi::xml_node& config)
 		}
 	}
 
+	for (pugi::xml_node liveNode = config.child("corazon"); liveNode; liveNode = liveNode.next_sibling("corazon"))
+	{
+		Lives* corazon = (Lives*)app->entityManager->CreateEntity(EntityType::VIDA);
+		corazon->parameters = liveNode;
+	}
+
 	for (pugi::xml_node reyNode = config.child("rey"); reyNode; reyNode = reyNode.next_sibling("rey"))
 	{
 		Rey* rey = (Rey*)app->entityManager->CreateEntity(EntityType::REY);
