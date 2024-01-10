@@ -51,12 +51,13 @@
 			<queso x ="200" y="2800" texturepath="Assets/Textures/queso.png"/>
 		</comida>
 
-		<corazon x ="500" y="1000" texturepath="Assets/Textures/queso.png"/>
+		<corazon x ="500" y="1000" texturepath="Assets/Textures/tomate_anim.png"/>
+		
 
 		<rey x ="3200" y="1321" speed="2.5" texturepath="Assets/Textures/Thronesad.png"/>
 	</scene>
-	
-	<player>
+
+		<player>
 		<animations>
 			<Idleright loop="true" speed ="0.5">
 				<frame x="0" y="70" w="100" h="70"/>
@@ -238,4 +239,19 @@
 			</Dead>
 		</animations>
 	</cerdoVolador>
+
+	<!-->
+	<item>
+		<animations>
+			<corazon loop="true" speed ="0.5">
+				<frame x="0" y="0" w="32" h="32"/>
+				<frame x="0" y="32" w="32" h="32"/>
+				<frame x="0" y="64" w="32" h="32"/>
+				<frame x="0" y="96" w="32" h="32"/>
+			</corazon>
+		</animations>
+	</item>
+	<-->
+	
+	
 </config>

@@ -27,6 +27,10 @@ bool Lives::Awake()
 
 bool Lives::Start()
 {
+    
+    /*idle.LoadAnimations("corazon", "item");
+    idle.speed = 0.16f;*/
+    
     // Initialize textures
     texture = app->tex->Load(texturePath);
     pbody = app->physics->CreateCircle(position.x, position.y, 16, bodyType::STATIC);

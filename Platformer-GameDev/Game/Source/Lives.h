@@ -28,6 +28,9 @@ public:
 
     bool isPicked = false;
 
+    /*Animation* currentAnimation = nullptr;
+    Animation idle;*/
+
 private:
 
     int pickLives_FXid;
