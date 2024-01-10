@@ -20,6 +20,10 @@
 		<music volume="10"/>
 		<fx volume="10"/>
 	</audio>
+
+	<intro>
+		
+	</intro>
 	
 	<scene>
 
