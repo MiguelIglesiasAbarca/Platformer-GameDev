@@ -68,6 +68,7 @@ bool Player::Start() {
 	death_Fxid = app->audio->LoadFx("Assets/Audio/Fx/player_death_FX.wav");
 	attack_FXid = app->audio->LoadFx("Assets/Audio/Fx/attack_FX.wav");
 	running_FXid = app->audio->LoadFx("Assets/Audio/Fx/footstep_FX.wav");
+	checkpoint_FXid = app->audio->LoadFx("Assets/Audio/Fx/what_a_fuck_FX.wav");
 
 	return true;
 }
@@ -383,7 +384,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::NEXTLEVEL:
 		LOG("Collision NEXTLEVEL");
-		level = 2;
+		if (level == 1)
+		{
+			app->audio->PlayFx(checkpoint_FXid, 0);
+			level = 2;
+		}
 	}
 
 }
