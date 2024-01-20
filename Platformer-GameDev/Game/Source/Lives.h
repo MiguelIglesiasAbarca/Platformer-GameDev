@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -27,9 +28,8 @@ public:
 public:
 
     bool isPicked = false;
-
-    /*Animation* currentAnimation = nullptr;
-    Animation idle;*/
+    Animation* currentAnimation = nullptr;
+    Animation corazon;
 
 private:
 

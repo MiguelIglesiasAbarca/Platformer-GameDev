@@ -38,6 +38,11 @@ bool Lives::Start()
     pbody->listener = this;
     pickLives_FXid = app->audio->LoadFx("Assets/Audio/Fx/pick_lives_FX.wav");
 
+    corazon.LoadAnimations("corazon", "corazon");
+    corazon.speed = 0.16f;
+
+    currentAnimation = &corazon;
+
     return true;
 }
 
@@ -46,7 +51,8 @@ bool Lives::Update(float dt)
     position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
     position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-    app->render->DrawTexture(texture, position.x, position.y);
+    app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+    currentAnimation->Update();
 
     return true;
 }
