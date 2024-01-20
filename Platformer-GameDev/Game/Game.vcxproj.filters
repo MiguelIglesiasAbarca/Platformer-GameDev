@@ -32,6 +32,8 @@
     <ClCompile Include="Source\Rey.cpp" />
     <ClCompile Include="Source\Scenes.cpp" />
     <ClCompile Include="Source\Lives.cpp" />
+    <ClCompile Include="Source\GuiControlButton.cpp" />
+    <ClCompile Include="Source\GuiManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -88,6 +90,9 @@
     <ClInclude Include="Source\Rey.h" />
     <ClInclude Include="Source\Scenes.h" />
     <ClInclude Include="Source\Lives.h" />
+    <ClInclude Include="Source\GuiControl.h" />
+    <ClInclude Include="Source\GuiControlButton.h" />
+    <ClInclude Include="Source\GuiManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

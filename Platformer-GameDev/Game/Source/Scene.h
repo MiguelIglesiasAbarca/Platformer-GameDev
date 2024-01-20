@@ -12,7 +12,8 @@
 #include "Item.h"
 #include "Trap_01.h"
 #include "Lives.h"
-//#include "Tomate.h"
+#include "GuiControl.h"
+#include "GuiControlButton.h"
 
 struct SDL_Texture;
 
@@ -72,6 +73,8 @@ private:
 	List<Entity*> CerdoVoladorlista;
 	List<Entity*> CerdoPatrulladorlista;
 	List<Entity*> Dragonlista;
+
+	GuiControlButton* gcButtom;
 
 
 };

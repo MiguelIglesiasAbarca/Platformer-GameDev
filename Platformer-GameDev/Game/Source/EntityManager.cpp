@@ -210,10 +210,15 @@ bool EntityManager::Update(float dt)
 
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
-		pEntity = item->data;
+		if (item != NULL)
+		{
+			pEntity = item->data;
 
 		if (pEntity->active == false) continue;
 		ret = item->data->Update(dt);
+
+		}
+		
 	}
 
 	return ret;

@@ -19,6 +19,7 @@ class Scene;
 class EntityManager;
 class Map;
 class Physics;
+class GuiManager;
 
 class App
 {
@@ -98,6 +99,7 @@ public:
 	Map* map;
 	Physics* physics;
 	bool vsync;
+	GuiManager* guiManager;
 
 private:
 

@@ -392,5 +392,4 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			level = 2;
 		}
 	}
-
 }

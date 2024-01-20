@@ -10,6 +10,8 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "GuiControl.h"
+#include "GuiManager.h"
 
 Scene::Scene() : Module()
 {
@@ -152,6 +154,9 @@ bool Scene::Start()
 		app->map->mapData.tileWidth,
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
+
+	SDL_Rect btPos = { windowW / 2 - 60, windowH / 2 - 10, 120,20 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "MyButton", btPos, this);
 
 	return true;
 }
