@@ -39,7 +39,7 @@ bool Lives::Start()
     pickLives_FXid = app->audio->LoadFx("Assets/Audio/Fx/pick_lives_FX.wav");
 
     corazon.LoadAnimations("corazon", "corazon");
-    corazon.speed = 0.16f;
+    corazon.speed = 0.27f;
 
     currentAnimation = &corazon;
 
