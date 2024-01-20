@@ -51,7 +51,7 @@
 			<queso x ="200" y="2800" texturepath="Assets/Textures/queso.png"/>
 		</comida>
 
-		<corazon x ="500" y="1000" texturepath="Assets/Textures/tomate_anim.png"/>
+		<corazon x ="580" y="1650" texturepath="Assets/Textures/Big Heart Idle (18x14).png"/>
 		
 
 		<rey x ="3200" y="1321" speed="2.5" texturepath="Assets/Textures/Thronesad.png"/>
@@ -240,8 +240,497 @@
 		</animations>
 	</cerdoVolador>
 
-	<!-->
-	<item>
+
+
+	<config>
+	<app>
+		<title>PizzaRush</title>
+		<maxFrameDuration value="16"/>
+	</app>
+
+	<renderer>
+		<vsync value="true"/>
+	</renderer>
+
+	<window>
+		<resolution width="1024" height="768" scale="1"/>
+		<fullscreen value="false"/>
+		<borderless value="false"/>
+		<resizable value="false"/>
+		<fullscreen_window value="false"/>
+	</window>
+
+	<audio>
+		<music volume="10"/>
+		<fx volume="10"/>
+	</audio>
+	
+	<scene>
+
+		<map path="Assets/Maps/" name="MapTemplate.tmx"/>
+		<background path="Assets/Textures/fondo0.png"/>
+		<background1 path="Assets/Textures/fondo1.png"/>
+		<background2 path="Assets/Textures/fondo2.png"/>
+		<background3 path="Assets/Textures/fondo3.png"/>
+		<background4 path="Assets/Textures/fondo4.png"/>
+
+		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
+
+		<enemies>
+			<cerdo x ="550" y="1700" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/> 
+			<cerdo x ="550" y="3200" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1950" y="2650" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<dragon x ="550" y="2850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+		</enemies>
+
+		<comida>
+			<tomate x ="1220" y="3300" texturepath="Assets/Textures/tomate.png"/>
+			<masa x ="1550" y="1590" texturepath="Assets/Textures/masa.png"/>
+			<queso x ="200" y="2800" texturepath="Assets/Textures/queso.png"/>
+		</comida>
+
+		<corazon x ="580" y="1650" texturepath="Assets/Textures/Big Heart Idle (18x14).png"/>
+		
+
+		<rey x ="3200" y="1321" speed="2.5" texturepath="Assets/Textures/Thronesad.png"/>
+	</scene>
+
+		<player>
+		<animations>
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="70" w="100" h="70"/>
+				<frame x="100" y="70" w="100" h="70"/>
+				<frame x="200" y="70" w="100" h="70"/>
+				<frame x="300" y="70" w="100" h="70"/>
+				<frame x="400" y="70" w="100" h="70"/>
+				<frame x="500" y="70" w="100" h="70"/>
+				<frame x="600" y="70" w="100" h="70"/>
+				<frame x="700" y="70" w="100" h="70"/>
+				<frame x="800" y="70" w="100" h="70"/>
+				<frame x="900" y="70" w="100" h="70"/>
+				<frame x="1000" y="70" w="100" h="70"/>
+			</Idleright>
+			
+			<Runright loop="true" speed ="0.2">
+				<frame x="0" y="0" w="100" h="70"/>
+				<frame x="100" y="0" w="100" h="70"/>
+				<frame x="200" y="0" w="100" h="70"/>
+				<frame x="300" y="0" w="100" h="70"/>
+				<frame x="400" y="0" w="100" h="70"/>
+				<frame x="500" y="0" w="100" h="70"/>
+				<frame x="600" y="0" w="100" h="70"/>
+				<frame x="700" y="0" w="100" h="70"/>
+			</Runright>
+
+			<Jumpright loop="false" speed ="0.1">
+				<frame x="0" y="210" w="100" h="70"/>
+				<frame x="100" y="210" w="100" h="70"/>
+			</Jumpright>
+
+			<Attackright loop="false" speed ="0.5">
+				<frame x="0" y="280" w="100" h="70"/>
+				<frame x="100" y="280" w="100" h="70"/>
+				<frame x="200" y="280" w="100" h="70"/>
+			</Attackright>
+			
+			<Dead loop="false" speed ="0.1">
+				<frame x="0" y="140" w="100" h="70"/>
+				<frame x="100" y="140" w="100" h="70"/>
+				<frame x="200" y="140" w="100" h="70"/>
+				<frame x="300" y="140" w="100" h="70"/>
+			</Dead>
+		</animations>
+	</player>
+	
+	<cerdo>
+		<animations>
+			<Runright loop="true" speed ="0.2">
+				<frame x="0" y="56" w="34" h="28"/>
+				<frame x="34" y="56" w="34" h="28"/>
+				<frame x="68" y="56" w="34" h="28"/>
+				<frame x="102" y="56" w="34" h="28"/>
+				<frame x="136" y="56" w="34" h="28"/>
+				<frame x="170" y="56" w="34" h="28"/>
+			</Runright>
+			
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="0" w="34" h="28"/>
+				<frame x="34" y="0" w="34" h="28"/>
+				<frame x="68" y="0" w="34" h="28"/>
+				<frame x="102" y="0" w="34" h="28"/>
+				<frame x="136" y="0" w="34" h="28"/>
+				<frame x="170" y="0" w="34" h="28"/>
+				<frame x="204" y="0" w="34" h="28"/>
+				<frame x="238" y="0" w="34" h="28"/>
+				<frame x="272" y="0" w="34" h="28"/>
+				<frame x="306" y="0" w="34" h="28"/>
+				<frame x="340" y="0" w="34" h="28"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.1">
+				<frame x="6" y="167" w="49" h="46"/>
+				<frame x="80" y="167" w="49" h="46"/>
+				<frame x="157" y="167" w="49" h="46"/>
+				<frame x="235" y="167" w="49" h="46"/>
+			</Dead>
+
+			<Jumpright loop="false" speed ="0.1">
+				<frame x="0" y="28" w="34" h="28"/>
+				<frame x="34" y="28" w="34" h="28"/>
+			</Jumpright>
+
+			<Attackright loop="true" speed ="0.5">
+				<frame x="0" y="84" w="34" h="28"/>
+				<frame x="34" y="84" w="34" h="28"/>
+				<frame x="68" y="84" w="34" h="28"/>
+				<frame x="102" y="84" w="34" h="28"/>
+				<frame x="136" y="84" w="34" h="28"/>
+			</Attackright>
+		</animations>
+	</cerdo>
+	
+	<cerdoBomba>
+		<animations>
+						
+			<Bombright loop="true" speed ="0.5">
+				<frame x="0" y="112" w="30" h="40"/>
+				<frame x="30" y="112" w="30" h="40"/>
+				<frame x="60" y="112" w="30" h="40"/>
+				<frame x="90" y="112" w="30" h="40"/>
+				<frame x="120" y="112" w="30" h="40"/>
+				<frame x="150" y="112" w="30" h="40"/>
+			</Bombright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="263" w="120" h="140"/>
+				<frame x="120" y="263" w="120" h="140"/>
+				<frame x="240" y="263" w="120" h="140"/>
+				<frame x="360" y="263" w="120" h="140"/>
+				<frame x="480" y="263" w="120" h="140"/>
+				<frame x="0" y="403" w="120" h="140"/>
+				<frame x="120" y="403" w="120" h="140"/>
+				<frame x="240" y="403" w="120" h="140"/>
+				<frame x="360" y="403" w="120" h="140"/>
+				<frame x="480" y="403" w="120" h="140"/>
+				<frame x="600" y="403" w="120" h="140"/>
+			</Dead>
+
+			<Watifokin loop="true" speed ="0.5">
+				<frame x="0" y="152" w="30" h="40"/>
+				<frame x="30" y="152" w="30" h="40"/>
+				<frame x="60" y="152" w="30" h="40"/>
+				<frame x="90" y="152" w="30" h="40"/>
+				<frame x="120" y="152" w="30" h="40"/>
+				<frame x="150" y="152" w="30" h="40"/>
+			</Watifokin>
+
+		</animations>
+	</cerdoBomba>
+
+	<dragon>
+		<animations>
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="225" w="53" h="38"/>
+				<frame x="57" y="225" w="53" h="38"/>
+				<frame x="114" y="225" w="53" h="38"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="263" w="120" h="140"/>
+				<frame x="120" y="263" w="120" h="140"/>
+				<frame x="240" y="263" w="120" h="140"/>
+				<frame x="360" y="263" w="120" h="140"/>
+				<frame x="480" y="263" w="120" h="140"/>
+				<frame x="0" y="403" w="120" h="140"/>
+				<frame x="120" y="403" w="120" h="140"/>
+				<frame x="240" y="403" w="120" h="140"/>
+				<frame x="360" y="403" w="120" h="140"/>
+				<frame x="480" y="403" w="120" h="140"/>
+				<frame x="600" y="403" w="120" h="140"/>
+			</Dead>
+		</animations>
+	</dragon>
+
+	<cerdoVolador>
+		<animations>
+			
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="192" w="60" h="34"/>
+				<frame x="65" y="192" w="60" h="34"/>
+				<frame x="130" y="192" w="60" h="34"/>
+				<frame x="195" y="192" w="60" h="34"/>
+				<frame x="260" y="192" w="60" h="34"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="263" w="120" h="140"/>
+				<frame x="120" y="263" w="120" h="140"/>
+				<frame x="240" y="263" w="120" h="140"/>
+				<frame x="360" y="263" w="120" h="140"/>
+				<frame x="480" y="263" w="120" h="140"/>
+				<frame x="0" y="403" w="120" h="140"/>
+				<frame x="120" y="403" w="120" h="140"/>
+				<frame x="240" y="403" w="120" h="140"/>
+				<frame x="360" y="403" w="120" h="140"/>
+				<frame x="480" y="403" w="120" h="140"/>
+				<frame x="600" y="403" w="120" h="140"/>
+			</Dead>
+		</animations>
+	</cerdoVolador>
+
+
+
+	<config>
+	<app>
+		<title>PizzaRush</title>
+		<maxFrameDuration value="16"/>
+	</app>
+
+	<renderer>
+		<vsync value="true"/>
+	</renderer>
+
+	<window>
+		<resolution width="1024" height="768" scale="1"/>
+		<fullscreen value="false"/>
+		<borderless value="false"/>
+		<resizable value="false"/>
+		<fullscreen_window value="false"/>
+	</window>
+
+	<audio>
+		<music volume="10"/>
+		<fx volume="10"/>
+	</audio>
+	
+	<scene>
+
+		<map path="Assets/Maps/" name="MapTemplate.tmx"/>
+		<background path="Assets/Textures/fondo0.png"/>
+		<background1 path="Assets/Textures/fondo1.png"/>
+		<background2 path="Assets/Textures/fondo2.png"/>
+		<background3 path="Assets/Textures/fondo3.png"/>
+		<background4 path="Assets/Textures/fondo4.png"/>
+
+		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
+
+		<enemies>
+			<cerdo x ="550" y="1700" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/> 
+			<cerdo x ="550" y="3200" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1950" y="2650" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<dragon x ="550" y="2850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+		</enemies>
+
+		<comida>
+			<tomate x ="1220" y="3300" texturepath="Assets/Textures/tomate.png"/>
+			<masa x ="1550" y="1590" texturepath="Assets/Textures/masa.png"/>
+			<queso x ="200" y="2800" texturepath="Assets/Textures/queso.png"/>
+		</comida>
+
+		<corazon x ="580" y="1650" texturepath="Assets/Textures/Big Heart Idle (18x14).png"/>
+		
+
+		<rey x ="3200" y="1321" speed="2.5" texturepath="Assets/Textures/Thronesad.png"/>
+	</scene>
+
+		<player>
+		<animations>
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="70" w="100" h="70"/>
+				<frame x="100" y="70" w="100" h="70"/>
+				<frame x="200" y="70" w="100" h="70"/>
+				<frame x="300" y="70" w="100" h="70"/>
+				<frame x="400" y="70" w="100" h="70"/>
+				<frame x="500" y="70" w="100" h="70"/>
+				<frame x="600" y="70" w="100" h="70"/>
+				<frame x="700" y="70" w="100" h="70"/>
+				<frame x="800" y="70" w="100" h="70"/>
+				<frame x="900" y="70" w="100" h="70"/>
+				<frame x="1000" y="70" w="100" h="70"/>
+			</Idleright>
+			
+			<Runright loop="true" speed ="0.2">
+				<frame x="0" y="0" w="100" h="70"/>
+				<frame x="100" y="0" w="100" h="70"/>
+				<frame x="200" y="0" w="100" h="70"/>
+				<frame x="300" y="0" w="100" h="70"/>
+				<frame x="400" y="0" w="100" h="70"/>
+				<frame x="500" y="0" w="100" h="70"/>
+				<frame x="600" y="0" w="100" h="70"/>
+				<frame x="700" y="0" w="100" h="70"/>
+			</Runright>
+
+			<Jumpright loop="false" speed ="0.1">
+				<frame x="0" y="210" w="100" h="70"/>
+				<frame x="100" y="210" w="100" h="70"/>
+			</Jumpright>
+
+			<Attackright loop="false" speed ="0.5">
+				<frame x="0" y="280" w="100" h="70"/>
+				<frame x="100" y="280" w="100" h="70"/>
+				<frame x="200" y="280" w="100" h="70"/>
+			</Attackright>
+			
+			<Dead loop="false" speed ="0.1">
+				<frame x="0" y="140" w="100" h="70"/>
+				<frame x="100" y="140" w="100" h="70"/>
+				<frame x="200" y="140" w="100" h="70"/>
+				<frame x="300" y="140" w="100" h="70"/>
+			</Dead>
+		</animations>
+	</player>
+	
+	<cerdo>
+		<animations>
+			<Runright loop="true" speed ="0.2">
+				<frame x="0" y="56" w="34" h="28"/>
+				<frame x="34" y="56" w="34" h="28"/>
+				<frame x="68" y="56" w="34" h="28"/>
+				<frame x="102" y="56" w="34" h="28"/>
+				<frame x="136" y="56" w="34" h="28"/>
+				<frame x="170" y="56" w="34" h="28"/>
+			</Runright>
+			
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="0" w="34" h="28"/>
+				<frame x="34" y="0" w="34" h="28"/>
+				<frame x="68" y="0" w="34" h="28"/>
+				<frame x="102" y="0" w="34" h="28"/>
+				<frame x="136" y="0" w="34" h="28"/>
+				<frame x="170" y="0" w="34" h="28"/>
+				<frame x="204" y="0" w="34" h="28"/>
+				<frame x="238" y="0" w="34" h="28"/>
+				<frame x="272" y="0" w="34" h="28"/>
+				<frame x="306" y="0" w="34" h="28"/>
+				<frame x="340" y="0" w="34" h="28"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.1">
+				<frame x="6" y="167" w="49" h="46"/>
+				<frame x="80" y="167" w="49" h="46"/>
+				<frame x="157" y="167" w="49" h="46"/>
+				<frame x="235" y="167" w="49" h="46"/>
+			</Dead>
+
+			<Jumpright loop="false" speed ="0.1">
+				<frame x="0" y="28" w="34" h="28"/>
+				<frame x="34" y="28" w="34" h="28"/>
+			</Jumpright>
+
+			<Attackright loop="true" speed ="0.5">
+				<frame x="0" y="84" w="34" h="28"/>
+				<frame x="34" y="84" w="34" h="28"/>
+				<frame x="68" y="84" w="34" h="28"/>
+				<frame x="102" y="84" w="34" h="28"/>
+				<frame x="136" y="84" w="34" h="28"/>
+			</Attackright>
+		</animations>
+	</cerdo>
+	
+	<cerdoBomba>
+		<animations>
+						
+			<Bombright loop="true" speed ="0.5">
+				<frame x="0" y="112" w="30" h="40"/>
+				<frame x="30" y="112" w="30" h="40"/>
+				<frame x="60" y="112" w="30" h="40"/>
+				<frame x="90" y="112" w="30" h="40"/>
+				<frame x="120" y="112" w="30" h="40"/>
+				<frame x="150" y="112" w="30" h="40"/>
+			</Bombright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="263" w="120" h="140"/>
+				<frame x="120" y="263" w="120" h="140"/>
+				<frame x="240" y="263" w="120" h="140"/>
+				<frame x="360" y="263" w="120" h="140"/>
+				<frame x="480" y="263" w="120" h="140"/>
+				<frame x="0" y="403" w="120" h="140"/>
+				<frame x="120" y="403" w="120" h="140"/>
+				<frame x="240" y="403" w="120" h="140"/>
+				<frame x="360" y="403" w="120" h="140"/>
+				<frame x="480" y="403" w="120" h="140"/>
+				<frame x="600" y="403" w="120" h="140"/>
+			</Dead>
+
+			<Watifokin loop="true" speed ="0.5">
+				<frame x="0" y="152" w="30" h="40"/>
+				<frame x="30" y="152" w="30" h="40"/>
+				<frame x="60" y="152" w="30" h="40"/>
+				<frame x="90" y="152" w="30" h="40"/>
+				<frame x="120" y="152" w="30" h="40"/>
+				<frame x="150" y="152" w="30" h="40"/>
+			</Watifokin>
+
+		</animations>
+	</cerdoBomba>
+
+	<dragon>
+		<animations>
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="225" w="53" h="38"/>
+				<frame x="57" y="225" w="53" h="38"/>
+				<frame x="114" y="225" w="53" h="38"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="263" w="120" h="140"/>
+				<frame x="120" y="263" w="120" h="140"/>
+				<frame x="240" y="263" w="120" h="140"/>
+				<frame x="360" y="263" w="120" h="140"/>
+				<frame x="480" y="263" w="120" h="140"/>
+				<frame x="0" y="403" w="120" h="140"/>
+				<frame x="120" y="403" w="120" h="140"/>
+				<frame x="240" y="403" w="120" h="140"/>
+				<frame x="360" y="403" w="120" h="140"/>
+				<frame x="480" y="403" w="120" h="140"/>
+				<frame x="600" y="403" w="120" h="140"/>
+			</Dead>
+		</animations>
+	</dragon>
+
+	<cerdoVolador>
+		<animations>
+			
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="192" w="60" h="34"/>
+				<frame x="65" y="192" w="60" h="34"/>
+				<frame x="130" y="192" w="60" h="34"/>
+				<frame x="195" y="192" w="60" h="34"/>
+				<frame x="260" y="192" w="60" h="34"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.5">
+				<frame x="0" y="263" w="120" h="140"/>
+				<frame x="120" y="263" w="120" h="140"/>
+				<frame x="240" y="263" w="120" h="140"/>
+				<frame x="360" y="263" w="120" h="140"/>
+				<frame x="480" y="263" w="120" h="140"/>
+				<frame x="0" y="403" w="120" h="140"/>
+				<frame x="120" y="403" w="120" h="140"/>
+				<frame x="240" y="403" w="120" h="140"/>
+				<frame x="360" y="403" w="120" h="140"/>
+				<frame x="480" y="403" w="120" h="140"/>
+				<frame x="600" y="403" w="120" h="140"/>
+			</Dead>
+		</animations>
+	</cerdoVolador>
+
+
+
+	<corazon>
 		<animations>
 			<corazon loop="true" speed ="0.5">
 				<frame x="0" y="0" w="32" h="32"/>
@@ -250,7 +739,23 @@
 				<frame x="0" y="96" w="32" h="32"/>
 			</corazon>
 		</animations>
-	</item>
+	</corazon>
+	<!-->
+	
+	<-->
+	
+	
+</config>
+
+	<!-->
+	
+	<-->
+	
+	
+</config>
+
+	<!-->
+	
 	<-->
 	
 	

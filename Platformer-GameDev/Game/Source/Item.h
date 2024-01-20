@@ -1,3 +1,4 @@
+// Item.h
 #ifndef __ITEM_H__
 #define __ITEM_H__
 
@@ -11,26 +12,28 @@ class Item : public Entity
 {
 public:
 
-	Item();
-	virtual ~Item();
+    Item();
+    virtual ~Item();
 
-	bool Awake();
+    bool Awake();
 
-	bool Start();
+    bool Start();
 
-	bool Update(float dt);
+    bool Update(float dt);
 
-	bool CleanUp();
+    bool CleanUp();
+
+    void OnCollision(PhysBody* physA, PhysBody* physB); // Debería ser parte de la interfaz pública
 
 public:
 
-	bool isPicked = false;
+    bool isPicked = false;
 
 private:
 
-	SDL_Texture* texture;
-	const char* texturePath;
-	PhysBody* pbody;
+    SDL_Texture* texture;
+    const char* texturePath;
+    PhysBody* pbody;
 };
 
 #endif // __ITEM_H__

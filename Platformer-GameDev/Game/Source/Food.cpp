@@ -63,6 +63,7 @@ void Food::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->physics->world->DestroyBody(pbody->body);
 		break;
 	}
+	LOG("una vida masssssssssssssssssssssssssssss");
 
 }
 

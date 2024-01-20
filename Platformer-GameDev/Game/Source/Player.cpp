@@ -358,6 +358,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		foodCounter++;
+		vida++;
+		LOG("Player now has %d lives", vida);
 		break;
 	case ColliderType::DAMAGE:
 		LOG("Collision DAMAGE");
