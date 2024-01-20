@@ -30,7 +30,7 @@ public:
     bool isPicked = false;
     Animation* currentAnimation = nullptr;
     Animation corazon;
-
+    //
 private:
 
     int pickLives_FXid;
