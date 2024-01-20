@@ -49,6 +49,8 @@ public:
 	//
 	bool SaveState(pugi::xml_node node);
 
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 public:
 
 	Player* player;

@@ -362,3 +362,12 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
+	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
+	LOG("Press Gui Control: %d", control->id);
+
+	return true;
+}

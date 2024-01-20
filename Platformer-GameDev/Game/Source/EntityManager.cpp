@@ -214,8 +214,8 @@ bool EntityManager::Update(float dt)
 		{
 			pEntity = item->data;
 
-		if (pEntity->active == false) continue;
-		ret = item->data->Update(dt);
+			if (pEntity->active == false) continue; 
+			ret = item->data->Update(dt);
 
 		}
 		
