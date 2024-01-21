@@ -2,6 +2,8 @@
 #define __SCENEINTRO_H__
 
 #include "Module.h"
+#include "GuiControlButton.h"
+
 
 
 struct SDL_Texture;
@@ -52,10 +54,29 @@ private:
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
 	
-
+	Timer timer;
 	//GuiControlButton* gcButtom;
 
+	bool timerPaused = false;
 
+	SDL_Texture* background;
+	SDL_Texture* menu;
+	SDL_Texture* playHover;
+	SDL_Texture* playClick;
+	SDL_Texture* continueHover;
+	SDL_Texture* continueClick;
+	SDL_Texture* settingsHover;
+	SDL_Texture* settingsClick;
+	SDL_Texture* creditsHover;
+	SDL_Texture* creditsClick;
+	SDL_Texture* exitHover;
+	SDL_Texture* exitClick;
+
+	GuiControlButton* playButton;
+	GuiControlButton* continueButton;
+	GuiControlButton* settingsButton;
+	GuiControlButton* creditsButton;
+	GuiControlButton* exitButton;
 };
 
 #endif // __SCENEINTRO_H__
