@@ -32,10 +32,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(this);
 	audio = new Audio(this);
 	physics = new Physics(this);
-	scene = new Scene(this);
+	scene = new Scene(this, false);
 	sceneintro = new SceneIntro(this);
-	map = new Map(this);
-	entityManager = new EntityManager(this);
+	map = new Map(this, false);
+	entityManager = new EntityManager(this, false);
 	guiManager = new GuiManager(this);
 
 
@@ -123,6 +123,11 @@ bool App::Start()
 
 	while(item != NULL && ret == true)
 	{
+		if (!item->data->active)
+		{
+			item = item->next;
+			continue;
+		}
 		ret = item->data->Start();
 		item = item->next;
 	}
@@ -331,6 +336,11 @@ bool App::CleanUp()
 
 	while(item != NULL && ret == true)
 	{
+		if (!item->data->active)
+		{
+			item = item->prev;
+			continue;
+		}
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}

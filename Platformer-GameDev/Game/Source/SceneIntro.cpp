@@ -62,8 +62,8 @@ bool SceneIntro::PreUpdate()
 bool SceneIntro::Update(float dt)
 {
 	//dibujamos
-	SDL_Rect RectFondoInicial{ 0, 0, windowW-30, windowH-30 };
-	app->render->DrawTexture(gatitorico, 830, 890, &RectFondoInicial);
+	SDL_Rect RectFondoInicial{ 0, 0, windowW-0, windowH-0 };
+	app->render->DrawTexture(gatitorico, 0, 0, NULL, SDL_FLIP_NONE, 0);
 	//if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadRequest();
 
 	return true;

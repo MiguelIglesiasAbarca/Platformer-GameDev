@@ -23,7 +23,7 @@ public:
 
 	void Init()
 	{
-		active = true;
+		//active = true;
 	}
 
 	// Called before render is available
@@ -80,6 +80,25 @@ public:
 	{
 		return true;
 	}
+
+	void Module::Enable()
+	{
+		if (!active)
+		{
+			active = true;
+			Start();
+		}
+	}
+
+	void Module::Disable()
+	{
+		if (active)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
+
 
 public:
 
