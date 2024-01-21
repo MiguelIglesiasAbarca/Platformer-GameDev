@@ -33,7 +33,7 @@
 		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
 
 		<enemies>
-			<cerdo x ="550" y="1700" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/> 
+			<boss x ="550" y="1700" speed="4.0" texturepath="Assets/Textures/Boss_2.png" isDead ="false"/> 
 			<cerdo x ="550" y="3200" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
@@ -239,6 +239,51 @@
 			</Dead>
 		</animations>
 	</cerdoVolador>
+
+	<boss>
+		<animations>
+			<Runright loop="true" speed ="0.2">
+				<frame x="0" y="100" w="140" h="100"/>
+				<frame x="140" y="100" w="140" h="100"/>
+				<frame x="280" y="100" w="140" h="100"/>
+				<frame x="420" y="100" w="140" h="100"/>
+				<frame x="560" y="100" w="140" h="100"/>
+				<frame x="700" y="100" w="140" h="100"/>
+			</Runright>
+
+			<Idleright loop="true" speed ="0.5">
+				<frame x="0" y="0" w="140" h="100"/>
+				<frame x="140" y="0" w="140" h="100"/>
+				<frame x="280" y="0" w="140" h="100"/>
+				<frame x="420" y="0" w="140" h="100"/>
+				<frame x="560" y="0" w="140" h="100"/>
+				<frame x="700" y="0" w="140" h="100"/>
+				<frame x="840" y="0" w="140" h="100"/>
+				<frame x="980" y="0" w="140" h="100"/>
+			</Idleright>
+
+			<Dead loop="false" speed ="0.1">
+				<frame x="6" y="167" w="49" h="46"/>
+				<frame x="80" y="167" w="49" h="46"/>
+				<frame x="157" y="167" w="49" h="46"/>
+				<frame x="235" y="167" w="49" h="46"/>
+			</Dead>
+
+			<Jumpright loop="false" speed ="0.1">
+				<frame x="0" y="28" w="34" h="28"/>
+				<frame x="34" y="28" w="34" h="28"/>
+			</Jumpright>
+
+			<Attackright loop="true" speed ="0.5">
+				<frame x="0" y="200" w="140" h="100"/>
+				<frame x="140" y="200" w="140" h="100"/>
+				<frame x="280" y="200" w="140" h="100"/>
+				<frame x="420" y="200" w="140" h="100"/>
+				<frame x="560" y="200" w="140" h="100"/>
+			</Attackright>
+		</animations>
+	</boss>
+
 
 	<corazon>
 		<animations>

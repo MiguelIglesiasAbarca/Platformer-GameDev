@@ -1,4 +1,4 @@
-#include "Cerdo.h"
+#include "Boss.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -11,14 +11,14 @@
 #include "EntityManager.h"
 #include "Map.h"
 
-Cerdo::Cerdo() : Entity(EntityType::CERDO)
+Boss::Boss() : Entity(EntityType::CERDO)
 {
-	name.Create("Cerdo");
+	name.Create("Boss");
 }
 
-Cerdo::~Cerdo() {}
+Boss::~Boss() {}
 
-bool Cerdo::Awake() {
+bool Boss::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -28,13 +28,13 @@ bool Cerdo::Awake() {
 	return true;
 }
 
-bool Cerdo::Start() {
+bool Boss::Start() {
 
-	runRight.LoadAnimations("Runright", "cerdo");//animacion correr
+	runRight.LoadAnimations("Runright", "boss");//animacion correr
 	runRight.speed = 0.167f;
 
-	idleRight.LoadAnimations("Idleright", "cerdo");//animacion idle
-	idleRight.speed = 0.167f;
+	idleRight.LoadAnimations("Idleright", "boss");//animacion idle
+	idleRight.speed = 0.07f;
 
 	jumpRight.LoadAnimations("Jumpright", "cerdo");//animiacion salto
 	jumpRight.speed = 0.167f;
@@ -42,12 +42,12 @@ bool Cerdo::Start() {
 	dead.LoadAnimations("Dead", "cerdo");//animacion muerte
 	dead.speed = 0.1f;
 
-	attack.LoadAnimations("Attackright", "cerdo");//animacion ataque
-	attack.speed = 0.01f;
+	attack.LoadAnimations("Attackright", "boss");//animacion ataque
+	attack.speed = 0.05f;
 
 	pathTexture = app->tex->Load("Assets/Textures/tomate.png");//textura del pathfinding
 	texture = app->tex->Load(texturePath);//carga textura cerdo
-	pbody = app->physics->CreateCircle(position.x, position.y, 10, bodyType::DYNAMIC);//crear collider
+	pbody = app->physics->CreateCircle(position.x, position.y, 30, bodyType::DYNAMIC);//crear collider
 	pbody->ctype = ColliderType::CERDO;//establecer tipo de collider
 	pbody->listener = this;// Asigna el puntero 'this' (referencia al objeto actual) como el 'listener' del cuerpo físico 'pbody'
 
@@ -56,7 +56,7 @@ bool Cerdo::Start() {
 	return true;
 }
 
-bool Cerdo::Update(float dt)
+bool Boss::Update(float dt)
 {
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 	enemyPosition = app->map->WorldToMap(position.x, position.y);
@@ -80,24 +80,24 @@ bool Cerdo::Update(float dt)
 		app->physics->world->DestroyBody(pbody->body);
 	}
 
-	if (distance < 2)
+	if (distance < 1)
 	{
-		currentAnimation = &idleRight;
+		currentAnimation = &attack;
 		currentVelocity.x = 0;
 		currentVelocity.y += 0.5;
 		pbody->body->SetLinearVelocity(currentVelocity);
 	}
-	else if (distance >= 2 && distance <= 5)
+	else if (distance >= 1 && distance <= 5)
 	{
 		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
 		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
-		if (path->Count() >= 1)
+		if (path->Count() > 0)
 		{
 			nextTilePath = { path->At(1)->x, path->At(1)->y };
 
 			int positionTilesx = position.x / 32;
 			int positionTilesy = position.y / 32;
-			if (path->At(1)->x < positionTilesx && path->At(1)->x != positionTilesx)
+			if (path->At(1)->x <= positionTilesx && path->At(1)->x != positionTilesx)
 			{
 				looksRight = false;
 				currentAnimation = &runRight;
@@ -105,7 +105,7 @@ bool Cerdo::Update(float dt)
 				currentVelocity.y += 0.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
 			}
-			else if (path->At(1)->x > positionTilesx && path->At(1)->x != positionTilesx)
+			else if (path->At(1)->x >= positionTilesx && path->At(1)->x != positionTilesx)
 			{
 				looksRight = true;
 				currentVelocity.x = speed;
@@ -113,16 +113,6 @@ bool Cerdo::Update(float dt)
 				currentVelocity.y += 0.5;
 				pbody->body->SetLinearVelocity(currentVelocity);
 
-			}
-			else if (path->At(1)->y < positionTilesy && path->At(1)->y != positionTilesy)
-			{
-				if (!isJumping)
-				{
-					isJumping = true;
-					currentAnimation = &jumpRight;
-					currentVelocity.y = -10;
-					pbody->body->SetLinearVelocity(currentVelocity);
-				}
 			}
 		}
 	}
@@ -137,15 +127,15 @@ bool Cerdo::Update(float dt)
 	}
 
 	// Obtiene la posición del cuerpo físico (pbody) y la convierte de unidades de metros a píxeles
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;// Variable para controlar el la orientacion de la textura
 
 	flip = looksRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;// Se establece el volteo dependiendo de la condición looksRight
 	// Si looksRight es verdadero, se aplica un volteo horizontal; de lo contrario, no se aplica volteo (SDL_FLIP_NONE)
 
-	app->render->DrawTexture(texture, position.x, position.y - 2, &currentAnimation->GetCurrentFrame(), flip);// Dibuja la textura en la posición (position.x, position.y)
+	app->render->DrawTexture(texture, position.x - 70, position.y-66, &currentAnimation->GetCurrentFrame(), flip);// Dibuja la textura en la posición (position.x, position.y)
 	// Se aplica el volteo configurado anteriormente
 
 	currentAnimation->Update();// Actualiza la animación
@@ -156,7 +146,7 @@ bool Cerdo::Update(float dt)
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);// Convierte las coordenadas del punto del mapa a coordenadas del mundo
-			app->render->DrawTexture(pathTexture, pos.x + 8, pos.y + 8);// Dibuja una textura (pathTexture) en la posición correspondiente al punto del camino
+			app->render->DrawTexture(pathTexture, pos.x, pos.y);// Dibuja una textura (pathTexture) en la posición correspondiente al punto del camino
 		}
 	}
 
@@ -169,12 +159,12 @@ bool Cerdo::Update(float dt)
 	return true;
 }
 
-bool Cerdo::CleanUp()
+bool Boss::CleanUp()
 {
 	return true;
 }
 
-void Cerdo::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{

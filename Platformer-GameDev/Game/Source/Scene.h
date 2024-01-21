@@ -9,6 +9,7 @@
 #include "Cerdo_Volador.h"
 #include "Food.h"
 #include "Rey.h"
+#include "Boss.h"
 #include "Item.h"
 #include "Trap_01.h"
 #include "Lives.h"
@@ -73,6 +74,7 @@ private:
 	pugi::xml_node configNode;
 	List<Entity*> Cerdolista;
 	List<Entity*> CerdoVoladorlista;
+	List<Entity*> BossLista;
 	List<Entity*> CerdoPatrulladorlista;
 	List<Entity*> Dragonlista;
 

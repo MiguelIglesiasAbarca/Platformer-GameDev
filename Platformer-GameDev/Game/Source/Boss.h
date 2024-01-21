@@ -1,5 +1,5 @@
-#ifndef __CERDO__
-#define __CERDO__
+#ifndef __BOSS__
+#define __BOSS__
 
 #include "Entity.h"
 #include "Point.h"
@@ -8,13 +8,13 @@
 
 struct SDL_Texture;
 
-class Cerdo : public Entity
+class Boss : public Entity
 {
 public:
 
-	Cerdo();
+	Boss();
 
-	virtual ~Cerdo();
+	virtual ~Boss();
 
 	bool Awake();
 
