@@ -62,20 +62,20 @@ bool SceneIntro::Start()
 	playHover = app->tex->Load("Assets/Textures/inicioplayhover.png");
 	continueHover = app->tex->Load("Assets/Textures/iniciocontinuehover.png");
 	settingsHover = app->tex->Load("Assets/Textures/iniciosettingshover.png");
-	creditsHover = app->tex->Load("Assets/Textures/iniciosettingshover.png");
+	creditsHover = app->tex->Load("Assets/Textures/iniciocreditshover.png");
 	exitHover = app->tex->Load("Assets/Textures/inicioquithover.png");
-	playClick = app->tex->Load("Assets/Textures/inicioplaypress.png");
-	continueClick = app->tex->Load("Assets/Textures/menu_continue_click.png");
-	settingsClick = app->tex->Load("Assets/Textures/iniciosettingspress.png");
-	creditsClick = app->tex->Load("Assets/Textures/menu_credits_click.png");
-	exitClick = app->tex->Load("Assets/Textures/menu_exit_click.png");
+	playClick = app->tex->Load("Assets/Textures/inicioplayclick.png");
+	continueClick = app->tex->Load("Assets/Textures/iniciocontinueclick.png");
+	settingsClick = app->tex->Load("Assets/Textures/iniciosettingsclick.png");
+	creditsClick = app->tex->Load("Assets/Textures/iniciocreditsclick.png");
+	exitClick = app->tex->Load("Assets/Textures/inicioquitclick.png");
 
 
-	playButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 248, 311, 528, 134 }, this);
-	continueButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { 657, 397, 285, 64 }, this);
-	settingsButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { 657, 479, 285, 64 }, this);
-	creditsButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 657, 561, 285, 64 }, this);
-	exitButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit", { 1517, 14, 63, 63 }, this);
+	playButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 125, 311, 371, 124 }, this);
+	continueButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { 543, 307, 381, 134 }, this);
+	settingsButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { 354, 460, 316, 76 }, this);
+	creditsButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 354, 562, 316, 76 }, this);
+	exitButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Exit", { 416, 676, 200, 48 }, this);
 
 	playButton->state = GuiControlState::NORMAL;
 	continueButton->state = GuiControlState::NORMAL;
@@ -149,7 +149,7 @@ bool SceneIntro::Update(float dt)
 		}
 	}
 	
-	if (timer.ReadSec() >= 2 && !timerPaused)
+	if (timer.ReadSec() >= 5 && !timerPaused)
 	{
 		timerPaused = true;
 	}
