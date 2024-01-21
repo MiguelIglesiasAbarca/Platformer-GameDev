@@ -81,6 +81,12 @@ bool Boss::Update(float dt)
 		app->physics->world->DestroyBody(pbody->body);
 	}
 
+	if (destroyBody)
+	{
+		app->physics->world->DestroyBody(AttackpBody->body);
+		destroyBody = false;
+	}
+
 	/*if (currentAnimation == &attack && currentAnimation->currentFrame >= 2 && !hasAttacked)
 	{
 		hasAttacked = true;
@@ -178,6 +184,17 @@ void Boss::Attack()
 	currentVelocity.x = 0;
 	currentVelocity.y += 0.5;
 	pbody->body->SetLinearVelocity(currentVelocity);
+	destroyBody = true;
+	if (looksRight)
+	{
+		AttackpBody = app->physics->CreateCircle(position.x + 55, position.y, 18, bodyType::DYNAMIC);
+		AttackpBody->ctype = ColliderType::DAMAGE;
+	}
+	else
+	{
+		AttackpBody = app->physics->CreateCircle(position.x - 55, position.y, 18, bodyType::DYNAMIC);
+		AttackpBody->ctype = ColliderType::DAMAGE;
+	}
 }
 
 void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
@@ -186,7 +203,7 @@ void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::DAMAGE:// Si el tipo de colisionador es DAMAGE (daño)
 		LOG("Collision DAMAGE");
-		isDead = true;// Marca al cerdo como muerto
+		//isDead = true;// Marca al cerdo como muerto
 		break;
 	case ColliderType::PLATFORM:// Si el tipo de colisionador es PLATFORM (plataforma)
 		LOG("Collision PLATFORM");
