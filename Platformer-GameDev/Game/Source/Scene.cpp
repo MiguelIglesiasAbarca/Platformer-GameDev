@@ -146,7 +146,7 @@ bool Scene::Start()
 
 	app->win->GetWindowSize(windowW, windowH);
 
-	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
+	//app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -179,7 +179,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {	
-	if (player->position.x <= 600)
+	if (player->position.x <= -100)
 	{
 		app->render->camera.y = -player->position.y + 500;
 		app->render->camera.x = -100;
@@ -189,7 +189,7 @@ bool Scene::Update(float dt)
 			app->render->camera.y = -2950;
 		}
 	}
-	else if (player->position.x > 600 && player->position.x <= 2850)
+	else if (player->position.x > -100 && player->position.x <= 2850)
 	{
 		app->render->camera.y = -player->position.y + 500;
 		app->render->camera.x = -player->position.x + 500;

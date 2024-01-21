@@ -28,6 +28,8 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void Attack();
+
 public:
 	float speed;
 	const char* texturePath;
@@ -40,6 +42,7 @@ public:
 	iPoint playerTilePos;
 	int distance;
 	bool isJumping = false;
+	bool hasAttacked = false;
 	bool isDead = false;
 	bool destroyBody = false;
 	bool isAttacking = false;

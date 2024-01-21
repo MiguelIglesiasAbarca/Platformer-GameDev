@@ -24,6 +24,8 @@ bool Player::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
+	width = parameters.attribute("w").as_int();
+	height = parameters.attribute("h").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 	speed = parameters.attribute("speed").as_float();
 
@@ -55,13 +57,14 @@ bool Player::Start() {
 
 	//attack
 	attackRight.LoadAnimations("Attackright", "player");
-	attackRight.speed = 0.2f;
+	attackRight.speed = 0.05f;
+	//attackRight.speed = 0.2f;
 
 #pragma endregion
 
 	currentAnimation = &idleRight;
 
-	pbody = app->physics->CreateCircle(position.x + 100, position.y, 12, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 	jump_FXid = app->audio->LoadFx("Assets/Audio/Fx/Grunt_player_02.wav");
@@ -77,6 +80,8 @@ bool Player::Update(float dt)
 {
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
+
+	LOG("Position: %d", position.x);
 
 	currentVelocity.y += 0.5;
 
@@ -204,12 +209,12 @@ bool Player::Update(float dt)
 		currentAnimation->loopCount = 0;
 		if (looksRight)
 		{
-			AttackpBody = app->physics->CreateCircle(position.x + 55, position.y + 15, 18, bodyType::DYNAMIC);
+			AttackpBody = app->physics->CreateCircle(position.x + 55, position.y, 18, bodyType::DYNAMIC);
 			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		else
 		{
-			AttackpBody = app->physics->CreateCircle(position.x - 18, position.y + 15, 18, bodyType::DYNAMIC);
+			AttackpBody = app->physics->CreateCircle(position.x - 55 , position.y, 18, bodyType::DYNAMIC);
 			AttackpBody->ctype = ColliderType::DAMAGE;
 		}
 		currentAnimation->Reset();
@@ -309,14 +314,14 @@ bool Player::Update(float dt)
 #pragma endregion
 
 	// Actualizar la posición en píxeles
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 18;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 	flip = looksRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 
-	app->render->DrawTexture(texture, position.x - 32, position.y - 16, &currentAnimation->GetCurrentFrame(), flip);
+	app->render->DrawTexture(texture, position.x - (width/2), position.y - (height/2)+3, &currentAnimation->GetCurrentFrame(), flip);
 	currentAnimation->Update();
 
 	return true;

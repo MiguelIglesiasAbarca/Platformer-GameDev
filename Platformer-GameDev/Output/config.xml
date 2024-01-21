@@ -31,7 +31,7 @@
 		<background4 path="Assets/Textures/fondo4.png"/>
 		<hearts_tex path="Assets/Textures/vidas.png"/>
 
-		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
+		<player x="550" y="1700" w="100" h ="70" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
 
 		<enemies>
 			<boss x ="550" y="1700" speed="4.0" texturepath="Assets/Textures/Boss_3.png" isDead ="false"/> 

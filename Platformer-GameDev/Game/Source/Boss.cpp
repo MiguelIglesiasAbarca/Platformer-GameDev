@@ -61,12 +61,13 @@ bool Boss::Update(float dt)
 	playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 	enemyPosition = app->map->WorldToMap(position.x, position.y);
 
-	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 	currentVelocity.y += 0.5;
 
 	distance = playerTilePos.DistanceTo(enemyPosition); // calculamos la distancia entre player y enemigo
+
+	LOG("%d", distance);
 
 	if (tp)
 	{
@@ -80,15 +81,20 @@ bool Boss::Update(float dt)
 		app->physics->world->DestroyBody(pbody->body);
 	}
 
-	if (distance < 1)
+	/*if (currentAnimation == &attack && currentAnimation->currentFrame >= 2 && !hasAttacked)
 	{
-		currentAnimation = &attack;
-		currentVelocity.x = 0;
-		currentVelocity.y += 0.5;
-		pbody->body->SetLinearVelocity(currentVelocity);
+		hasAttacked = true;
+		AttackpBody = app->physics->CreateCircle(position.x + 55, position.y + 15, 18, bodyType::DYNAMIC);
+		AttackpBody->ctype = ColliderType::DAMAGE;
+	}*/
+
+	if (distance < 2)
+	{
+		Attack();
 	}
-	else if (distance >= 1 && distance <= 5)
+	else if (distance >= 2 && distance <= 5)
 	{
+		isAttacking = false;
 		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
 		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
 		if (path->Count() > 0)
@@ -118,6 +124,7 @@ bool Boss::Update(float dt)
 	}
 	else if (distance > 5)
 	{
+		isAttacking = false;
 		isJumping = false;
 		currentVelocity.x = 0;
 		currentVelocity.y += 0.5;
@@ -162,6 +169,15 @@ bool Boss::Update(float dt)
 bool Boss::CleanUp()
 {
 	return true;
+}
+
+void Boss::Attack()
+{
+	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
+	currentAnimation = &attack;
+	currentVelocity.x = 0;
+	currentVelocity.y += 0.5;
+	pbody->body->SetLinearVelocity(currentVelocity);
 }
 
 void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {

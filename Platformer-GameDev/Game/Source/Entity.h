@@ -92,7 +92,9 @@ public:
 
 	// Possible properties, it depends on how generic we
 	// want our Entity class, maybe it's not renderable...
-	iPoint position;       
+	iPoint position;      
+	int width;
+	int height;
 	bool renderable = true;
 	bool isDead = false;
 	bool tp = false;
