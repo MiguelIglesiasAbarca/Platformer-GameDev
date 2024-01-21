@@ -31,6 +31,8 @@ public:
 
 	void OnDeath();
 
+	void TakeDamage();
+
 	Food* coin;
 
 public:
@@ -54,7 +56,7 @@ public:
 	bool runningFX = false;
 	bool destroyBody = false;
 	int level = 1;
-	int vida = 1;
+	int vida = 3;
 	int foodCounter = 0;
 
 	Animation* currentAnimation = nullptr;

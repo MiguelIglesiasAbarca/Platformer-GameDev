@@ -142,6 +142,8 @@ bool Scene::Start()
 	fondo3 = app->tex->Load(configNode.child("background3").attribute("path").as_string());
 	fondo4 = app->tex->Load(configNode.child("background4").attribute("path").as_string());
 
+	hearts_tex = app->tex->Load(configNode.child("hearts_tex").attribute("path").as_string());
+
 	app->win->GetWindowSize(windowW, windowH);
 
 	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
@@ -162,8 +164,8 @@ bool Scene::Start()
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 
-	SDL_Rect btPos = { windowW / 2 - 60, windowH / 2 - 10, 120,20 };
-	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "MyButton", btPos, this);
+	SDL_Rect btPos = { windowW / 2 - 60, windowH / 2 - 10,120 ,20 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON,hearts_tex, 1, "", btPos, this);
 
 	return true;
 }

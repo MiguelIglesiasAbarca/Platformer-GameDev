@@ -86,6 +86,7 @@ bool CerdoPatrullador::Update(float dt)
 	{
 		app->entityManager->DestroyEntity(this);
 		app->physics->world->DestroyBody(pbody->body);
+	
 	}
 
 	if (health <= 0)

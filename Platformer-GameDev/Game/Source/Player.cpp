@@ -330,6 +330,7 @@ void Player::Reset()
 {
 	isDead = false;
 	isAttacking = false;
+	vida = 3;
 	currentAnimation = &idleRight;
 	if (level == 1)
 	{
@@ -351,6 +352,12 @@ void Player::OnDeath()
 	currentAnimation->loopCount = 0;
 }
 
+void Player::TakeDamage()
+{
+	app->audio->PlayFx(death_Fxid, 0);
+	vida--;
+}
+
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
@@ -365,24 +372,45 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision DAMAGE");
 		if (!isDead)
 		{
-			OnDeath();
+			if (vida != 0)
+			{
+				TakeDamage();
+			}
+			else
+			{
+				OnDeath();
+			}
 		}
 		else
 		{
 			Reset();
 		}
 		break;
-	case ColliderType::PLATFORM:
+		case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		isJumping = false;
 		break;
-	case ColliderType::TRAP:
+		case ColliderType::TRAP:
 		LOG("Collision TRAP");
 		OnDeath();
 		break;
-	case ColliderType::CERDO:
+		case ColliderType::CERDO:
 		LOG("Collision TRAP");
-		OnDeath();
+		if (!isDead)
+		{
+			if (vida != 0)
+			{
+				TakeDamage();
+			}
+			else
+			{
+				OnDeath();
+			}
+		}
+		else
+		{
+			Reset();
+		}
 		break;
 	case ColliderType::NEXTLEVEL:
 		LOG("Collision NEXTLEVEL");

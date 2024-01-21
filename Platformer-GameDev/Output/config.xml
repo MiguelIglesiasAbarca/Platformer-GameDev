@@ -29,11 +29,12 @@
 		<background2 path="Assets/Textures/fondo2.png"/>
 		<background3 path="Assets/Textures/fondo3.png"/>
 		<background4 path="Assets/Textures/fondo4.png"/>
+		<hearts_tex path="Assets/Textures/vidas.png"/>
 
 		<player x="550" y="1700" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
 
 		<enemies>
-			<boss x ="550" y="1700" speed="4.0" texturepath="Assets/Textures/Boss_2.png" isDead ="false"/> 
+			<boss x ="550" y="1700" speed="4.0" texturepath="Assets/Textures/Boss_3.png" isDead ="false"/> 
 			<cerdo x ="550" y="3200" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>

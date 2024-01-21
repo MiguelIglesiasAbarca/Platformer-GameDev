@@ -70,6 +70,7 @@ private:
 	SDL_Texture* fondo2;
 	SDL_Texture* fondo3;
 	SDL_Texture* fondo4;
+	SDL_Texture* hearts_tex;
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
 	List<Entity*> Cerdolista;
