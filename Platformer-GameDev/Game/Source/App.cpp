@@ -26,17 +26,17 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	frames = 0;
 
-	win = new Window();
-	input = new Input();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
-	physics = new Physics();
-	scene = new Scene();
-	sceneintro = new SceneIntro();
-	map = new Map();
-	entityManager = new EntityManager();
-	guiManager = new GuiManager();
+	win = new Window(this);
+	input = new Input(this);
+	render = new Render(this);
+	tex = new Textures(this);
+	audio = new Audio(this);
+	physics = new Physics(this);
+	scene = new Scene(this);
+	sceneintro = new SceneIntro(this);
+	map = new Map(this);
+	entityManager = new EntityManager(this);
+	guiManager = new GuiManager(this);
 
 
 	// Ordered for awake / Start / Update
@@ -46,12 +46,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(sceneintro);
+	
 	AddModule(scene);
+	
 	AddModule(map);
 	AddModule(entityManager);
 	AddModule(guiManager);
-
+	AddModule(sceneintro);
 	// Render last to swap buffer
 	AddModule(render);
 

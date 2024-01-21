@@ -10,7 +10,7 @@ class SceneIntro : public Module
 {
 public:
 
-	SceneIntro();
+	SceneIntro(App* app, bool start_enabled = true);
 
 	// Destructor
 	virtual ~SceneIntro();
@@ -46,10 +46,9 @@ private:
 	uint texW, texH;
 	uint windowW, windowH;
 	int scale = 5;
-
-
 	
-	SDL_Texture* fondo4;
+	
+	SDL_Texture* gatitorico;
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
 	

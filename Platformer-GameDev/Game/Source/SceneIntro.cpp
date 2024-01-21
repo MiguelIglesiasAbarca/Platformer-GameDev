@@ -12,7 +12,7 @@
 #include "GuiControl.h"
 #include "GuiManager.h"
 
-SceneIntro::SceneIntro() : Module()
+SceneIntro::SceneIntro(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("scene");
 }
@@ -34,6 +34,10 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 // Called before Fthe first frame
 bool SceneIntro::Start()
 {
+	LOG("Loading SceneIntro Assets");
+	bool ret = true;
+
+	gatitorico = app->tex->Load("Assets/Textures/gatoguapo.png");
 	app->win->GetWindowSize(windowW, windowH);
 
 	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
@@ -57,7 +61,9 @@ bool SceneIntro::PreUpdate()
 // Called each loop iteration
 bool SceneIntro::Update(float dt)
 {
-	
+	//dibujamos
+	SDL_Rect RectFondoInicial{ 0, 0, windowW-30, windowH-30 };
+	app->render->DrawTexture(gatitorico, 830, 890, &RectFondoInicial);
 	//if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadRequest();
 
 	return true;
