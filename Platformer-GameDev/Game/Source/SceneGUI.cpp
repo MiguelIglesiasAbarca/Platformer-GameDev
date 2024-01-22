@@ -49,9 +49,9 @@ bool SceneGUI::Start()
 	app->win->GetWindowSize(windowW, windowH);
 	corazon1 = app->tex->Load("Assets/Textures/corazon1.png");
 	corazon2 = app->tex->Load("Assets/Textures/corazon2.png");
-	corazon3 = app->tex->Load("Assets/Textures/gatoguapo.png");
+	corazon3 = app->tex->Load("Assets/Textures/corazon3.png");
 
-	//app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
+	app->audio->LoadFx("Assets/Audio/Fx/scale-d6-106129.ogg");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
