@@ -59,7 +59,7 @@ private:
 	GuiControlButton* btn1;
 	GuiControlButton* btn2;
 	GuiControlButton* btn3;
-	GuiControlButton* btn4;
+	
 
 	int count;
 

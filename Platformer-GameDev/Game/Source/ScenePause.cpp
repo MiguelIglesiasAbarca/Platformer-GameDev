@@ -39,31 +39,28 @@ bool ScenePause::Start()
 
 
 	//Pause
-	Pause_1 = app->tex->Load("Assets/Screens/Menu_pause_1.png");
-	Pause_2 = app->tex->Load("Assets/Screens/Menu_pause_2.png");
-	Pause_3 = app->tex->Load("Assets/Screens/Menu_pause_3.png");
-	Pause_4 = app->tex->Load("Assets/Screens/Menu_pause_4.png");
-	Pause_5 = app->tex->Load("Assets/Screens/Menu_pause_5.png");
-	Pause_6 = app->tex->Load("Assets/Screens/Menu_pause_6.png");
-	Pause_7 = app->tex->Load("Assets/Screens/Menu_pause_7.png");
-	Pause_8 = app->tex->Load("Assets/Screens/Menu_pause_8.png");
-	Pause_9 = app->tex->Load("Assets/Screens/Menu_pause_9.png");
-
-	currentTexture = Pause_1;
+	Pause_1 = app->tex->Load("Assets/Textures/pausesnormal.png");
+	Pause_2 = app->tex->Load("Assets/Textures/pauseresumehover.png");
+	Pause_3 = app->tex->Load("Assets/Textures/pauseresumepress.png");
+	Pause_4 = app->tex->Load("Assets/Textures/pausesettingshover.png");
+	Pause_5 = app->tex->Load("Assets/Textures/pausesettingspress.png");
+	Pause_6 = app->tex->Load("Assets/Textures/pausequithover.png");
+	Pause_7 = app->tex->Load("Assets/Textures/pausequitpress.png");
+	
 
 	app->guiManager->Enable();
 	app->scene->Disable();
 
-	btn1 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Title", { 215, 69, 309, 106 }, this);
-	btn2 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Resume", { 253, 314, 509, 94 }, this);
-	btn3 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { 350, 485, 317, 50 }, this);
-	btn4 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Exit", { 765, 64, 59, 57 }, this);
+	btn1 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume", { 59, 103, 906, 257 }, this);
+	btn2 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings", { 285, 421, 453, 108 }, this);
+	btn3 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Quit", { 287, 584, 450, 108 }, this);
+	
 
 
 	//Habilita los botones
 	btn1->state = GuiControlState::NORMAL;
 	btn2->state = GuiControlState::NORMAL;
-	btn4->state = GuiControlState::NORMAL;
+	btn3->state = GuiControlState::NORMAL;
 
 
 	return true;
@@ -72,61 +69,51 @@ bool ScenePause::Start()
 // Called each loop iteration
 bool ScenePause::PreUpdate()
 {
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+
+		
+		currentTexture = Pause_1;
 
 		if (btn1->state == GuiControlState::FOCUSED)
 		{
-			currentTexture = Pause_6;
+			currentTexture = Pause_2;
 		}
 		else if (btn1->state == GuiControlState::PRESSED)
 		{
-			currentTexture = Pause_7;
-			// Acción cuando se presiona el botón "Title"
+			currentTexture = Pause_3;
+			// Acción cuando se presiona el botón "Resume"
+			app->sceneintro->Disable();
 			app->scenepause->Disable();
-			app->sceneintro->Enable();
-			app->guiManager->Disable();
+			app->guiManager->Enable();
+			app->scene->Enable();
 		}
 
 		if (btn2->state == GuiControlState::FOCUSED)
 		{
-			currentTexture = Pause_2;
+			currentTexture = Pause_4;
 		}
 		else if (btn2->state == GuiControlState::PRESSED)
 		{
-			currentTexture = Pause_3;
-			// Acción cuando se presiona el botón "Resume"
-			app->scenepause->Disable();
+			currentTexture = Pause_5;
+			// Acción cuando se presiona el botón "Settings"
 			app->scene->Enable();
+			app->scenepause->Disable();
 			app->guiManager->Disable();
 		}
 
 		if (btn3->state == GuiControlState::FOCUSED)
 		{
-			currentTexture = Pause_4;
+			currentTexture = Pause_6;
 		}
 		else if (btn3->state == GuiControlState::PRESSED)
 		{
-			currentTexture = Pause_5;
-			// Acción cuando se presiona el botón "Settings"
+			currentTexture = Pause_7;
+			// Acción cuando se presiona el botón "Quit"
 			app->scenepause->Disable();
-			/*app->sceneSettings->Enable();*/
 			app->guiManager->Disable();
 		}
-
-		if (btn4->state == GuiControlState::FOCUSED)
-		{
-			currentTexture = Pause_8;
-		}
-		else if (btn4->state == GuiControlState::PRESSED)
-		{
-			currentTexture = Pause_9;
-			// Acción cuando se presiona el botón "Exit"
-			app->scenepause->Disable();
-			app->scene->Disable();
-			app->guiManager->Disable();
-		}
-
 	}
+
 	
 
 	return true;
@@ -144,7 +131,7 @@ bool ScenePause::PostUpdate()
 {
 	bool ret = true;
 
-	app->render->DrawTexture(currentTexture, app->scene->player->position.x - 125, app->scene->player->position.y - 550);
+	app->render->DrawTexture(currentTexture, 0, 0, NULL, SDL_FLIP_NONE, 0);
 
 	return ret;
 }

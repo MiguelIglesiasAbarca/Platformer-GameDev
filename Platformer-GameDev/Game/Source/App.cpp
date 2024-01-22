@@ -44,18 +44,18 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 
 	// Ordered for awake / Start / Update
-		// Reverse order of CleanUp
+// Reverse order of CleanUp
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(scenepause);
-	AddModule(scene);
 
+	AddModule(scene);
 	AddModule(map);
 	AddModule(entityManager);
-	AddModule(guiManager);
+	AddModule(scenepause);
+	AddModule(guiManager);  // GuiManager after scenepause, as it depends on it
 	AddModule(scenegui);
 	AddModule(sceneintro);
 
