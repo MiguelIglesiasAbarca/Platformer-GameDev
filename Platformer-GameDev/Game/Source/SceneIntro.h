@@ -51,6 +51,11 @@ private:
 	
 	
 	SDL_Texture* gatitorico;
+
+	SDL_Texture* corazon1;
+	SDL_Texture* corazon2;
+	SDL_Texture* corazon3;
+
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
 	

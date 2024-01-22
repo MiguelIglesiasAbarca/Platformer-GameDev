@@ -47,7 +47,9 @@ bool SceneIntro::Start()
 
 	gatitorico = app->tex->Load("Assets/Textures/gatoguapo.png");
 	app->win->GetWindowSize(windowW, windowH);
-	
+	corazon1 = app->tex->Load("Assets/Textures/corazon1.png");
+	corazon2 = app->tex->Load("Assets/Textures/corazon2.png");
+	//corazon3 = app->tex->Load("Assets/Textures/gatoguapo.png");
 
 	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 
@@ -154,6 +156,28 @@ bool SceneIntro::Update(float dt)
 		timerPaused = true;
 	}
 
+	if (app->scene->player->vida == 1)
+	{
+		app->render->DrawTexture(corazon1, 20, 20, NULL, SDL_FLIP_NONE, 0);
+
+	}
+	if (app->scene->player->vida == 2)
+	{
+		app->render->DrawTexture(corazon2, 20, 20, NULL, SDL_FLIP_NONE, 0);
+
+	}
+	if (app->scene->player->vida == 3)
+	{
+		app->render->DrawTexture(corazon3, 20, 20, NULL, SDL_FLIP_NONE, 0);
+
+	}
+
+	//char buffer[20];  // Suficientemente grande para almacenar el entero como cadena
+	//snprintf(buffer, sizeof(buffer), "%d", app->scene->player->vida);
+
+	//const char* miVariable = buffer;
+
+	//app->render->DrawText(miVariable, 60, 25, 35, 35);
 	
 	return true;
 
