@@ -3,12 +3,11 @@
 #include "App.h"
 #include "Audio.h"
 
-GuiControlButton::GuiControlButton(SDL_Texture* texture, uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
+GuiControlButton::GuiControlButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
 	this->text = text;
 
-	buttonTexture = texture;
 	canClick = true;
 	drawBasic = false;
 }
@@ -27,13 +26,13 @@ bool GuiControlButton::Update(float dt)
 
 		//If the position of the mouse if inside the bounds of the button 
 		if (mouseX > bounds.x && mouseX < bounds.x + bounds.w && mouseY > bounds.y && mouseY < bounds.y + bounds.h) {
-		
+
 			state = GuiControlState::FOCUSED;
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 				state = GuiControlState::PRESSED;
 			}
-			
+
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 				NotifyObserver();
 			}
@@ -49,7 +48,7 @@ bool GuiControlButton::Update(float dt)
 			app->render->DrawRectangle(bounds, 200, 200, 200, 255, true, false);
 			break;
 		case GuiControlState::NORMAL:
-			app->render->DrawTexture(buttonTexture,10, 10, NULL,SDL_FLIP_NONE, 0);
+			app->render->DrawRectangle(bounds, 0, 0, 255, 255, true, false);
 			break;
 		case GuiControlState::FOCUSED:
 			app->render->DrawRectangle(bounds, 0, 0, 20, 255, true, false);
@@ -65,4 +64,3 @@ bool GuiControlButton::Update(float dt)
 
 	return false;
 }
-
