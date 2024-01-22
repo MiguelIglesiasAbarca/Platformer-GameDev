@@ -34,11 +34,10 @@
     <ClCompile Include="Source\Lives.cpp" />
     <ClCompile Include="Source\GuiControlButton.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
-
     <ClCompile Include="Source\Boss.cpp" />
-
     <ClCompile Include="Source\SceneIntro.cpp" />
-
+    <ClCompile Include="Source\ScenePause.cpp" />
+    <ClCompile Include="Source\SceneGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -98,11 +97,10 @@
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiControlButton.h" />
     <ClInclude Include="Source\GuiManager.h" />
-
     <ClInclude Include="Source\Boss.h" />
-
     <ClInclude Include="Source\SceneIntro.h" />
-
+    <ClInclude Include="Source\ScenePause.h" />
+    <ClInclude Include="Source\SceneGUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

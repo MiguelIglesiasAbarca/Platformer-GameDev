@@ -1,5 +1,5 @@
-#ifndef __SCENEINTRO_H__
-#define __SCENEINTRO_H__
+#ifndef __SCENEGUI_H__
+#define __SCENEGUI_H__
 
 #include "Module.h"
 #include "GuiControlButton.h"
@@ -8,14 +8,14 @@
 
 struct SDL_Texture;
 
-class SceneIntro : public Module
+class SceneGUI : public Module
 {
 public:
 
-	SceneIntro(App* app, bool start_enabled = true);
+	SceneGUI(App* app, bool start_enabled = true);
 
 	// Destructor
-	virtual ~SceneIntro();
+	virtual ~SceneGUI();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
@@ -39,7 +39,7 @@ public:
 
 public:
 
-	
+
 
 private:
 
@@ -48,14 +48,17 @@ private:
 	uint texW, texH;
 	uint windowW, windowH;
 	int scale = 5;
-	
-	
-	SDL_Texture* gatitorico;
+
 
 	
+
+	SDL_Texture* corazon1;
+	SDL_Texture* corazon2;
+	SDL_Texture* corazon3;
+
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
-	
+
 	Timer timer;
 	//GuiControlButton* gcButtom;
 
@@ -81,4 +84,4 @@ private:
 	GuiControlButton* exitButton;
 };
 
-#endif // __SCENEINTRO_H__
+#endif // __SCENEGUI_H__

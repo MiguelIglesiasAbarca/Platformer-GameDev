@@ -6,6 +6,7 @@
 #include "Audio.h"
 #include "SceneIntro.h"
 #include "ScenePause.h"
+#include "SceneGUI.h"
 #include "Scene.h"
 #include "Map.h"
 #include "Physics.h"
@@ -36,6 +37,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene(this, false);
 	sceneintro = new SceneIntro(this);
 	scenepause = new ScenePause(this);
+	scenegui = new SceneGUI(this, false);
 	map = new Map(this, false);
 	entityManager = new EntityManager(this, false);
 	guiManager = new GuiManager(this);
@@ -54,6 +56,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(entityManager);
 	AddModule(guiManager);
+	AddModule(scenegui);
 	AddModule(sceneintro);
 
 	// Render last to swap buffer

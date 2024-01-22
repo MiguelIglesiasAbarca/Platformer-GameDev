@@ -4,7 +4,6 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "SceneIntro.h"
 #include "SceneGUI.h"
 #include "Scene.h"
 #include "Map.h"
@@ -18,20 +17,20 @@
 
 #include "Timer.h"
 
-SceneIntro::SceneIntro(App* app, bool start_enabled) : Module(app, start_enabled)
+SceneGUI::SceneGUI(App* app, bool start_enabled) : Module(app, start_enabled)
 {
-	name.Create("sceneIntro");
+	name.Create("sceneGUI");
 }
 
 // Destructor
-SceneIntro::~SceneIntro()
+SceneGUI::~SceneGUI()
 {}
 
 // Called before render is available
-bool SceneIntro::Awake(pugi::xml_node& config)
+bool SceneGUI::Awake(pugi::xml_node& config)
 {
 	configNode = config;
-	LOG("Loading SceneIntro");
+	LOG("Loading SceneGUI");
 	bool ret = true;
 
 	timer = Timer();
@@ -41,16 +40,18 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 }
 
 // Called before Fthe first frame
-bool SceneIntro::Start()
+bool SceneGUI::Start()
 {
 	LOG("Loading SceneIntro Assets");
 	bool ret = true;
 
-	gatitorico = app->tex->Load("Assets/Textures/gatoguapo.png");
-	app->win->GetWindowSize(windowW, windowH);
 	
+	app->win->GetWindowSize(windowW, windowH);
+	corazon1 = app->tex->Load("Assets/Textures/corazon1.png");
+	corazon2 = app->tex->Load("Assets/Textures/corazon2.png");
+	corazon3 = app->tex->Load("Assets/Textures/gatoguapo.png");
 
-	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
+	//app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -59,7 +60,7 @@ bool SceneIntro::Start()
 	textPosX = (float)windowW / 2 - (float)texW / 2;
 	textPosY = (float)windowH / 2 - (float)texH / 2;
 
-	menu = app->tex->Load("Assets/Textures/inicionormal.png");
+	/*menu = app->tex->Load("Assets/Textures/inicionormal.png");
 	playHover = app->tex->Load("Assets/Textures/inicioplayhover.png");
 	continueHover = app->tex->Load("Assets/Textures/iniciocontinuehover.png");
 	settingsHover = app->tex->Load("Assets/Textures/iniciosettingshover.png");
@@ -69,10 +70,10 @@ bool SceneIntro::Start()
 	continueClick = app->tex->Load("Assets/Textures/iniciocontinueclick.png");
 	settingsClick = app->tex->Load("Assets/Textures/iniciosettingsclick.png");
 	creditsClick = app->tex->Load("Assets/Textures/iniciocreditsclick.png");
-	exitClick = app->tex->Load("Assets/Textures/inicioquitclick.png");
+	exitClick = app->tex->Load("Assets/Textures/inicioquitclick.png");*/
 
 
-	playButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 125, 311, 371, 124 }, this);
+	/*playButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 125, 311, 371, 124 }, this);
 	continueButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { 543, 307, 381, 134 }, this);
 	settingsButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Settings", { 354, 460, 316, 76 }, this);
 	creditsButton = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Credits", { 354, 562, 316, 76 }, this);
@@ -82,21 +83,21 @@ bool SceneIntro::Start()
 	continueButton->state = GuiControlState::NORMAL;
 	settingsButton->state = GuiControlState::NORMAL;
 	creditsButton->state = GuiControlState::NORMAL;
-	exitButton->state = GuiControlState::NORMAL;
+	exitButton->state = GuiControlState::NORMAL;*/
 	return true;
 }
 
 // Called each loop iteration
-bool SceneIntro::PreUpdate()
+bool SceneGUI::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool SceneIntro::Update(float dt)
+bool SceneGUI::Update(float dt)
 {
 	//dibujamos
-	SDL_Rect RectFondoInicial{ 0, 0, windowW-0, windowH-0 };
+	/*SDL_Rect RectFondoInicial{ 0, 0, windowW - 0, windowH - 0 };
 	if (!timerPaused) app->render->DrawTexture(gatitorico, 0, 0, NULL, SDL_FLIP_NONE, 0);
 	else
 	{
@@ -111,7 +112,6 @@ bool SceneIntro::Update(float dt)
 			app->map->Enable();
 			this->Disable();
 			app->guiManager->Disable();
-			app->scenegui->Enable();
 		}
 		else if (continueButton->state == GuiControlState::FOCUSED)
 		{
@@ -149,21 +149,42 @@ bool SceneIntro::Update(float dt)
 		{
 			app->render->DrawTexture(menu, 0, 0, NULL, SDL_FLIP_NONE, 0);
 		}
-	}
-	
+	}*/
+
 	if (timer.ReadSec() >= 5 && !timerPaused)
 	{
 		timerPaused = true;
 	}
 
-	
-	
+	if (app->scene->player->vida == 1)
+	{
+		app->render->DrawTexture(corazon1, 20, 20, NULL, SDL_FLIP_NONE, 0);
+
+	}
+	if (app->scene->player->vida == 2)
+	{
+		app->render->DrawTexture(corazon2, 20, 20, NULL, SDL_FLIP_NONE, 0);
+
+	}
+	if (app->scene->player->vida == 3)
+	{
+		app->render->DrawTexture(corazon3, 20, 20, NULL, SDL_FLIP_NONE, 0);
+
+	}
+
+	//char buffer[20];  // Suficientemente grande para almacenar el entero como cadena
+	//snprintf(buffer, sizeof(buffer), "%d", app->scene->player->vida);
+
+	//const char* miVariable = buffer;
+
+	//app->render->DrawText(miVariable, 60, 25, 35, 35);
+
 	return true;
 
 }
 
 // Called each loop iteration
-bool SceneIntro::PostUpdate()
+bool SceneGUI::PostUpdate()
 {
 	bool ret = true;
 
@@ -174,7 +195,7 @@ bool SceneIntro::PostUpdate()
 }
 
 // Called before quitting
-bool SceneIntro::CleanUp()
+bool SceneGUI::CleanUp()
 {
 	LOG("Freeing scene");
 
