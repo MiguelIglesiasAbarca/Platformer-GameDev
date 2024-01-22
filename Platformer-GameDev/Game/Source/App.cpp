@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "SceneIntro.h"
+#include "ScenePause.h"
 #include "Scene.h"
 #include "Map.h"
 #include "Physics.h"
@@ -34,21 +35,22 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new Physics(this);
 	scene = new Scene(this, false);
 	sceneintro = new SceneIntro(this);
+	scenepause = new ScenePause(this);
 	map = new Map(this, false);
 	entityManager = new EntityManager(this, false);
 	guiManager = new GuiManager(this);
 
 
 	// Ordered for awake / Start / Update
-	// Reverse order of CleanUp
+		// Reverse order of CleanUp
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
-	
+	AddModule(scenepause);
 	AddModule(scene);
-	
+
 	AddModule(map);
 	AddModule(entityManager);
 	AddModule(guiManager);

@@ -15,6 +15,7 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class ScenePause;
 class SceneIntro;
 class Scene;
 class EntityManager;
@@ -96,6 +97,7 @@ public:
 	Textures* tex;
 	Audio* audio;
 	SceneIntro* sceneintro;
+	ScenePause* scenepause;
 	Scene* scene;
 	EntityManager* entityManager;
 	Map* map;
