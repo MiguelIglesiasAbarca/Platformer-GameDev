@@ -7,7 +7,7 @@
 
 #include "SDL_image/include/SDL_image.h"
 
-Textures::Textures() : Module()
+Textures::Textures(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("textures");
 }
