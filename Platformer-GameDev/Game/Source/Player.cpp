@@ -331,6 +331,7 @@ bool Player::CleanUp()
 {
 	return true;
 }
+
 void Player::Reset()
 {
 	isDead = false;

@@ -96,6 +96,24 @@ bool SceneGUI::PreUpdate()
 // Called each loop iteration
 bool SceneGUI::Update(float dt)
 {
+	
+	
+	// Update the timer
+	//timer.Update();
+
+	// Retrieve elapsed time in milliseconds
+	float elapsedTime = timer.ReadMSec();
+
+	// Convert milliseconds to minutes and seconds
+	int minutes = static_cast<int>(elapsedTime / (1000 * 60));
+	int seconds = static_cast<int>((elapsedTime / 1000) - (minutes * 60));
+
+	// Format the time string
+	char timeString[20];
+	snprintf(timeString, sizeof(timeString), "%02d:%02d", minutes, seconds);
+
+	// Draw the timer on the screen
+	app->render->DrawText(timeString, 900, 25, 100, 50);
 	//dibujamos
 	/*SDL_Rect RectFondoInicial{ 0, 0, windowW - 0, windowH - 0 };
 	if (!timerPaused) app->render->DrawTexture(gatitorico, 0, 0, NULL, SDL_FLIP_NONE, 0);
