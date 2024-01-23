@@ -50,6 +50,8 @@ bool ScenePause::Start()
 
 	app->guiManager->Enable();
 	app->scene->Disable();
+	app->map->Disable();
+	app->entityManager->Disable();
 
 	btn1 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume", { 59, 103, 906, 257 }, this);
 	btn2 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings", { 285, 421, 453, 108 }, this);
@@ -84,7 +86,7 @@ bool ScenePause::PreUpdate()
 			// Acción cuando se presiona el botón "Resume"
 			app->sceneintro->Disable();
 			app->scenepause->Disable();
-			app->guiManager->Enable();
+			app->guiManager->Disable();
 			app->scene->Enable();
 		}
 
@@ -97,6 +99,7 @@ bool ScenePause::PreUpdate()
 			currentTexture = Pause_5;
 			// Acción cuando se presiona el botón "Settings"
 			app->scene->Enable();
+			//app->sceneSettings->Enable()
 			app->scenepause->Disable();
 			app->guiManager->Disable();
 		}
@@ -107,10 +110,7 @@ bool ScenePause::PreUpdate()
 		}
 		else if (btn3->state == GuiControlState::PRESSED)
 		{
-			currentTexture = Pause_7;
-			// Acción cuando se presiona el botón "Quit"
-			app->scenepause->Disable();
-			app->guiManager->Disable();
+			return false;
 		}
 	}
 
@@ -146,20 +146,19 @@ bool ScenePause::CleanUp()
 {
 	LOG("Freeing best logo ever scene");
 
-	/*app->tex->UnLoad(Pause_1);
+	app->tex->UnLoad(Pause_1);
 	app->tex->UnLoad(Pause_2);
 	app->tex->UnLoad(Pause_3);
 	app->tex->UnLoad(Pause_4);
 	app->tex->UnLoad(Pause_5);
 	app->tex->UnLoad(Pause_6);
 	app->tex->UnLoad(Pause_7);
-	app->tex->UnLoad(Pause_8);
-	app->tex->UnLoad(Pause_9);
 
-	app->guiManager->DestroyGuiControl(btn1);
+
+	/*app->guiManager->DestroyGuiControl(btn1);
 	app->guiManager->DestroyGuiControl(btn2);
-	app->guiManager->DestroyGuiControl(btn3);
-	app->guiManager->DestroyGuiControl(btn4);*/
+	app->guiManager->DestroyGuiControl(btn3);*/
+	
 
 	return true;
 }
