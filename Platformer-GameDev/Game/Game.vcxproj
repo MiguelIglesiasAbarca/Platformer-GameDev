@@ -118,6 +118,7 @@
     <ClCompile Include="Source\Rey.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
+    <ClCompile Include="Source\SceneDeath.cpp" />
     <ClCompile Include="Source\SceneGUI.cpp" />
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\ScenePause.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
+    <ClInclude Include="Source\SceneDeath.h" />
     <ClInclude Include="Source\SceneGUI.h" />
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\ScenePause.h" />

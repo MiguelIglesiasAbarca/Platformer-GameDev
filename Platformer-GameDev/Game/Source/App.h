@@ -16,6 +16,7 @@ class Render;
 class Textures;
 class Audio;
 class ScenePause;
+class SceneDeath;
 class SceneIntro;
 class SceneGUI;
 class Scene;
@@ -98,6 +99,7 @@ public:
 	Textures* tex;
 	Audio* audio;
 	SceneIntro* sceneintro;
+	SceneDeath* scenedeath;
 	ScenePause* scenepause;
 	SceneGUI* scenegui;
 	Scene* scene;

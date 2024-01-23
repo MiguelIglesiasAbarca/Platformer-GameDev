@@ -7,6 +7,7 @@
 #include "SceneIntro.h"
 #include "ScenePause.h"
 #include "SceneGUI.h"
+#include "SceneDeath.h"
 #include "Scene.h"
 #include "Map.h"
 #include "Physics.h"
@@ -36,6 +37,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new Physics(this);
 	scene = new Scene(this, false);
 	sceneintro = new SceneIntro(this);
+	scenedeath = new SceneDeath(this);
 	scenepause = new ScenePause(this);
 	scenegui = new SceneGUI(this, false);
 	map = new Map(this, false);
@@ -54,6 +56,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entityManager);
+	AddModule(scenedeath);
 	AddModule(scenepause);
 	AddModule(guiManager);  // GuiManager after scenepause, as it depends on it
 	AddModule(scenegui);
