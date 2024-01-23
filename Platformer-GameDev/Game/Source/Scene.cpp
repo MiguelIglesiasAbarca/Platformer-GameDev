@@ -360,6 +360,50 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
+
+	for (ListItem<Entity*>* item = Cerdolista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	Cerdolista.Clear();
+
+	for (ListItem<Entity*>* item = CerdoVoladorlista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	CerdoVoladorlista.Clear();
+
+	for (ListItem<Entity*>* item = BossLista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	BossLista.Clear();
+
+	for (ListItem<Entity*>* item = CerdoPatrulladorlista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	CerdoPatrulladorlista.Clear();
+
+	for (ListItem<Entity*>* item = Dragonlista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	Dragonlista.Clear();
+
+	if (player != nullptr)
+	{
+		app->entityManager->DestroyEntity(player);
+		player = nullptr;
+	}
+
+	// Release textures
+	app->tex->UnLoad(fondo0);
+	app->tex->UnLoad(fondo1);
+	app->tex->UnLoad(fondo2);
+	app->tex->UnLoad(fondo3);
+	app->tex->UnLoad(fondo4);
+
 	return true;
 }
 

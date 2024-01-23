@@ -53,6 +53,8 @@ bool ScenePause::Start()
 	app->map->Disable();
 	app->entityManager->Disable();
 
+	
+
 	btn1 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Resume", { 59, 103, 906, 257 }, this);
 	btn2 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Settings", { 285, 421, 453, 108 }, this);
 	btn3 = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Quit", { 287, 584, 450, 108 }, this);
@@ -84,10 +86,7 @@ bool ScenePause::PreUpdate()
 		{
 			currentTexture = Pause_3;
 			// Acción cuando se presiona el botón "Resume"
-			app->sceneintro->Disable();
-			app->scenepause->Disable();
-			app->guiManager->Disable();
-			app->scene->Enable();
+			
 		}
 
 		if (btn2->state == GuiControlState::FOCUSED)

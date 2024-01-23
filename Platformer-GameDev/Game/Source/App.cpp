@@ -37,8 +37,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new Physics(this);
 	scene = new Scene(this, false);
 	sceneintro = new SceneIntro(this);
-	scenedeath = new SceneDeath(this);
-	scenepause = new ScenePause(this);
+	scenedeath = new SceneDeath(this, false);
+	scenepause = new ScenePause(this, false);
 	scenegui = new SceneGUI(this, false);
 	map = new Map(this, false);
 	entityManager = new EntityManager(this, false);

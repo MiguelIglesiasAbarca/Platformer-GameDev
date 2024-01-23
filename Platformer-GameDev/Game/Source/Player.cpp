@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Scene.h"
+#include "SceneDeath.h"
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
@@ -356,6 +357,7 @@ void Player::OnDeath()
 	running = false;
 	currentAnimation = &dead;
 	currentAnimation->loopCount = 0;
+	app->scenedeath->Enable();
 }
 
 void Player::TakeDamage()

@@ -137,18 +137,16 @@ bool SceneDeath::CleanUp()
 {
 	LOG("Freeing best logo ever scene");
 
+	// Unload textures
 	app->tex->UnLoad(Pause_1);
 	app->tex->UnLoad(Pause_2);
 	app->tex->UnLoad(Pause_3);
 	app->tex->UnLoad(Pause_4);
 	app->tex->UnLoad(Pause_5);
 
-
-
+	// Destroy GUI controls
 	/*app->guiManager->DestroyGuiControl(btn1);
-	app->guiManager->DestroyGuiControl(btn2);
-	app->guiManager->DestroyGuiControl(btn3);*/
-
+	app->guiManager->DestroyGuiControl(btn2);*/
 
 	return true;
 }
