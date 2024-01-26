@@ -11,7 +11,7 @@ class GuiControlButton : public GuiControl
 
 public:
 
-	GuiControlButton(SDL_Texture* texture,uint32 id, SDL_Rect bounds, const char* text);
+	GuiControlButton(uint32 id, SDL_Rect bounds, const char* text);
 	virtual ~GuiControlButton();
 
 	// Called each loop iteration
@@ -22,7 +22,6 @@ private:
 	int mouseX, mouseY;
 	unsigned int click;
 
-	SDL_Texture* buttonTexture;
 	bool canClick = true;
 	bool drawBasic = false;
 };

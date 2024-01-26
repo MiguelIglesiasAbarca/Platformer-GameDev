@@ -13,7 +13,7 @@
 #include "GuiControl.h"
 #include "GuiManager.h"
 
-Scene::Scene() : Module()
+Scene::Scene(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("scene");
 }
@@ -77,13 +77,6 @@ bool Scene::Awake(pugi::xml_node& config)
 			cerdoVolador->parameters = cerdoVoladorNode;
 		}
 		CerdoVoladorlista;
-
-		for (pugi::xml_node BossNode = enemiesNode.child("boss"); BossNode; BossNode = BossNode.next_sibling("boss"))
-		{
-			Boss* boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
-			boss->parameters = BossNode;
-		}
-		BossLista;
 	}
 
 	for (pugi::xml_node foodNode = config.child("comida"); foodNode; foodNode = foodNode.next_sibling("comida"))
@@ -142,11 +135,9 @@ bool Scene::Start()
 	fondo3 = app->tex->Load(configNode.child("background3").attribute("path").as_string());
 	fondo4 = app->tex->Load(configNode.child("background4").attribute("path").as_string());
 
-	hearts_tex = app->tex->Load(configNode.child("hearts_tex").attribute("path").as_string());
-
 	app->win->GetWindowSize(windowW, windowH);
 
-	//app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/background_music.ogg");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -164,8 +155,8 @@ bool Scene::Start()
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 
-	SDL_Rect btPos = { windowW / 2 - 60, windowH / 2 - 10,120 ,20 };
-	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON,hearts_tex, 1, "", btPos, this);
+	SDL_Rect btPos = { windowW / 2 - 60, windowH / 2 - 10, 120,20 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "MyButton", btPos, this);
 
 	return true;
 }
@@ -178,8 +169,8 @@ bool Scene::PreUpdate()
 
 // Called each loop iteration
 bool Scene::Update(float dt)
-{	
-	if (player->position.x <= -100)
+{
+	if (player->position.x <= 600)
 	{
 		app->render->camera.y = -player->position.y + 500;
 		app->render->camera.x = -100;
@@ -189,7 +180,7 @@ bool Scene::Update(float dt)
 			app->render->camera.y = -2950;
 		}
 	}
-	else if (player->position.x > -100 && player->position.x <= 2850)
+	else if (player->position.x > 600 && player->position.x <= 2850)
 	{
 		app->render->camera.y = -player->position.y + 500;
 		app->render->camera.x = -player->position.x + 500;
@@ -210,16 +201,16 @@ bool Scene::Update(float dt)
 		}
 	}
 
-	SDL_Rect Rectfondo0{ 0,0,576*scale,324*scale};
-	SDL_Rect Rectfondo1{ 0,0,576*scale,324*scale};
-	SDL_Rect Rectfondo2{ 0,0,576*scale,324*scale};
-	SDL_Rect Rectfondo3{ 0,0,576*scale,324*scale};
-	SDL_Rect Rectfondo4{ 0,0,576*scale,324*scale};
+	SDL_Rect Rectfondo0{ 0,0,576 * scale,324 * scale };
+	SDL_Rect Rectfondo1{ 0,0,576 * scale,324 * scale };
+	SDL_Rect Rectfondo2{ 0,0,576 * scale,324 * scale };
+	SDL_Rect Rectfondo3{ 0,0,576 * scale,324 * scale };
+	SDL_Rect Rectfondo4{ 0,0,576 * scale,324 * scale };
 	app->render->DrawTexture(fondo0, -100, 0, &Rectfondo0);
 	app->render->DrawTexture(fondo1, -150, -100, &Rectfondo0, SDL_FLIP_NONE, 0.4f);
 	app->render->DrawTexture(fondo2, -150, 110, &Rectfondo0, SDL_FLIP_NONE, 0.6f);
 	app->render->DrawTexture(fondo3, -150, 110, &Rectfondo0, SDL_FLIP_NONE, 0.7f);
-	app->render->DrawTexture(fondo4, -150, 0, &Rectfondo0, SDL_FLIP_NONE,0.4f);
+	app->render->DrawTexture(fondo4, -150, 0, &Rectfondo0, SDL_FLIP_NONE, 0.4f);
 
 	// L14: TODO 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveRequest();
@@ -233,16 +224,16 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;*/
 
 	return ret;
 }
 
-bool Scene::LoadState(pugi::xml_node node) 
+bool Scene::LoadState(pugi::xml_node node)
 {
 	player->position.x = node.child("player").attribute("x").as_int();
-	player->position.y = node.child("player").attribute("y").as_int(); 
+	player->position.y = node.child("player").attribute("y").as_int();
 	player->godMode = node.child("pconditions").attribute("godMode").as_bool();
 	player->isDead = node.child("pconditions").attribute("isAlive").as_bool();
 	player->isJumping = node.child("pconditions").attribute("isJumping").as_bool();
@@ -306,7 +297,7 @@ bool Scene::LoadState(pugi::xml_node node)
 		dragon->isDead = node.child(("Dragon" + count).c_str()).child("DragonPosition").attribute("isDead").as_bool();
 		dragon->tp = true;
 	}
-	
+
 	List<Entity> Cerdolista;
 	List<Entity> CerdoPatrulladorlista;
 	List<Entity> CerdoVoladorlista;
@@ -315,7 +306,7 @@ bool Scene::LoadState(pugi::xml_node node)
 	return true;
 }
 
-bool Scene::SaveState(pugi::xml_node node) 
+bool Scene::SaveState(pugi::xml_node node)
 {
 	pugi::xml_node posNode = node.append_child("player");
 	posNode.append_attribute("x").set_value(player->position.x);
@@ -368,6 +359,50 @@ bool Scene::SaveState(pugi::xml_node node)
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+
+	for (ListItem<Entity*>* item = Cerdolista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	Cerdolista.Clear();
+
+	for (ListItem<Entity*>* item = CerdoVoladorlista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	CerdoVoladorlista.Clear();
+
+	for (ListItem<Entity*>* item = BossLista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	BossLista.Clear();
+
+	for (ListItem<Entity*>* item = CerdoPatrulladorlista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	CerdoPatrulladorlista.Clear();
+
+	for (ListItem<Entity*>* item = Dragonlista.start; item != nullptr; item = item->next)
+	{
+		app->entityManager->DestroyEntity(item->data);
+	}
+	Dragonlista.Clear();
+
+	if (player != nullptr)
+	{
+		app->entityManager->DestroyEntity(player);
+		player = nullptr;
+	}
+
+	// Release textures
+	app->tex->UnLoad(fondo0);
+	app->tex->UnLoad(fondo1);
+	app->tex->UnLoad(fondo2);
+	app->tex->UnLoad(fondo3);
+	app->tex->UnLoad(fondo4);
 
 	return true;
 }

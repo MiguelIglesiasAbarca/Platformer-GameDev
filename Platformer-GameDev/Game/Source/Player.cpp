@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Scene.h"
+#include "SceneDeath.h"
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
@@ -84,7 +85,12 @@ bool Player::Update(float dt)
 	LOG("Position: %d", position.x);
 
 	currentVelocity.y += 0.5;
-
+	LOG("pos1: %d", position.x);
+	LOG("pos2: %d", position.y);
+	if (position.x >=  3024 && position.y >=1250)
+	{
+		
+	}
 	if (isDead)
 	{
 		if (dead.HasFinished())
@@ -331,6 +337,7 @@ bool Player::CleanUp()
 {
 	return true;
 }
+
 void Player::Reset()
 {
 	isDead = false;
@@ -355,6 +362,7 @@ void Player::OnDeath()
 	running = false;
 	currentAnimation = &dead;
 	currentAnimation->loopCount = 0;
+	app->scenedeath->Enable();
 }
 
 void Player::TakeDamage()

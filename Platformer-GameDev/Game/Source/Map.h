@@ -109,7 +109,7 @@ class Map : public Module
 {
 public:
 
-    Map();
+    Map(App* app, bool start_enabled = true);
 
     // Destructor
     virtual ~Map();
@@ -145,6 +145,7 @@ private:
 	bool LoadAllLayers(pugi::xml_node mapNode);
 	TileSet* GetTilesetFromTileId(int gid) const;
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	void UpdateTileLoadSize(ListItem<MapLayer*>* mapLayerItem);
 
 public: 
 
@@ -157,7 +158,14 @@ public:
 
 private:
 
+	int startWidth = 0;
+	int startHeight = 0;
+	int endWidth = 0;
+	int endHeight = 0;
+	int tilesToLoad = 32;
+
 	bool mapLoaded;
+
 };
 
 #endif // __MAP_H__

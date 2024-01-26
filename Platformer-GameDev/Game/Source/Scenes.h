@@ -20,7 +20,7 @@ class Scenes : public Module
 {
 public:
 
-    Scenes();
+    Scenes(App* app, bool start_enabled = true);
 
     // Destructor
     virtual ~Scenes();
