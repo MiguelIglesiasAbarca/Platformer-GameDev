@@ -85,7 +85,12 @@ bool Player::Update(float dt)
 	LOG("Position: %d", position.x);
 
 	currentVelocity.y += 0.5;
+	LOG("pos1: %d", position.x);
+	LOG("pos2: %d", position.y);
+	if (position.x )
+	{
 
+	}
 	if (isDead)
 	{
 		if (dead.HasFinished())
