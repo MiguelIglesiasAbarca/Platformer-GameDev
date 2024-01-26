@@ -177,34 +177,75 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	if (player->position.x <= 600)
+	if (app->scene->player->level == 1 || app->scene->player->level == 2)
 	{
-		app->render->camera.y = -player->position.y + 500;
-		app->render->camera.x = -100;
-
-		if (player->position.y >= 3450)
+		if (player->position.x <= 600)
 		{
-			app->render->camera.y = -2950;
+			app->render->camera.y = -player->position.y + 500;
+			app->render->camera.x = -100;
+
+			if (player->position.y >= 3450)
+			{
+				app->render->camera.y = -2950;
+			}
 		}
-	}
-	else if (player->position.x > 600 && player->position.x <= 2850)
-	{
-		app->render->camera.y = -player->position.y + 500;
-		app->render->camera.x = -player->position.x + 500;
-
-		if (player->position.y >= 3450)
+		else if (player->position.x > 600 && player->position.x <= 2850)
 		{
-			app->render->camera.y = -2950;
+			app->render->camera.y = -player->position.y + 500;
+			app->render->camera.x = -player->position.x + 500;
+
+			if (player->position.y >= 3450)
+			{
+				app->render->camera.y = -2950;
+			}
 		}
-	}
-	else if (player->position.x > 2850)
-	{
-		app->render->camera.y = -player->position.y + 500;
-		app->render->camera.x = -2350;
-
-		if (player->position.y >= 3450)
+		else if (player->position.x > 2850)
 		{
-			app->render->camera.y = -2950;
+			app->render->camera.y = -player->position.y + 500;
+			app->render->camera.x = -2350;
+
+			if (player->position.y >= 3450)
+			{
+				app->render->camera.y = -2950;
+			}
+		}
+
+	}
+	else if (app->scene->player->level == 4)
+	{
+		LOG("%d", app->scene->player->position.x);
+		LOG("%d", app->scene->player->position.y);
+		if (player->position.x <= 4000)
+		{
+			app->render->camera.y = -player->position.y + 500;
+			app->render->camera.x = -3500;
+			LOG("camara :%d", app->render->camera.x);
+
+			if (player->position.y >= 3450)
+			{
+				app->render->camera.y = -2950;
+			}
+		}
+		 if (player->position.x > 4000 && player->position.x <= 5400)
+		{
+			 LOG("camara :%d", app->render->camera.x);
+			app->render->camera.y = -player->position.y + 500;
+			app->render->camera.x = -player->position.x + 500;
+
+			if (player->position.y >= 3450)
+			{
+				app->render->camera.y = -2950;
+			}
+		}
+		else if (player->position.x > 5400)
+		{
+			app->render->camera.y = -player->position.y + 500;
+			app->render->camera.x = -4900;
+
+			if (player->position.y >= 3450)
+			{
+				app->render->camera.y = -2950;
+			}
 		}
 	}
 
