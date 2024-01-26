@@ -87,10 +87,14 @@ bool Player::Update(float dt)
 	currentVelocity.y += 0.5;
 	LOG("pos1: %d", position.x);
 	LOG("pos2: %d", position.y);
-	if (position.x >=  3024 && position.y >=1250)
+	LOG("level: %d", level);
+
+	if (level == 3)
 	{
-		
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(3800), PIXEL_TO_METERS(3500)), 0);
+		level = 4;
 	}
+
 	if (isDead)
 	{
 		if (dead.HasFinished())
@@ -250,8 +254,8 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		isDead = false;
-		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
-		level = 2;
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(3800), PIXEL_TO_METERS(3000)), 0);
+		level = 3;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
@@ -261,9 +265,13 @@ bool Player::Update(float dt)
 		{
 			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
 		}
-		else
+		else if(level == 2)
 		{
 			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+		}
+		else
+		{
+			pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(3800), PIXEL_TO_METERS(3000)), 0);
 		}
 	}
 
@@ -348,9 +356,13 @@ void Player::Reset()
 	{
 		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(550), PIXEL_TO_METERS(1700)), 0);
 	}
-	else
+	if(level == 2)
 	{
 		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);
+	}
+	if(level == 3)
+	{
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(3800), PIXEL_TO_METERS(3000)), 0);
 	}
 	dead.Reset();
 }
@@ -432,5 +444,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->audio->PlayFx(checkpoint_FXid, 0);
 			level = 2;
 		}
+	case ColliderType::REY:
+		LOG("Collision REY");
+		app->audio->PlayFx(checkpoint_FXid, 0);
+		isDead = false;
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(3800), PIXEL_TO_METERS(3500)), 0);
+		level = 3;
 	}
 }
