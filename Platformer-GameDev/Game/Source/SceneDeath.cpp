@@ -70,42 +70,6 @@ bool SceneDeath::Start()
 // Called each loop iteration
 bool SceneDeath::PreUpdate()
 {
-	
-	if (app->scene->player->vida == 0 || app->scene->player == nullptr) {
-
-
-		currentTexture = Pause_1;
-
-		if (btn1->state == GuiControlState::FOCUSED)
-		{
-			currentTexture = Pause_2;
-		}
-		else if (btn1->state == GuiControlState::PRESSED)
-		{
-			currentTexture = Pause_3;
-			// Acción cuando se presiona el botón "Resume"
-			app->sceneintro->Disable();
-			//app->scenepause->Disable();
-			app->guiManager->Disable();
-			app->scene->Enable();
-		}
-
-		if (btn2->state == GuiControlState::FOCUSED)
-		{
-			currentTexture = Pause_4;
-		}
-		else if (btn2->state == GuiControlState::PRESSED)
-		{
-			currentTexture = Pause_5;
-			// Acción cuando se presiona el botón "Settings"
-			app->scene->Enable();
-			//app->sceneSettings->Enable()
-			//app->scenepause->Disable();
-			app->guiManager->Disable();
-		}
-	}
-
-
 
 	return true;
 }
@@ -113,7 +77,39 @@ bool SceneDeath::PreUpdate()
 // Called each loop iteration
 bool SceneDeath::Update(float dt)
 {
+	//if (app->scene->player == nullptr) {
 
+
+	//	currentTexture = Pause_1;
+
+	//	if (btn1->state == GuiControlState::FOCUSED)
+	//	{
+	//		currentTexture = Pause_2;
+	//	}
+	//	else if (btn1->state == GuiControlState::PRESSED)
+	//	{
+	//		currentTexture = Pause_3;
+	//		// Acción cuando se presiona el botón "Resume"
+	//		app->sceneintro->Disable();
+	//		//app->scenepause->Disable();
+	//		app->guiManager->Disable();
+	//		app->scene->Enable();
+	//	}
+
+	//	if (btn2->state == GuiControlState::FOCUSED)
+	//	{
+	//		currentTexture = Pause_4;
+	//	}
+	//	else if (btn2->state == GuiControlState::PRESSED)
+	//	{
+	//		currentTexture = Pause_5;
+	//		// Acción cuando se presiona el botón "Settings"
+	//		app->scene->Enable();
+	//		//app->sceneSettings->Enable()
+	//		//app->scenepause->Disable();
+	//		app->guiManager->Disable();
+	//	}
+	//}
 	return true;
 }
 

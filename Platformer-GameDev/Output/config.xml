@@ -34,16 +34,16 @@
 		<player x="550" y="1700" w="100" h ="70" speed="7.0" texturepath="Assets/Textures/player-animation.png"/>
 
 		<enemies>
-			<boss x ="550" y="1700" speed="4.0" texturepath="Assets/Textures/Boss_3.png" isDead ="false"/> 
+			<boss x ="2700" y="1700" speed="4.0" texturepath="Assets/Textures/Boss_3.png" isDead ="false"/> 
 			<cerdo x ="550" y="3200" speed="2.0" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1200" y="1200" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1730" y="780" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1950" y="2650" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="1450" y="3020" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
 			<cerdoPatrullador x ="2350" y="2050" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
-			<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<!--<dragon x ="2656" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>-->
 			<dragon x ="550" y="2850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
-			<cerdoVolador x ="2701" y="1850" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>
+			<!--<cerdoVolador x ="550" y="1600" speed="2.5" texturepath="Assets/Textures/enemy-animation.png" isDead ="false"/>-->
 		</enemies>
 
 		<comida>

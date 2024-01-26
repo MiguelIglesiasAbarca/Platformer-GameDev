@@ -174,21 +174,21 @@ bool SceneGUI::Update(float dt)
 		timerPaused = true;
 	}
 
-	if (app->scene->player->vida == 1)
-	{
-		app->render->DrawTexture(corazon1, 20, 20, NULL, SDL_FLIP_NONE, 0);
+	//if (app->scene->player->vida == 1)
+	//{
+	//	app->render->DrawTexture(corazon1, 20, 20, NULL, SDL_FLIP_NONE, 0);
 
-	}
-	if (app->scene->player->vida == 2)
-	{
-		app->render->DrawTexture(corazon2, 20, 20, NULL, SDL_FLIP_NONE, 0);
+	//}
+	//if (app->scene->player->vida == 2)
+	//{
+	//	app->render->DrawTexture(corazon2, 20, 20, NULL, SDL_FLIP_NONE, 0);
 
-	}
-	if (app->scene->player->vida == 3)
-	{
-		app->render->DrawTexture(corazon3, 20, 20, NULL, SDL_FLIP_NONE, 0);
+	//}
+	//if (app->scene->player->vida == 3)
+	//{
+	//	app->render->DrawTexture(corazon3, 20, 20, NULL, SDL_FLIP_NONE, 0);
 
-	}
+	//}
 
 	//char buffer[20];  // Suficientemente grande para almacenar el entero como cadena
 	//snprintf(buffer, sizeof(buffer), "%d", app->scene->player->vida);
