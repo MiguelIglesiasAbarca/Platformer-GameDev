@@ -87,9 +87,9 @@ bool Player::Update(float dt)
 	currentVelocity.y += 0.5;
 	LOG("pos1: %d", position.x);
 	LOG("pos2: %d", position.y);
-	if (position.x )
+	if (position.x >=  3024 && position.y >=1250)
 	{
-
+		
 	}
 	if (isDead)
 	{
