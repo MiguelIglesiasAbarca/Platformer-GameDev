@@ -71,7 +71,7 @@ bool SceneDeath::Start()
 bool SceneDeath::PreUpdate()
 {
 	
-	if (app->scene->player->vida == 0) {
+	if (app->scene->player->vida == 0 || app->scene->player == nullptr) {
 
 
 		currentTexture = Pause_1;

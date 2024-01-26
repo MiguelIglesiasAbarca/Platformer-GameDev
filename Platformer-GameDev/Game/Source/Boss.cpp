@@ -94,11 +94,11 @@ bool Boss::Update(float dt)
 		AttackpBody->ctype = ColliderType::DAMAGE;
 	}*/
 
-	if (distance < 2)
+	if (distance < 2.5f)
 	{
 		Attack();
 	}
-	else if (distance >= 2 && distance <= 5)
+	else if (distance >= 2.5f && distance <= 5)
 	{
 		isAttacking = false;
 		app->map->pathfinding->CreatePath(enemyPosition, playerTilePos);
@@ -203,7 +203,7 @@ void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::DAMAGE:// Si el tipo de colisionador es DAMAGE (daño)
 		LOG("Collision DAMAGE");
-		//isDead = true;// Marca al cerdo como muerto
+		isDead = true;// Marca al cerdo como muerto
 		break;
 	case ColliderType::PLATFORM:// Si el tipo de colisionador es PLATFORM (plataforma)
 		LOG("Collision PLATFORM");

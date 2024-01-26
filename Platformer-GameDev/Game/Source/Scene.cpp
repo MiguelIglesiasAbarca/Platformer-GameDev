@@ -77,6 +77,13 @@ bool Scene::Awake(pugi::xml_node& config)
 			cerdoVolador->parameters = cerdoVoladorNode;
 		}
 		CerdoVoladorlista;
+
+		for (pugi::xml_node BossNode = enemiesNode.child("boss"); BossNode; BossNode = BossNode.next_sibling("boss"))
+		{
+			Boss* boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
+			boss->parameters = BossNode;
+		}
+		BossLista;
 	}
 
 	for (pugi::xml_node foodNode = config.child("comida"); foodNode; foodNode = foodNode.next_sibling("comida"))
